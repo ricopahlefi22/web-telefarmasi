@@ -17,5 +17,11 @@ class AdminSeeder extends Seeder
             'email' => 'ricopahlefi22@gmail.com',
             'password' => bcrypt('Developwithrico22!'),
         ]);
+
+        Admin::factory()->create([
+            'name' => 'Vika Khairunisa',
+            'email' => 'vika.khairunisa08@gmail.com',
+            'password' => bcrypt('12341234'),
+        ]);
     }
 }
