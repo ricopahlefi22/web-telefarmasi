@@ -30,7 +30,7 @@ var table = $("#table").DataTable({
             name: "action",
             orderable: false,
             searchable: false,
-            class: "text-center",
+            class: "actions",
         },
     ],
     oLanguage: {

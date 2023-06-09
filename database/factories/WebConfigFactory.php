@@ -17,12 +17,7 @@ class WebConfigFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Kantor Urusan Agama Delta Pawan',
-            'logo' => 'img/favicon.png',
-            'about' => $this->faker->sentence(mt_rand(20, 25), true),
-            'address' => $this->faker->address(),
-            'phone_number' => $this->faker->phoneNumber(),
-            'email' => fake()->unique()->email,
+            
         ];
     }
 }

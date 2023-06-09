@@ -28,6 +28,7 @@ $(document).ready(function() {
                         icon: "success",
                         title: response.status,
                         text: response.message,
+                        confirmButtonColor: "#59C4BC",
                         confirmButtonText: "Lanjut",
                         backdrop: true,
                         allowOutsideClick: () => {

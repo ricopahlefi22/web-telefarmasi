@@ -13,6 +13,16 @@ class WebConfigSeeder extends Seeder
      */
     public function run(): void
     {
-        WebConfig::factory()->create();
+        WebConfig::factory()->create([
+            'name' => 'Apotek Desta Farma',
+            'logo' => 'img/favicon.png',
+            'address' => 'Jl. Jenderal Sudirman No. 67',
+            'email' => 'apotekdestafarma@gmail.com',
+            'phone_number' => '6285171004535',
+            'facebook' => 'https://www.facebook.com/apotekdestafarma/',
+            'instagram' => 'https://www.instagram.com/apotekdestafarma/',
+            'latitude' => -1.8403967,
+            'longitude' => 109.9781016,
+        ]);
     }
 }

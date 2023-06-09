@@ -15,10 +15,10 @@ class AdminController extends Controller
         if ($request->ajax()) {
             return DataTables::of(Admin::all())
                 ->addIndexColumn()
-                ->addColumn('action', function (Admin $recepient) {
-                    $btn = '<button title="Sunting Data" data-id="' . $recepient->id . '"  class="btn btn-sm btn-warning edit"><i class="fa fa-edit"></i></button> ';
-                    $btn .= '<button title="Hapus Data" data-id="' . $recepient->id . '" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></button>';
-                    return '<div class="btn-group">' . $btn . '</div>';
+                ->addColumn('action', function (Admin $admin) {
+                    $btn = '<button data-id="' . $admin->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 edit" title="Edit"><i class="icon-pencil" aria-hidden="true"></i></button> ';
+                    $btn .= '<button data-id="' . $admin->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 delete" title="Hapus"><i class="icon-trash" aria-hidden="true"></i></button> ';
+                    return $btn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);

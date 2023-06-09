@@ -11,16 +11,24 @@ class ArticleController extends Controller
 {
     function index(Request $request)
     {
-        $data['title'] = 'Data Berita';
+        $data['title'] = 'Data Artikel';
 
-        // dd(Article::all());
         if ($request->ajax()) {
             return DataTables::of(Article::all())
                 ->addIndexColumn()
                 ->addColumn('action', function (Article $article) {
-                    $btn = '<button title="Sunting Data" data-id="' . $article->id . '"  class="btn btn-sm btn-warning edit"><i class="fa fa-edit"></i></button> ';
-                    $btn .= '<button title="Hapus Data" data-id="' . $article->id . '" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></button>';
-                    return '<div class="btn-group">' . $btn . '</div>';
+                    $btn = '<button data-id="' . $article->id . '"  class="dropdown-item edit"><i class="fa fa-eye"></i> Lihat</button> ';
+                    $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item edit"><i class="icon-pencil""></i> Edit</button> ';
+                    $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item delete"><i class="icon-rocket""></i> Posting</button> ';
+                    $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item delete"><i class="icon-trash""></i> Hapus</button> ';
+                    return '<div role="group">
+                                <button id="btnDropdown" type="button" class="btn btn-outline-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btnDropdown">'.
+                                $btn
+                                .'</div>
+                            </div>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -29,16 +37,23 @@ class ArticleController extends Controller
         return view('admin.articles.index', $data);
     }
 
+    function create(){
+        $data['title'] = 'Buat Artikel';
+
+        return view('admin.articles.create', $data);
+    }
+
     function store(Request $request)
     {
         $request->validate(
             [
-                'title' => 'required',
+                'title' => 'required|unique:articles',
                 'body' => 'required',
             ],
             [
-                'title.required' => 'Mohon isi kolom judul berita',
-                'body.required' => 'Mohon isi kolom isi berita',
+                'title.required' => 'Mohon isi kolom judul artikel',
+                'title.unique' => 'Sudah ada artikel dengan judul yang sama',
+                'body.required' => 'Mohon isi kolom isi artikel',
             ]
         );
 
@@ -48,11 +63,6 @@ class ArticleController extends Controller
             $file_name = time() . '_' . $file->getClientOriginalName();
 
             $upload = $file->storeAs($path, $file_name);
-            // return response()->json([
-            //     'code' => 200,
-            //     'status' => 'Berhasil!',
-            //     'message' => 'File Gambar Terdeteksi',
-            // ]);
         }
 
         $data = Article::updateOrCreate([

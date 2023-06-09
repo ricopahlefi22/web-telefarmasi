@@ -15,10 +15,10 @@ class UserController extends Controller
         if ($request->ajax()) {
             return DataTables::of(User::all())
                 ->addIndexColumn()
-                ->addColumn('action', function (User $recepient) {
-                    $btn = '<button title="Sunting Data" data-id="' . $recepient->id . '"  class="btn btn-sm btn-warning edit"><i class="fa fa-edit"></i></button> ';
-                    $btn .= '<button title="Hapus Data" data-id="' . $recepient->id . '" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></button>';
-                    return '<div class="btn-group">' . $btn . '</div>';
+                ->addColumn('action', function (User $user) {
+                    $btn = '<button data-id="' . $user->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save edit" data-toggle="tooltip" data-original-title="Save"><i class="icon-pencil" aria-hidden="true"></i></button> ';
+                    $btn .= '<button data-id="' . $user->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save delete" data-toggle="tooltip" data-original-title="Save"><i class="icon-trash" aria-hidden="true"></i></button> ';
+                    return $btn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);

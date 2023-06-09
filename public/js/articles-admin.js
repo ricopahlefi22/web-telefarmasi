@@ -67,8 +67,8 @@ $("#form").on("submit", function(e) {
     e.preventDefault();
 
     $.ajax({
-        url: $(this).attr("action"),
         method: $(this).attr("method"),
+        url: $(this).attr("action"),
         data: new FormData(this),
         processData: false,
         dataType: "json",

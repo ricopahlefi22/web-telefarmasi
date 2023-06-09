@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug')->unique();
             $table->string('image')->nullable();
+            $table->string('slug')->unique();
             $table->text('body');
+            $table->foreignId('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('article_categories');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }

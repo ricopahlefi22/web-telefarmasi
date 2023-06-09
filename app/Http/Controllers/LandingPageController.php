@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
+use App\Models\Article;
 use App\Models\WebConfig;
 use Illuminate\Http\Request;
 
@@ -10,10 +10,15 @@ class LandingPageController extends Controller
 {
     function index()
     {
-        // $data['news'] = News::orderBy('created_at')->take(4)->get();
+        $data['articles'] = Article::orderBy('created_at')->take(5)->get();
         // $data['web'] = WebConfig::first();
 
-        // return view('index', $data);
-        return 'landing-page';
+        return view('landing-page.index', $data);
+    }
+
+    function detail(Request $request){
+        $data['article'] = Article::where('slug', $request->slug)->firstOrFail();
+
+        return view('landing-page.detail-blog');
     }
 }

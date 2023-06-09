@@ -19,6 +19,9 @@ class AuthAdminController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:8',
+        ],[
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Mohon isi sesuai format email',
         ]);
 
         try {
@@ -42,5 +45,11 @@ class AuthAdminController extends Controller
                 'message' => $e->getMessage(),
             ]);
         }
+    }
+
+    function logout(){
+        Auth::guard('admin')->logout();
+
+        return back();
     }
 }
