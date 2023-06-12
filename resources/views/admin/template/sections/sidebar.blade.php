@@ -116,7 +116,8 @@
                 <ul class="right_chat list-unstyled li_animation_delay">
                     <li>
                         <a href="javascript:void(0);" class="media">
-                            <img class="media-object" src="assets-admin/images/xs/avatar1.jpg" alt="">
+                            <img class="media-object" src="{{ asset('assets-admin/images/xs/avatar1.jpg') }}"
+                                alt="">
                             <div class="media-body">
                                 <span class="name d-flex justify-content-between">Chris Fox <i
                                         class="fa fa-heart-o font-12"></i></span>
@@ -126,7 +127,8 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="media">
-                            <img class="media-object" src="assets-admin/images/xs/avatar2.jpg" alt="">
+                            <img class="media-object" src="{{ asset('assets-admin/images/xs/avatar2.jpg') }}"
+                                alt="">
                             <div class="media-body">
                                 <span class="name d-flex justify-content-between">Joge Lucky <i
                                         class="fa fa-heart-o font-12"></i></span>
@@ -136,7 +138,8 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="media">
-                            <img class="media-object" src="assets-admin/images/xs/avatar3.jpg" alt="">
+                            <img class="media-object" src="{{ asset('assets-admin/images/xs/avatar3.jpg') }}"
+                                alt="">
                             <div class="media-body">
                                 <span class="name d-flex justify-content-between">Isabella <i
                                         class="fa fa-heart-o font-12"></i></span>
@@ -146,7 +149,8 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="media">
-                            <img class="media-object" src="assets-admin/images/xs/avatar4.jpg" alt="">
+                            <img class="media-object" src="{{ asset('assets-admin/images/xs/avatar4.jpg') }}"
+                                alt="">
                             <div class="media-body">
                                 <span class="name d-flex justify-content-between">Folisise Chosielie <i
                                         class="fa fa-heart font-12"></i></span>
@@ -156,7 +160,8 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="media">
-                            <img class="media-object" src="assets-admin/images/xs/avatar5.jpg" alt="">
+                            <img class="media-object" src="{{ asset('assets-admin/images/xs/avatar5.jpg') }}"
+                                alt="">
                             <div class="media-body">
                                 <span class="name d-flex justify-content-between">Alexander <i
                                         class="fa fa-heart-o font-12"></i></span>

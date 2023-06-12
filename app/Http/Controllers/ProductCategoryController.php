@@ -69,6 +69,10 @@ class ProductCategoryController extends Controller
     function destroy(Request $request)
     {
         $data = ProductCategory::findOrFail($request->id);
+        foreach ($data->products as $article) {
+            $article->category_id = null;
+            $article->update();
+        }
         $data->delete();
 
         return response()->json([

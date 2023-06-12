@@ -26,6 +26,10 @@ Route::group(['domain' => 'admin.localhost'], function () {
         Route::get('logout', 'logout');
     });
 
+    Route::get('test', function(){
+
+    });
+
     Route::middleware('auth:admin')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'dashboard']);
 
@@ -66,8 +70,11 @@ Route::group(['domain' => 'admin.localhost'], function () {
         Route::prefix('articles')->controller(ArticleController::class)->group(function () {
             Route::get('/', 'index');
             Route::get('create', 'create');
+            Route::get('detail/{id}', 'detail');
+            Route::get('edit/{id}', 'edit');
             Route::post('check', 'check');
             Route::post('store', 'store');
+            Route::post('publish', 'publish');
             Route::delete('destroy', 'destroy');
         });
 

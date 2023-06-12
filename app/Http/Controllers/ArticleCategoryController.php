@@ -10,7 +10,7 @@ class ArticleCategoryController extends Controller
 {
     function index(Request $request)
     {
-        $data['title'] = 'Data Pengguna';
+        $data['title'] = 'Data Kategori Artikel';
 
         if ($request->ajax()) {
             return DataTables::of(ArticleCategory::all())
@@ -69,7 +69,14 @@ class ArticleCategoryController extends Controller
     function destroy(Request $request)
     {
         $data = ArticleCategory::findOrFail($request->id);
+        foreach($data->articles as $article){
+            $article->category_id = null;
+            $article->published_at = null;
+            $article->update();
+        }
+
         $data->delete();
+
 
         return response()->json([
             'code' => 200,

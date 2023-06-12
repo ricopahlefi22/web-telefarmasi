@@ -1,34 +1,6 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Apotek Desta Farma</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Place favicon.png in the root directory -->
-    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon" />
-    <!-- Font Icons css -->
-    <link rel="stylesheet" href="{{ asset('assets-landing/css/font-icons.css') }}">
-    <!-- plugins css -->
-    <link rel="stylesheet" href="{{ asset('assets-landing/css/plugins.css') }}">
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('assets-landing/css/style.css') }}">
-    <!-- Responsive css -->
-    <link rel="stylesheet" href="{{ asset('assets-landing/css/responsive.css') }}">
-</head>
+@include('landing-page.sections.head')
 
 <body>
-    <!--[if lte IE 9]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-    <![endif]-->
-
-    <!-- Add your site or application content here -->
-
-    <!-- Body main wrapper start -->
     <div class="body-wrapper">
 
         <!-- HEADER AREA START (header-5) -->
@@ -47,8 +19,7 @@
                         <div class="col">
                             <div class="site-logo-wrap">
                                 <div class="site-logo">
-                                    <a href="{{ asset('/') }}"><img src="{{ asset('logo.jpeg') }}" width="200px"
-                                            alt="Logo"></a>
+                                    @include('landing-page.sections.logo')
                                 </div>
                             </div>
                         </div>
@@ -73,7 +44,7 @@
                                 <div class="header-search-1-form">
                                     <form id="#" method="get" action="#">
                                         <input type="text" name="search" value=""
-                                            placeholder="Search here..." />
+                                            placeholder="Cari obat apa?" />
                                         <button type="submit">
                                             <span><i class="icon-search"></i></span>
                                         </button>
@@ -84,12 +55,10 @@
                             <div class="ltn__drop-menu user-menu">
                                 <ul>
                                     <li>
-                                        <a href="#"><i class="icon-user"></i></a>
+                                        <a href="javascript:void(0)"><i class="icon-user"></i></a>
                                         <ul>
-                                            <li><a href="login.html">Sign in</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="account.html">My Account</a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                            <li><a href="{{ url('login') }}">Sign in</a></li>
+                                            <li><a href="{{ url('register') }}">Register</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -201,12 +170,6 @@
                         <a href="index.html"><img src="{{ asset('logo.jpeg') }}" alt="Logo"></a>
                     </div>
                     <button class="ltn__utilize-close">×</button>
-                </div>
-                <div class="ltn__utilize-menu-search-form">
-                    <form action="#">
-                        <input type="text" placeholder="Search...">
-                        <button><i class="fas fa-search"></i></button>
-                    </form>
                 </div>
                 <div class="ltn__utilize-menu">
                     @include('landing-page.sections.navbar')
@@ -1799,7 +1762,7 @@
                         <div class="col-lg-12">
                             <div class="ltn__blog-item ltn__blog-item-3">
                                 <div class="ltn__blog-img" style="height: 200px;">
-                                    <a href="blog-details.html">
+                                    <a href="{{ url('articles', $article->slug) }}">
                                         <img src="{{ asset('assets-landing/img/slider/slider-' . $loop->iteration . '.jpg') }}"
                                             style="background-size:cover;">
                                     </a>
@@ -1816,7 +1779,7 @@
                                         </ul>
                                     </div>
                                     <h3 class="ltn__blog-title">
-                                        <a href="blog-details.html">{{ $article->title }}</a>
+                                        <a href="{{ url('articles', $article->slug) }}">{{ $article->title }}</a>
                                     </h3>
                                     <div class="ltn__blog-meta-btn">
                                         <div class="ltn__blog-meta">

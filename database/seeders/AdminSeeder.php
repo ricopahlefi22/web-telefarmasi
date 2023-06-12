@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
         Admin::factory()->create([
             'name' => 'Rico Pahlefi',
             'email' => 'ricopahlefi22@gmail.com',
-            'password' => bcrypt('MudahDitebak22!'),
+            'password' => bcrypt('MudahDitebak123!'),
         ]);
 
         Admin::factory()->create([

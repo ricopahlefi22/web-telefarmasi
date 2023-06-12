@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,17 +18,25 @@ class ArticleController extends Controller
             return DataTables::of(Article::all())
                 ->addIndexColumn()
                 ->addColumn('action', function (Article $article) {
-                    $btn = '<button data-id="' . $article->id . '"  class="dropdown-item edit"><i class="fa fa-eye"></i> Lihat</button> ';
-                    $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item edit"><i class="icon-pencil""></i> Edit</button> ';
-                    $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item delete"><i class="icon-rocket""></i> Posting</button> ';
+                    $btn = '<a href="articles/detail/' . $article->id . '"  class="dropdown-item info"><i class="fa fa-eye"></i> Lihat</a> ';
+                    $btn .= '<a href="articles/edit/' . $article->id . '"  class="dropdown-item edit"><i class="icon-pencil""></i> Edit</a> ';
+                    if (empty($article->published_at) && !empty($article->category_id)) {
+                        $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item publish"><i class="icon-rocket""></i> Publikasi</button> ';
+                    }
                     $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item delete"><i class="icon-trash""></i> Hapus</button> ';
+
+                    $btnColor = 'btn-dark';
+
+                    if (is_null($article->published_at)) {
+                        $btnColor = 'btn-outline-dark';
+                    }
                     return '<div role="group">
-                                <button id="btnDropdown" type="button" class="btn btn-outline-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="btnDropdown" type="button" class="btn ' . $btnColor . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-ellipsis-v"></i>
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="btnDropdown">'.
-                                $btn
-                                .'</div>
+                                <div class="dropdown-menu" aria-labelledby="btnDropdown">' .
+                        $btn
+                        . '</div>
                             </div>';
                 })
                 ->rawColumns(['action'])
@@ -37,32 +46,54 @@ class ArticleController extends Controller
         return view('admin.articles.index', $data);
     }
 
-    function create(){
+    function create()
+    {
         $data['title'] = 'Buat Artikel';
 
-        return view('admin.articles.create', $data);
+        return view('admin.articles.form-modal', $data);
+    }
+
+    function detail(Request $request)
+    {
+        $data['title'] = 'Edit Artikel';
+        $data['article'] = Article::findOrFail($request->id);
+
+        return view('admin.articles.detail', $data);
+    }
+
+    function edit(Request $request)
+    {
+        $data['title'] = 'Edit Artikel';
+        $data['article'] = Article::findOrFail($request->id);
+
+        return view('admin.articles.form-modal', $data);
     }
 
     function store(Request $request)
     {
         $request->validate(
             [
-                'title' => 'required|unique:articles',
+                'title' => ($request->id) ? 'required' : 'required|unique:articles',
+                'category_id' => 'required',
                 'body' => 'required',
             ],
             [
                 'title.required' => 'Mohon isi kolom judul artikel',
                 'title.unique' => 'Sudah ada artikel dengan judul yang sama',
-                'body.required' => 'Mohon isi kolom isi artikel',
-            ]
+                'category_id.required' => 'Mohon isi kolom kategori artikel',
+                'body.required' => 'Mohon lengkapi isi artikel',
+            ],
         );
+
+        $image = $request->hidden_image;
 
         if ($request->file('image')) {
             $path = 'public/article-images/';
             $file = $request->file('image');
-            $file_name = time() . '_' . $file->getClientOriginalName();
+            $file_name = Str::random(5) . time() . '_' . $file->getClientOriginalName();
 
-            $upload = $file->storeAs($path, $file_name);
+            $file->storeAs($path, $file_name);
+            $image = "storage/article-images/" . $file_name;
         }
 
         $data = Article::updateOrCreate([
@@ -70,15 +101,16 @@ class ArticleController extends Controller
         ], [
             'title' => $request->title,
             'slug' => Str::slug($request->title),
+            'category_id' => $request->category_id,
             'body' => $request->body,
-            // 'image' => ($request->image) ? '' : ''
+            'image' => $image,
         ]);
 
         if ($request->id != $data->id) {
             return response()->json([
                 'code' => 200,
                 'status' => 'Berhasil!',
-                'message' => 'Data telah ditambahkan',
+                'message' => 'Artikel telah ditambahkan.',
             ]);
         } else {
             return response()->json([
@@ -94,6 +126,19 @@ class ArticleController extends Controller
         $data = Article::findOrFail($request->id);
 
         return response()->json($data);
+    }
+
+    function publish(Request $request)
+    {
+        $data = Article::findOrFail($request->id);
+        $data->published_at = Carbon::now();
+        $data->update();
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'Berhasil!',
+            'message' => 'Data telah diposting.',
+        ]);
     }
 
     function destroy(Request $request)

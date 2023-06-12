@@ -63,53 +63,6 @@ $("#create").click(function() {
     $("#bodyError").html("");
 });
 
-$("#form").on("submit", function(e) {
-    e.preventDefault();
-
-    $.ajax({
-        method: $(this).attr("method"),
-        url: $(this).attr("action"),
-        data: new FormData(this),
-        processData: false,
-        dataType: "json",
-        contentType: false,
-        beforeSend: function() {
-            $("#titleError").html("");
-            $("#bodyError").html("");
-            $("#button").html(
-                '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
-            );
-        },
-        success: function(response) {
-            table.draw();
-            $("#formModal").modal("hide");
-
-            Toast.fire({
-                icon: "success",
-                title: response.status + "\n" + response.message,
-            });
-        },
-        error: function(error) {
-            console.log(error);
-            $("#button").html("Simpan");
-
-            if (error.status == 422) {
-                var responseError = error["responseJSON"]["errors"];
-                $("#titleError").html(responseError["title"]);
-                $("#bodyError").html(responseError["body"]);
-
-                if (responseError["title"] && responseError["body"]) {
-                    $("#title").focus();
-                } else if (responseError["title"]) {
-                    $("#title").focus();
-                } else {
-                    $("#body").focus();
-                }
-            }
-        },
-    });
-});
-
 $("body").on("click", ".edit", function() {
     $.ajax({
         type: "POST",
@@ -131,6 +84,58 @@ $("body").on("click", ".edit", function() {
     });
 });
 
+$("body").on("click", ".publish", function() {
+    if (confirm("Posting?") === true) {
+        $.ajax({
+            type: "POST",
+            url: "articles/publish",
+            data: {
+                id: $(this).data("id"),
+            },
+            success: function(response) {
+                table.draw();
+                Toast.fire({
+                    icon: "success",
+                    title: response.status + "\n" + response.message,
+                });
+            },
+            error: function(error) {
+                console.log(error);
+                if (error.status == 500) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Gagal! \nMohon ulangi beberapa saat lagi.",
+                    });
+                } else if (error.status == 404) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
+                    });
+                    table.draw();
+                } else if (error.status == 419) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Sesi Telah Berakhir! \nMemuat ulang sistem untuk anda.",
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                } else {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Masalah Tidak Dikenali! \nMencoba memuat kembali untuk anda.",
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                }
+            },
+        });
+    }
+});
+
 $("body").on("click", ".delete", function() {
     if (confirm("Yakin ingin melanjutkan menghapus data ini?") === true) {
         $.ajax({
@@ -150,7 +155,7 @@ $("body").on("click", ".delete", function() {
                 if (error.status == 500) {
                     Toast.fire({
                         icon: "error",
-                        title: "Gagal! \nPeriksa koneksi databasemu.",
+                        title: "Gagal! \nMohon ulangi beberapa saat lagi.",
                     });
                 } else if (error.status == 404) {
                     Toast.fire({

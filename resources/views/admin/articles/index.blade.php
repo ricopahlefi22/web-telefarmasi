@@ -1,8 +1,6 @@
 @extends('admin.template.base')
 
 @section('content')
-    @include('admin.articles.form-modal')
-
     <div id="main-content">
         <div class="container-fluid">
             <div class="block-header">

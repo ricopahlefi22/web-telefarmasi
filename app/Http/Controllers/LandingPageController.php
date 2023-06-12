@@ -19,6 +19,6 @@ class LandingPageController extends Controller
     function detail(Request $request){
         $data['article'] = Article::where('slug', $request->slug)->firstOrFail();
 
-        return view('landing-page.detail-blog');
+        return view('landing-page.detail-blog', $data);
     }
 }

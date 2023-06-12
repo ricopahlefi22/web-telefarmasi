@@ -3,7 +3,7 @@
         <div class="footer-widget footer-about-widget">
             <div class="footer-logo">
                 <div class="site-logo">
-                    <img src="{{ asset('logo.jpeg') }}" alt="Logo">
+                    @include('landing-page.sections.logo')
                 </div>
             </div>
             <p>Lorem Ipsum is simply dummy text of the and typesetting industry. Lorem Ipsum is
@@ -62,10 +62,10 @@
             <h4 class="footer-title">Informasi</h4>
             <div class="footer-menu">
                 <ul>
-                    <li><a href="about.html">Tentang Kami</a></li>
-                    <li><a href="locations.html">Lokasi</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="contact.html">Kontak</a></li>
+                    <li><a href="{{ url('about') }}">Tentang Kami</a></li>
+                    <li><a href="{{ url('location') }}">Lokasi</a></li>
+                    <li><a href="{{ url('faq') }}">FAQ</a></li>
+                    <li><a href="{{ url('contact') }}">Kontak</a></li>
                 </ul>
             </div>
         </div>
@@ -75,19 +75,17 @@
             <h4 class="footer-title">Layanan</h4>
             <div class="footer-menu">
                 <ul>
-                    <li><a href="order-tracking.html">Order tracking</a></li>
-                    <li><a href="wishlist.html">Wish List</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="account.html">My account</a></li>
-                    <li><a href="about.html">Terms & Conditions</a></li>
-                    <li><a href="about.html">Promotional Offers</a></li>
+                    <li><a href="{{ url('chat') }}">Konsultasi</a></li>
+                    <li><a href="{{ url('products') }}">Belanja Obat dan Kebutuhan Lainnya</a></li>
+                    <li><a href="{{ url('articles') }}">Artikel Kesehatan</a></li>
+                    {{-- <li><a href="">Penawaran Menarik</a></li> --}}
                 </ul>
             </div>
         </div>
     </div>
     <div class="col-xl-3 col-md-6 col-sm-12 col-12">
         <div class="footer-widget footer-newsletter-widget">
-            <h4 class="footer-title">Newsletter</h4>
+            <h4 class="footer-title">Penawaran Menarik</h4>
             <p>Subscribe to our weekly Newsletter and receive updates via email.</p>
             <div class="footer-newsletter">
                 <form action="#">

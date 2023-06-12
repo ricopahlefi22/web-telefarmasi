@@ -12,4 +12,8 @@ class ArticleCategory extends Model
     protected $fillable = [
         'category',
     ];
+
+    public function articles(){
+        return $this->hasMany(Article::class, 'category_id');
+    }
 }
