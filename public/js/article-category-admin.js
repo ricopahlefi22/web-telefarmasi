@@ -83,7 +83,7 @@ $("#form").on("submit", function (e) {
             );
         },
         success: function (response) {
-            table.draw();
+            table.ajax.reload(null, false);
             $("#formModal").modal("hide");
 
             Toast.fire({
@@ -135,7 +135,7 @@ $("body").on("click", ".edit", function () {
                     icon: "error",
                     title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
                 });
-                table.draw();
+                table.ajax.reload(null, false);
             } else if (error.status == 419) {
                 Toast.fire({
                     icon: "error",
@@ -168,7 +168,7 @@ $("body").on("click", ".delete", function () {
                 id: $(this).data("id"),
             },
             success: function (response) {
-                table.draw();
+                table.ajax.reload(null, false);
                 Toast.fire({
                     icon: "success",
                     title: response.status + "\n" + response.message,
@@ -186,7 +186,7 @@ $("body").on("click", ".delete", function () {
                         icon: "error",
                         title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
                     });
-                    table.draw();
+                    table.ajax.reload(null, false);
                 } else if (error.status == 419) {
                     Toast.fire({
                         icon: "error",

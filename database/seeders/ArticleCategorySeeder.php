@@ -14,11 +14,11 @@ class ArticleCategorySeeder extends Seeder
     public function run(): void
     {
         ArticleCategory::factory()->create([
-            'category' => 'Kesehatan',
+            'category' => 'Dehidrasi',
         ]);
 
         ArticleCategory::factory()->create([
-            'category' => 'Pertumbuhan Bayi',
+            'category' => 'Kehamilan',
         ]);
 
         ArticleCategory::factory()->create([

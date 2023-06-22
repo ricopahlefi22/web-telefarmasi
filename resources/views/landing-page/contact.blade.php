@@ -82,6 +82,7 @@
         <div id="ltn__utilize-mobile-menu" class="ltn__utilize ltn__utilize-mobile-menu">
             <div class="ltn__utilize-menu-inner ltn__scrollbar">
                 @include('landing-page.sections.navbar-mobile')
+
             </div>
         </div>
         <!-- Utilize Mobile Menu End -->
@@ -95,17 +96,16 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ltn__breadcrumb-inner">
-                            <h1 class="page-title">Login</h1>
+                            <h1 class="page-title">Kontak Kami</h1>
                             <div class="ltn__breadcrumb-list">
                                 <ul>
                                     <li>
                                         <a href="{{ url('/') }}">
-                                            <span class="ltn__secondary-color">
-                                                <i class="fas fa-home"></i>
-                                            </span> Beranda
+                                            <span class="ltn__secondary-color"><i class="fas fa-home"></i></span>
+                                            Beranda
                                         </a>
                                     </li>
-                                    <li>Akun</li>
+                                    <li>Kontak</li>
                                 </ul>
                             </div>
                         </div>
@@ -115,46 +115,71 @@
         </div>
         <!-- BREADCRUMB AREA END -->
 
-        <!-- LOGIN AREA START -->
-        <div class="ltn__login-area pb-65">
+        <!-- CONTACT ADDRESS AREA START -->
+        <div class="ltn__contact-address-area mb-90">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title-area text-center">
-                            <h1 class="section-title">Masuk ke Akunmu</h1>
-                            <p>Kamu perlu login terlebih dahulu untuk menggunakan lebih banyak layanan.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="account-login-inner">
-                            <form action="#" class="ltn__form-box contact-form-box">
-                                <input type="text" name="email" placeholder="Email*">
-                                <input type="password" name="password" placeholder="Password*">
-                                <div class="btn-wrapper mt-0">
-                                    <button class="theme-btn-1 btn btn-block" type="submit">Login</button>
-                                </div>
-                                <div class="go-to-btn mt-20">
-                                    <a href="{{ url('forgot-password') }}"><small>Lupa Password?</small></a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="account-create text-center pt-50">
-                            <h4>Belum Punya Akun?</h4>
-                            <p>Add items to your wishlistget personalised recommendations <br>
-                                check out more quickly track your orders register</p>
-                            <div class="btn-wrapper">
-                                <a href="{{ url('register') }}" class="theme-btn-1 btn black-btn">Buat Akun</a>
+                    <div class="col-lg-4">
+                        <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+                            <div class="ltn__contact-address-icon">
+                                <img src="{{ asset('assets-landing/img/icons/10.png') }}" alt="Icon Image">
                             </div>
+                            <h3>Email</h3>
+                            <p>{{ App\Models\WebConfig::first()->email }}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+                            <div class="ltn__contact-address-icon">
+                                <img src="{{ asset('assets-landing/img/icons/11.png') }}" alt="Icon Image">
+                            </div>
+                            <h3>Nomor Handphone</h3>
+                            <p>{{ App\Models\WebConfig::first()->phone_number }}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+                            <div class="ltn__contact-address-icon">
+                                <img src="{{ asset('assets-landing/img/icons/12.png') }}" alt="Icon Image">
+                            </div>
+                            <h3>Alamat</h3>
+                            <p>{{ App\Models\WebConfig::first()->address }}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- LOGIN AREA END -->
+        <!-- CONTACT ADDRESS AREA END -->
+
+        <!-- GOOGLE MAP AREA START -->
+        <div class="google-map mb-120">
+
+            <div class="mapouter">
+                <div class="gmap_canvas"><iframe width="100%" height="100%" id="gmap_canvas"
+                        src="https://maps.google.com/maps?q=Apotek Desta Farma, Kabupaten Ketapang&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a
+                        href="https://2yu.co">2yu</a><br>
+                    <style>
+                        .mapouter {
+                            position: relative;
+                            text-align: right;
+                            height: 100%;
+                            width: 100%;
+                        }
+                    </style><a href="https://embedgooglemap.2yu.co/">html embed google map</a>
+                    <style>
+                        .gmap_canvas {
+                            overflow: hidden;
+                            background: none !important;
+                            height: 100%;
+                            width: 100%;
+                        }
+                    </style>
+                </div>
+            </div>
+
+        </div>
+        <!-- GOOGLE MAP AREA END -->
 
         <!-- CALL TO ACTION START (call-to-action-6) -->
         @include('landing-page.sections.cta')
@@ -165,16 +190,17 @@
             <div class="footer-top-area  section-bg-2 plr--5">
                 <div class="container-fluid">
                     @include('landing-page.sections.footer')
+
                 </div>
             </div>
             <div class="ltn__copyright-area ltn__copyright-2 section-bg-7  plr--5">
                 <div class="container-fluid ltn__border-top-2">
                     @include('landing-page.sections.copyright')
+
                 </div>
             </div>
         </footer>
         <!-- FOOTER AREA END -->
-
     </div>
     <!-- Body main wrapper end -->
 
@@ -182,7 +208,6 @@
     <script src="{{ asset('assets-landing/js/plugins.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('assets-landing/js/main.js') }}"></script>
-
 </body>
 
 </html>

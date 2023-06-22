@@ -57,12 +57,11 @@
     <script src="{{ asset('assets-admin/bundles/datatablescripts.bundle.js') }}"></script>
 
     <!-- page vendor js file -->
-    <script src="{{ asset('assets-admin/vendor/toastr/toastr.js') }}"></script>
     <script src="{{ asset('assets-admin/bundles/c3.bundle.js') }}"></script>
 
     <!-- page js file -->
     <script src="{{ asset('assets-admin/bundles/mainscripts.bundle.js') }}"></script>
-    <script src="{{ asset('assets-admin/js/index.js') }}"></script>
+    {{-- <script src="{{ asset('assets-admin/js/index.js') }}"></script> --}}
 
     @stack('script')
 </body>

@@ -27,5 +27,6 @@ class ProductCategorySeeder extends Seeder
 
         ProductCategory::factory()->create([
             'category' => 'Diabetes',
-        ]);    }
+        ]);
+    }
 }

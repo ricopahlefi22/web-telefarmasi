@@ -71,6 +71,9 @@
                                 <span>Master Data</span>
                             </a>
                             <ul>
+                                <li>
+                                    <a class="text-muted">Data Pesanan</a>
+                                </li>
                                 <li class="{{ routeActive('products') }}">
                                     <a href="{{ url('products') }}">Data Produk</a>
                                 </li>
@@ -91,14 +94,16 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="{{ menuOpen('carousel, about, faq, contact') }}">
+                        <li class="{{ menuOpen('about, contact') }}">
                             <a href="#forms" class="has-arrow"><i class="fa fa-pencil"></i><span>Konten
                                     Website</span></a>
                             <ul>
-                                <li><a href="{{ url('carousel') }}">Carousel</a></li>
-                                <li><a href="{{ url('about') }}">Tentang Kami</a></li>
-                                <li><a href="{{ url('faq') }}">FAQ</a></li>
-                                <li><a href="{{ url('contact') }}">Kontak</a></li>
+                                <li class="{{ routeActive('about') }}">
+                                    <a href="{{ url('about') }}">Tentang Kami</a>
+                                </li>
+                                <li class="{{ routeActive('contact') }}">
+                                    <a href="{{ url('contact') }}">Kontak</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
@@ -41,12 +42,24 @@ class AdminController extends Controller
             ]
         );
 
+        $photo = $request->hidden_photo;
+
+        if ($request->file('photo')) {
+            $path = 'public/admin-photos/';
+            $file = $request->file('photo');
+            $file_name = Str::random(5) . time() . '_' . $file->getClientOriginalName();
+
+            $file->storeAs($path, $file_name);
+            $photo = "storage/admin-photos/" . $file_name;
+        }
+
         $data = Admin::updateOrCreate([
             'id' => $request->id,
         ], [
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt('12341234'),
+            'photo' => $photo,
         ]);
 
         if ($request->id != $data->id) {

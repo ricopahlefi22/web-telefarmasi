@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('web_config', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
+            $table->string('favicon');
             $table->string('logo');
+            $table->text('about');
             $table->string('address')->nullable();
             $table->string('email')->nullable();
             $table->string('phone_number')->nullable();

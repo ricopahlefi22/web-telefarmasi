@@ -48,26 +48,6 @@
                             <!-- header-options -->
                             <div class="ltn__header-options">
                                 <ul>
-                                    <li class="d-none">
-                                        <!-- ltn__currency-menu -->
-                                        <div class="ltn__drop-menu ltn__currency-menu">
-                                            <ul>
-                                                <li><a href="#" class="dropdown-toggle"><span
-                                                            class="active-currency">USD</span></a>
-                                                    <ul>
-                                                        <li><a href="login.html">USD - US Dollar</a></li>
-                                                        <li><a href="wishlist.html">CAD - Canada Dollar</a></li>
-                                                        <li><a href="register.html">EUR - Euro</a></li>
-                                                        <li><a href="account.html">GBP - British Pound</a></li>
-                                                        <li><a href="wishlist.html">INR - Indian Rupee</a></li>
-                                                        <li><a href="wishlist.html">BDT - Bangladesh Taka</a></li>
-                                                        <li><a href="wishlist.html">JPY - Japan Yen</a></li>
-                                                        <li><a href="wishlist.html">AUD - Australian Dollar</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
                                     <li class="d-lg-none">
                                         <!-- header-search-1 -->
                                         <div class="header-search-wrap">
@@ -130,9 +110,7 @@
                         <div class="col header-menu-column justify-content-center">
                             <div class="sticky-logo">
                                 <div class="site-logo">
-                                    <a href="{{ url('/') }}">
-                                        <img src="{{ asset('logo.png') }}" alt="Logo">
-                                    </a>
+                                    @include('landing-page.sections.logo')
                                 </div>
                             </div>
                             <div class="header-menu header-menu-2">
@@ -187,7 +165,7 @@
                 <div class="mini-cart-product-area ltn__scrollbar">
                     <div class="mini-cart-item clearfix">
                         <div class="mini-cart-img">
-                            <a href="#"><img src="img/product/1.png" alt="Image"></a>
+                            <a href="#"><img src="{{ asset('assets-landing/img/product/1.png') }}" alt="Image"></a>
                             <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
                         </div>
                         <div class="mini-cart-info">
@@ -197,7 +175,7 @@
                     </div>
                     <div class="mini-cart-item clearfix">
                         <div class="mini-cart-img">
-                            <a href="#"><img src="img/product/2.png" alt="Image"></a>
+                            <a href="#"><img src="{{ asset('assets-landing/img/product/2.png') }}" alt="Image"></a>
                             <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
                         </div>
                         <div class="mini-cart-info">
@@ -207,7 +185,7 @@
                     </div>
                     <div class="mini-cart-item clearfix">
                         <div class="mini-cart-img">
-                            <a href="#"><img src="img/product/3.png" alt="Image"></a>
+                            <a href="#"><img src="{{ asset('assets-landing/img/product/3.png') }}" alt="Image"></a>
                             <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
                         </div>
                         <div class="mini-cart-info">
@@ -217,7 +195,7 @@
                     </div>
                     <div class="mini-cart-item clearfix">
                         <div class="mini-cart-img">
-                            <a href="#"><img src="img/product/4.png" alt="Image"></a>
+                            <a href="#"><img src="{{ asset('assets-landing/img/product/4.png') }}" alt="Image"></a>
                             <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
                         </div>
                         <div class="mini-cart-info">
@@ -244,59 +222,7 @@
         <!-- Utilize Mobile Menu Start -->
         <div id="ltn__utilize-mobile-menu" class="ltn__utilize ltn__utilize-mobile-menu">
             <div class="ltn__utilize-menu-inner ltn__scrollbar">
-                <div class="ltn__utilize-menu-head">
-                    <div class="site-logo">
-                        <a href="index.html"><img src="img/logo.png" alt="Logo"></a>
-                    </div>
-                    <button class="ltn__utilize-close">×</button>
-                </div>
-                <div class="ltn__utilize-menu-search-form">
-                    <form action="#">
-                        <input type="text" placeholder="Search...">
-                        <button><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-                <div class="ltn__utilize-menu">
-                    @include('landing-page.sections.navbar')
-                </div>
-                <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
-                    <ul>
-                        <li>
-                            <a href="account.html" title="My Account">
-                                <span class="utilize-btn-icon">
-                                    <i class="far fa-user"></i>
-                                </span>
-                                My Account
-                            </a>
-                        </li>
-                        <li>
-                            <a href="wishlist.html" title="Wishlist">
-                                <span class="utilize-btn-icon">
-                                    <i class="far fa-heart"></i>
-                                    <sup>3</sup>
-                                </span>
-                                Wishlist
-                            </a>
-                        </li>
-                        <li>
-                            <a href="cart.html" title="Shoping Cart">
-                                <span class="utilize-btn-icon">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    <sup>5</sup>
-                                </span>
-                                Shoping Cart
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="ltn__social-media-2">
-                    <ul>
-                        <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                        <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-                    </ul>
-                </div>
+                @include('landing-page.sections.navbar-mobile')
             </div>
         </div>
         <!-- Utilize Mobile Menu End -->
@@ -334,9 +260,10 @@
         <div class="ltn__page-details-area ltn__blog-details-area mb-120">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <div class="ltn__blog-details-wrap">
                             <div class="ltn__page-details-inner ltn__blog-details-inner">
+                                <img src="{{ asset($article->image) }}" class="mb-3" alt="">
                                 <div class="ltn__blog-meta">
                                     <ul>
                                         <li class="ltn__blog-category">
@@ -349,88 +276,25 @@
                                 </h2>
                                 <div class="ltn__blog-meta">
                                     <ul>
-                                        {{-- <li class="ltn__blog-author">
-                                            <a href="#"><img src="img/blog/author.jpg" alt="#">By:
-                                                Ethan</a>
-                                        </li> --}}
                                         <li class="ltn__blog-date">
-                                            <i class="far fa-calendar-alt"></i>June 22, 2020
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="far fa-comments"></i>35 Comments</a>
+                                            <i class="far fa-calendar-alt"></i>{{ $article->published_at }}
                                         </li>
                                     </ul>
                                 </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                    deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error
-                                    sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-                                    ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
-                                    quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                                    sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam
-                                    quaerat voluptatem.</p>
+                                {!! nl2br($article->body) !!}
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, amet, fuga omnis
-                                    eligendi sed cupiditate molestias enim autem animi est tempore ipsa corporis.
-                                    Recusandae, quia.</p>
-
-                            </div>
-                            <!-- blog-tags-social-media -->
-                            <div class="ltn__blog-tags-social-media mt-80 row">
-                                <div class="ltn__tagcloud-widget col-lg-8">
-                                    <h4>Releted Tags</h4>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Popular</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Business</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">ux</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="ltn__social-media text-right text-end col-lg-4">
-                                    <h4>Social Share</h4>
-                                    <ul>
-                                        <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a>
-                                        </li>
-
-                                        <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <hr>
-                            <!-- prev-next-btn -->
-                            <div class="ltn__prev-next-btn row mb-50">
-                                <div class="blog-prev col-lg-6">
-                                    <h6>Prev Post</h6>
-                                    <h3 class="ltn__blog-title"><a href="#">Tips On Minimalist</a></h3>
-                                </div>
-                                <div class="blog-prev blog-next text-right text-end col-lg-6">
-                                    <h6>Next Post</h6>
-                                    <h3 class="ltn__blog-title"><a href="#">Less Is More</a></h3>
-                                </div>
                             </div>
                             <hr>
                             <!-- related-post -->
                             <div class="related-post-area mb-50">
-                                <h4 class="title-2">Related Post</h4>
+                                <h4 class="title-2">Artikel Terkait</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <!-- Blog Item -->
                                         <div class="ltn__blog-item ltn__blog-item-6">
                                             <div class="ltn__blog-img">
-                                                <a href="blog-details.html"><img src="img/blog/blog-details/11.jpg"
+                                                <a href="blog-details.html"><img
+                                                        src="{{ asset('assets-landing/img/blog/blog-details/11.jpg') }}"
                                                         alt="Image"></a>
                                             </div>
                                             <div class="ltn__blog-brief">
@@ -453,7 +317,8 @@
                                         <!-- Blog Item -->
                                         <div class="ltn__blog-item ltn__blog-item-6">
                                             <div class="ltn__blog-img">
-                                                <a href="blog-details.html"><img src="img/blog/blog-details/12.jpg"
+                                                <a href="blog-details.html"><img
+                                                        src="{{ asset('assets-landing/img/blog/blog-details/12.jpg') }}"
                                                         alt="Image"></a>
                                             </div>
                                             <div class="ltn__blog-brief">
@@ -476,25 +341,14 @@
                             </div>
                             <!-- comment-area -->
                             <div class="ltn__comment-area mb-50">
-                                <div class="ltn-author-introducing clearfix">
-                                    <div class="author-img">
-                                        <img src="img/blog/author.jpg" alt="Author Image">
-                                    </div>
-                                    <div class="author-info">
-                                        <h6>Written by</h6>
-                                        <h2>Rosalina D. William</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation is enougn for today.</p>
-                                    </div>
-                                </div>
+
                                 <h4 class="title-2">03 Comments</h4>
                                 <div class="ltn__comment-inner">
                                     <ul>
                                         <li>
                                             <div class="ltn__comment-item clearfix">
                                                 <div class="ltn__commenter-img">
-                                                    <img src="img/testimonial/1.jpg" alt="Image">
+                                                    <img src="{{ asset('assets-landing/img/testimonial/1.jpg') }}" alt="Image">
                                                 </div>
                                                 <div class="ltn__commenter-comment">
                                                     <h6><a href="#">Adam Smit</a></h6>
@@ -509,7 +363,8 @@
                                                 <li>
                                                     <div class="ltn__comment-item clearfix">
                                                         <div class="ltn__commenter-img">
-                                                            <img src="img/testimonial/3.jpg" alt="Image">
+                                                            <img src="{{ asset('assets-landing/img/testimonial/3.jpg') }}"
+                                                                alt="Image">
                                                         </div>
                                                         <div class="ltn__commenter-comment">
                                                             <h6><a href="#">Adam Smit</a></h6>
@@ -526,7 +381,7 @@
                                         <li>
                                             <div class="ltn__comment-item clearfix">
                                                 <div class="ltn__commenter-img">
-                                                    <img src="img/testimonial/4.jpg" alt="Image">
+                                                    <img src="{{ asset('assets-landing/img/testimonial/4.jpg') }}" alt="Image">
                                                 </div>
                                                 <div class="ltn__commenter-comment">
                                                     <h6><a href="#">Adam Smit</a></h6>
@@ -543,7 +398,7 @@
                             </div>
                             <hr>
                             <!-- comment-reply -->
-                            <div class="ltn__comment-reply-area ltn__form-box mb-60---">
+                            {{-- <div class="ltn__comment-reply-area ltn__form-box mb-60---">
                                 <h4 class="title-2">Post Comment</h4>
                                 <form action="#">
                                     <div class="input-item input-item-textarea ltn__custom-icon">
@@ -565,360 +420,8 @@
                                                 class="far fa-comments"></i> Post Comment</button>
                                     </div>
                                 </form>
-                            </div>
+                            </div> --}}
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <aside class="sidebar-area blog-sidebar ltn__right-sidebar">
-                            <!-- Author Widget -->
-                            <div class="widget ltn__author-widget">
-                                <div class="ltn__author-widget-inner text-center">
-                                    <img src="img/team/4.jpg" alt="Image">
-                                    <h5>Rosalina D. Willaimson</h5>
-                                    <small>Traveller/Photographer</small>
-                                    <div class="product-ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li class="review-total"> <a href="#"> ( 1 Reviews )</a></li>
-                                        </ul>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis distinctio,
-                                        odio, eligendi suscipit reprehenderit atque.</p>
-                                    <div class="ltn__social-media">
-                                        <ul>
-                                            <li><a href="#" title="Facebook"><i
-                                                        class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                                            </li>
-                                            <li><a href="#" title="Linkedin"><i
-                                                        class="fab fa-linkedin"></i></a></li>
-
-                                            <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Search Widget -->
-                            <div class="widget ltn__search-widget">
-                                <h4 class="ltn__widget-title ltn__widget-title-border-2">Search Objects</h4>
-                                <form action="#">
-                                    <input type="text" name="search" placeholder="Search your keyword...">
-                                    <button type="submit"><i class="fas fa-search"></i></button>
-                                </form>
-                            </div>
-                            <!-- Form Widget -->
-                            <div class="widget ltn__form-widget">
-                                <h4 class="ltn__widget-title ltn__widget-title-border-2">Drop Messege For Book</h4>
-                                <form action="#">
-                                    <input type="text" name="yourname" placeholder="Your Name*">
-                                    <input type="text" name="youremail" placeholder="Your e-Mail*">
-                                    <textarea name="yourmessage" placeholder="Write Message..."></textarea>
-                                    <button type="submit" class="btn theme-btn-1">Send Messege</button>
-                                </form>
-                            </div>
-                            <!-- Top Rated Product Widget -->
-                            <div class="widget ltn__top-rated-product-widget">
-                                <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Rated Product</h4>
-                                <ul>
-                                    <li>
-                                        <div class="top-rated-product-item clearfix">
-                                            <div class="top-rated-product-img">
-                                                <a href="product-details.html"><img src="img/product/1.png"
-                                                        alt="#"></a>
-                                            </div>
-                                            <div class="top-rated-product-info">
-                                                <div class="product-ratting">
-                                                    <ul>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <h6><a href="product-details.html">Luxury House In Greenville </a></h6>
-                                                <div class="product-price">
-                                                    <span>$30,000.00</span>
-                                                    <del>$35,000.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="top-rated-product-item clearfix">
-                                            <div class="top-rated-product-img">
-                                                <a href="product-details.html"><img src="img/product/2.png"
-                                                        alt="#"></a>
-                                            </div>
-                                            <div class="top-rated-product-info">
-                                                <div class="product-ratting">
-                                                    <ul>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <h6><a href="product-details.html">Apartment with Subunits</a></h6>
-                                                <div class="product-price">
-                                                    <span>$30,000.00</span>
-                                                    <del>$35,000.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="top-rated-product-item clearfix">
-                                            <div class="top-rated-product-img">
-                                                <a href="product-details.html"><img src="img/product/3.png"
-                                                        alt="#"></a>
-                                            </div>
-                                            <div class="top-rated-product-info">
-                                                <div class="product-ratting">
-                                                    <ul>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star-half-alt"></i></a>
-                                                        </li>
-                                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <h6><a href="product-details.html">3 Rooms Manhattan</a></h6>
-                                                <div class="product-price">
-                                                    <span>$30,000.00</span>
-                                                    <del>$35,000.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- Menu Widget (Category) -->
-                            <div class="widget ltn__menu-widget ltn__menu-widget-2--- ltn__menu-widget-2-color-2---">
-                                <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Categories</h4>
-                                <ul>
-                                    <li><a href="#">Apartments <span>(26)</span></a></li>
-                                    <li><a href="#">Picture Stodio <span>(30)</span></a></li>
-                                    <li><a href="#">Office <span>(71)</span></a></li>
-                                    <li><a href="#">Luxary Vilas <span>(56)</span></a></li>
-                                    <li><a href="#">Duplex House <span>(60)</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Popular Post Widget -->
-                            <div class="widget ltn__popular-post-widget">
-                                <h4 class="ltn__widget-title ltn__widget-title-border-2">Leatest Blogs</h4>
-                                <ul>
-                                    <li>
-                                        <div class="popular-post-widget-item clearfix">
-                                            <div class="popular-post-widget-img">
-                                                <a href="blog-details.html"><img src="img/team/5.jpg"
-                                                        alt="#"></a>
-                                            </div>
-                                            <div class="popular-post-widget-brief">
-                                                <h6><a href="blog-details.html">Lorem ipsum dolor sit
-                                                        cing elit, sed do.</a></h6>
-                                                <div class="ltn__blog-meta">
-                                                    <ul>
-                                                        <li class="ltn__blog-date">
-                                                            <a href="#"><i class="far fa-calendar-alt"></i>June
-                                                                22, 2020</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="popular-post-widget-item clearfix">
-                                            <div class="popular-post-widget-img">
-                                                <a href="blog-details.html"><img src="img/team/6.jpg"
-                                                        alt="#"></a>
-                                            </div>
-                                            <div class="popular-post-widget-brief">
-                                                <h6><a href="blog-details.html">Lorem ipsum dolor sit
-                                                        cing elit, sed do.</a></h6>
-                                                <div class="ltn__blog-meta">
-                                                    <ul>
-                                                        <li class="ltn__blog-date">
-                                                            <a href="#"><i class="far fa-calendar-alt"></i>June
-                                                                22, 2020</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="popular-post-widget-item clearfix">
-                                            <div class="popular-post-widget-img">
-                                                <a href="blog-details.html"><img src="img/team/7.jpg"
-                                                        alt="#"></a>
-                                            </div>
-                                            <div class="popular-post-widget-brief">
-                                                <h6><a href="blog-details.html">Lorem ipsum dolor sit
-                                                        cing elit, sed do.</a></h6>
-                                                <div class="ltn__blog-meta">
-                                                    <ul>
-                                                        <li class="ltn__blog-date">
-                                                            <a href="#"><i class="far fa-calendar-alt"></i>June
-                                                                22, 2020</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="popular-post-widget-item clearfix">
-                                            <div class="popular-post-widget-img">
-                                                <a href="blog-details.html"><img src="img/team/8.jpg"
-                                                        alt="#"></a>
-                                            </div>
-                                            <div class="popular-post-widget-brief">
-                                                <h6><a href="blog-details.html">Lorem ipsum dolor sit
-                                                        cing elit, sed do.</a></h6>
-                                                <div class="ltn__blog-meta">
-                                                    <ul>
-                                                        <li class="ltn__blog-date">
-                                                            <a href="#"><i class="far fa-calendar-alt"></i>June
-                                                                22, 2020</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- Popular Post Widget (Twitter Post) -->
-                            <div class="widget ltn__popular-post-widget ltn__twitter-post-widget">
-                                <h4 class="ltn__widget-title ltn__widget-title-border-2">Twitter Feeds</h4>
-                                <ul>
-                                    <li>
-                                        <div class="popular-post-widget-item clearfix">
-                                            <div class="popular-post-widget-img">
-                                                <a href="blog-details.html"><i class="fab fa-twitter"></i></a>
-                                            </div>
-                                            <div class="popular-post-widget-brief">
-                                                <p>Carsafe - #Gutenberg ready
-                                                    @wordpress
-                                                    Theme for Car Service, Auto Parts, Car Dealer available on
-                                                    @website
-                                                    <a href="https://website.net">https://website.net</a>
-                                                </p>
-                                                <div class="ltn__blog-meta">
-                                                    <ul>
-                                                        <li class="ltn__blog-date">
-                                                            <a href="#"><i class="far fa-calendar-alt"></i>June
-                                                                22, 2020</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="popular-post-widget-item clearfix">
-                                            <div class="popular-post-widget-img">
-                                                <a href="blog-details.html"><i class="fab fa-twitter"></i></a>
-                                            </div>
-                                            <div class="popular-post-widget-brief">
-                                                <p>Carsafe - #Gutenberg ready
-                                                    @wordpress
-                                                    Theme for Car Service, Auto Parts, Car Dealer available on
-                                                    @website
-                                                    <a href="https://website.net">https://website.net</a>
-                                                </p>
-                                                <div class="ltn__blog-meta">
-                                                    <ul>
-                                                        <li class="ltn__blog-date">
-                                                            <a href="#"><i class="far fa-calendar-alt"></i>June
-                                                                22, 2020</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="popular-post-widget-item clearfix">
-                                            <div class="popular-post-widget-img">
-                                                <a href="blog-details.html"><i class="fab fa-twitter"></i></a>
-                                            </div>
-                                            <div class="popular-post-widget-brief">
-                                                <p>Carsafe - #Gutenberg ready
-                                                    @wordpress
-                                                    Theme for Car Service, Auto Parts, Car Dealer available on
-                                                    @website
-                                                    <a href="https://website.net">https://website.net</a>
-                                                </p>
-                                                <div class="ltn__blog-meta">
-                                                    <ul>
-                                                        <li class="ltn__blog-date">
-                                                            <a href="#"><i class="far fa-calendar-alt"></i>June
-                                                                22, 2020</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- Social Media Widget -->
-                            <div class="widget ltn__social-media-widget">
-                                <h4 class="ltn__widget-title ltn__widget-title-border-2">Follow us</h4>
-                                <div class="ltn__social-media-2">
-                                    <ul>
-                                        <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Tagcloud Widget -->
-                            <div class="widget ltn__tagcloud-widget">
-                                <h4 class="ltn__widget-title ltn__widget-title-border-2">Popular Tags</h4>
-                                <ul>
-                                    <li><a href="#">Popular</a></li>
-                                    <li><a href="#">desgin</a></li>
-                                    <li><a href="#">ux</a></li>
-                                    <li><a href="#">usability</a></li>
-                                    <li><a href="#">develop</a></li>
-                                    <li><a href="#">icon</a></li>
-                                    <li><a href="#">Car</a></li>
-                                    <li><a href="#">Service</a></li>
-                                    <li><a href="#">Repairs</a></li>
-                                    <li><a href="#">Auto Parts</a></li>
-                                    <li><a href="#">Oil</a></li>
-                                    <li><a href="#">Dealer</a></li>
-                                    <li><a href="#">Oil Change</a></li>
-                                    <li><a href="#">Body Color</a></li>
-                                </ul>
-                            </div>
-                            <!-- Banner Widget -->
-                            <div class="widget ltn__banner-widget d-none">
-                                <a href="shop.html"><img src="img/banner/2.jpg" alt="#"></a>
-                            </div>
-                            <!-- Instagram Widget -->
-                            <div class="widget ltn__instagram-widget d-none">
-                                <h4 class="ltn__widget-title ltn__widget-title-border">Instagram Feeds</h4>
-                                <div class="ltn__instafeed ltn__instafeed-grid insta-grid-gutter"></div>
-                            </div>
-
-                        </aside>
                     </div>
                 </div>
             </div>
@@ -926,24 +429,7 @@
         <!-- PAGE DETAILS AREA END -->
 
         <!-- CALL TO ACTION START (call-to-action-6) -->
-        <div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="img/1.jpg--">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div
-                            class="call-to-action-inner call-to-action-inner-6 ltn__secondary-bg position-relative text-center---">
-                            <div class="coll-to-info text-color-white">
-                                <h1>Buy medical disposable face mask <br> to protect your loved ones</h1>
-                            </div>
-                            <div class="btn-wrapper">
-                                <a class="btn btn-effect-3 btn-white" href="shop.html">Explore Products <i
-                                        class="icon-next"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('landing-page.sections.cta')
         <!-- CALL TO ACTION END -->
 
         <!-- FOOTER AREA START -->

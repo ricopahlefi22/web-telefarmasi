@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -20,9 +21,13 @@ class ArticleController extends Controller
                 ->addColumn('action', function (Article $article) {
                     $btn = '<a href="articles/detail/' . $article->id . '"  class="dropdown-item info"><i class="fa fa-eye"></i> Lihat</a> ';
                     $btn .= '<a href="articles/edit/' . $article->id . '"  class="dropdown-item edit"><i class="icon-pencil""></i> Edit</a> ';
+
                     if (empty($article->published_at) && !empty($article->category_id)) {
                         $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item publish"><i class="icon-rocket""></i> Publikasi</button> ';
+                    } else {
+                        $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item text-danger cancel-publish"><i class="icon-rocket""></i> Batal Publikasi</button> ';
                     }
+
                     $btn .= '<button data-id="' . $article->id . '"  class="dropdown-item delete"><i class="icon-trash""></i> Hapus</button> ';
 
                     $btnColor = 'btn-dark';
@@ -49,6 +54,7 @@ class ArticleController extends Controller
     function create()
     {
         $data['title'] = 'Buat Artikel';
+        $data['article_categories'] = ArticleCategory::all();
 
         return view('admin.articles.form-modal', $data);
     }
@@ -65,6 +71,7 @@ class ArticleController extends Controller
     {
         $data['title'] = 'Edit Artikel';
         $data['article'] = Article::findOrFail($request->id);
+        $data['article_categories'] = ArticleCategory::all();
 
         return view('admin.articles.form-modal', $data);
     }
@@ -137,7 +144,20 @@ class ArticleController extends Controller
         return response()->json([
             'code' => 200,
             'status' => 'Berhasil!',
-            'message' => 'Data telah diposting.',
+            'message' => 'Artikel telah diposting.',
+        ]);
+    }
+
+    function cancelPublish(Request $request)
+    {
+        $data = Article::findOrFail($request->id);
+        $data->published_at = null;
+        $data->update();
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'Berhasil!',
+            'message' => 'Artikel telah dibatalkan.',
         ]);
     }
 

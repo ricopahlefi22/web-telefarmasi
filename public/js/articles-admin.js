@@ -136,6 +136,58 @@ $("body").on("click", ".publish", function() {
     }
 });
 
+$("body").on("click", ".cancel-publish", function() {
+    if (confirm("Batalkan Posting Artikel?") === true) {
+        $.ajax({
+            type: "POST",
+            url: "articles/cancel-publish",
+            data: {
+                id: $(this).data("id"),
+            },
+            success: function(response) {
+                table.draw();
+                Toast.fire({
+                    icon: "success",
+                    title: response.status + "\n" + response.message,
+                });
+            },
+            error: function(error) {
+                console.log(error);
+                if (error.status == 500) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Gagal! \nMohon ulangi beberapa saat lagi.",
+                    });
+                } else if (error.status == 404) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
+                    });
+                    table.draw();
+                } else if (error.status == 419) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Sesi Telah Berakhir! \nMemuat ulang sistem untuk anda.",
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                } else {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Masalah Tidak Dikenali! \nMencoba memuat kembali untuk anda.",
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                }
+            },
+        });
+    }
+});
+
 $("body").on("click", ".delete", function() {
     if (confirm("Yakin ingin melanjutkan menghapus data ini?") === true) {
         $.ajax({

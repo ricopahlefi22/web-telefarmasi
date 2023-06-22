@@ -1,38 +1,33 @@
 @extends('admin.template.base')
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets-admin/vendor/summernote/dist/summernote.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets-admin/vendor/dropify/css/dropify.min.css') }}">
 @endpush
 
 @section('content')
     <div id="main-content">
         <div class="container-fluid">
-            <form id="form" action="{{ url('articles/store') }}" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="{{ empty($article->id) ? null : $article->id }}">
+            <form id="form" action="{{ url('contact/store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="block-header">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <h2>Buat Artikel</h2>
+                            <h2>Kontak</h2>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="{{ url('dashboard') }}">
                                         <i class="fa fa-dashboard"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item">Master Data</li>
-                                <li class="breadcrumb-item">Data Artikel</li>
-                                <li class="breadcrumb-item active">{{ empty($article->id) ? 'Buat' : 'Edit' }}</li>
+                                <li class="breadcrumb-item">Konten Website</li>
+                                <li class="breadcrumb-item active">Kontak</li>
                             </ul>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="d-flex flex-row-reverse">
                                 <div class="page_action">
-                                    <button type="button" class="btn btn-outline-dark">
-                                        <i class="fa fa-chevron-left"></i> Kembali
-                                    </button>
                                     <button type="submit" class="btn btn-secondary">
-                                        <i class="fa fa-send"></i> Simpan
+                                        <i class="fa fa-send"></i> Perbarui
                                     </button>
                                 </div>
                                 <div class="p-2 d-flex">
@@ -50,48 +45,64 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="mb-2">
-                                            <label for="title" class="form-label">Gambar Thumbnail</label>
-                                            <input type="hidden" name="hidden_image" value="{{ empty($article->image) ? null : $article->image }}">
+                                            <label for="title" class="form-label">Logo</label>
+                                            <input type="text" name="hidden_image"
+                                                value="{{ empty($web_config->logo) ? null : $web_config->logo }}">
                                             <input id="image" type="file" class="dropify" name="image"
-                                                data-default-file="{{ empty($article->image) ? null : asset($article->image) }}"
+                                                data-default-file="{{ empty($web_config->logo) ? null : asset($web_config->logo) }}"
                                                 data-allowed-file-extensions="jpeg jpg png" data-max-file-size="1000K">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="mb-2">
-                                            <label for="title" class="form-label">
-                                                Judul<strong class="text-danger" title="Wajib Diisi">*</strong>
+                                            <label for="name" class="form-label">
+                                                Nama Apotek<strong class="text-danger" title="Wajib Diisi">*</strong>
                                             </label>
-                                            <input type="text" class="form-control" id="title" name="title"
-                                                placeholder="Judul Berita"
-                                                value="{{ empty($article->title) ? null : $article->title }}">
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                value="{{ $web_config->name }}">
                                             <span id="titleError" class="invalid-feedback"></span>
                                         </div>
                                         <div class="mb-2">
-                                            <label for="title" class="form-label">
-                                                Kategori<strong class="text-danger" title="Wajib Diisi">*</strong>
+                                            <label for="address" class="form-label">
+                                                Alamat<strong class="text-danger" title="Wajib Diisi">*</strong>
                                             </label>
-                                            <select id="categoryId" name="category_id" class="form-control">
-                                                <option value="" hidden selected disabled>*Pilih Kategori Artikel
-                                                </option>
-                                                @foreach ($article_categories as $category)
-                                                    <option value="{{ $category->id }}"
-                                                        @if (!empty($article->category_id)) {{ $article->category_id == $category->id ? 'selected' : null }} @endif>
-                                                        {{ $category->category }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            <span id="categoryError" class="invalid-feedback"></span>
+                                            <input type="text" class="form-control" id="address" name="address"
+                                                value="{{ $web_config->address }}">
+                                            <span id="titleError" class="invalid-feedback"></span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="email" class="form-label">
+                                                Email<strong class="text-danger" title="Wajib Diisi">*</strong>
+                                            </label>
+                                            <input type="text" class="form-control" id="email" name="email"
+                                                value="{{ $web_config->email }}">
+                                            <span id="titleError" class="invalid-feedback"></span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="phoneNumber" class="form-label">
+                                                Nomor Handphone<strong class="text-danger" title="Wajib Diisi">*</strong>
+                                            </label>
+                                            <input type="text" class="form-control" id="phoneNumber" name="phone_number"
+                                                value="{{ $web_config->phone_number }}">
+                                            <span id="titleError" class="invalid-feedback"></span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="facebook" class="form-label">
+                                                URL Facebook<strong class="text-danger" title="Wajib Diisi">*</strong>
+                                            </label>
+                                            <input type="text" class="form-control" id="facebook" name="facebook"
+                                                value="{{ $web_config->facebook }}">
+                                            <span id="titleError" class="invalid-feedback"></span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="instagram" class="form-label">
+                                                URL Instagram<strong class="text-danger" title="Wajib Diisi">*</strong>
+                                            </label>
+                                            <input type="text" class="form-control" id="instagram" name="instagram"
+                                                value="{{ $web_config->instagram }}">
+                                            <span id="titleError" class="invalid-feedback"></span>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="mb-2">
-                                    <label for="body" class="form-label">
-                                        Isi<strong class="text-danger" title="Wajib Diisi">*</strong> <span id="bodyError"
-                                            class="text-danger" style="font-size: 12px;"></span>
-                                    </label>
-                                    <textarea id="body" name="body" class="summernote">{{ empty($article->body) ? null : $article->body }}</textarea>
                                 </div>
                             </div>
                         </div>

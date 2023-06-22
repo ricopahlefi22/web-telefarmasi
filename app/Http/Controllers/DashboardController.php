@@ -8,7 +8,7 @@ class DashboardController extends Controller
 {
     function dashboard()
     {
-        $data['title'] = 'Data Administrator';
+        $data['title'] = 'Beranda';
 
         return view('admin.dashboard', $data);
     }

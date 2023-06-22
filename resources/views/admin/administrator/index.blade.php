@@ -1,5 +1,9 @@
 @extends('admin.template.base')
 
+@push('style')
+    <link rel="stylesheet" href="{{ asset('assets-admin/vendor/dropify/css/dropify.min.css') }}">
+@endpush
+
 @section('content')
     @include('admin.administrator.form-modal')
 
@@ -36,7 +40,8 @@
                     <div class="card">
                         <div class="body">
                             <div class="table-responsive">
-                                <table id="table" class="table table-bordered table-hover js-basic-example dataTable table-custom">
+                                <table id="table"
+                                    class="table table-bordered table-hover js-basic-example dataTable table-custom">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -65,5 +70,6 @@
 @endsection
 
 @push('script')
+    <script src="{{ asset('assets-admin/vendor/dropify/js/dropify.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/administrator-admin.js') }}"></script>
 @endpush

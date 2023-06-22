@@ -5,19 +5,6 @@ var Toast = Swal.mixin({
     timer: 3000,
 });
 
-var dropify = $("#photo").dropify({
-    messages: {
-        default: "Klik atau seret gambar ke sini",
-        replace: "Klik atau seret untuk mengubah gambar",
-        remove: "Hapus",
-        error: "Oops, Terjadi Kesalahan",
-    },
-});
-
-dropify.on("dropify.afterClear", function () {
-    $("#hiddenPhoto").val("");
-});
-
 var table = $("#table").DataTable({
     stateSave: true,
     processing: true,
@@ -36,15 +23,11 @@ var table = $("#table").DataTable({
             name: "name",
         },
         {
-            data: "email",
-            name: "email",
-        },
-        {
             data: "action",
             name: "action",
             orderable: false,
             searchable: false,
-            class: "actions text-center",
+            class: "text-center",
         },
     ],
     oLanguage: {
@@ -72,68 +55,13 @@ $.ajaxSetup({
 
 $("#create").click(function () {
     $("#formModal").modal("show");
-    $("#modalTitle").html("Tambah Data");
+    $("#modalTitle").html("Tambah Artikel");
     $("#button").html("Tambah").removeClass("btn-warning");
     $("#id").val("");
-    $("#name").val("").removeClass("is-invalid");
-    $("#email").val("").removeClass("is-invalid");
-
-    var dropify = $("#photo").dropify({
-        defaultFile: null,
-    });
-
-    dropify = dropify.data("dropify");
-    dropify.resetPreview();
-    dropify.clearElement();
-    dropify.settings.defaultFile = null;
-    dropify.destroy();
-    dropify.init();
-});
-
-$("#form").on("submit", function (e) {
-    e.preventDefault();
-
-    $.ajax({
-        url: $(this).attr("action"),
-        method: $(this).attr("method"),
-        data: new FormData(this),
-        processData: false,
-        dataType: "json",
-        contentType: false,
-        beforeSend: function () {
-            $("#name").removeClass("is-invalid");
-            $("#email").removeClass("is-invalid");
-            $("#button").html(
-                '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
-            );
-        },
-        success: function (response) {
-            table.ajax.reload(null, false);
-            $("#formModal").modal("hide");
-
-            Toast.fire({
-                icon: "success",
-                title: response.status + "\n" + response.message,
-            });
-        },
-        error: function (error) {
-            $("#button").html("Simpan");
-
-            if (error.status == 422) {
-                var responseError = error["responseJSON"]["errors"];
-                $("#nameError").html(responseError["name"]);
-                $("#emailError").html(responseError["email"]);
-
-                if (responseError["name"]) {
-                    $("#name").addClass("is-invalid").focus();
-                }
-
-                if (responseError["email"]) {
-                    $("#email").addClass("is-invalid");
-                }
-            }
-        },
-    });
+    $("#title").val("");
+    $("#body").val("");
+    $("#titleError").html("");
+    $("#bodyError").html("");
 });
 
 $("body").on("click", ".edit", function () {
@@ -145,28 +73,68 @@ $("body").on("click", ".edit", function () {
         },
         success: function (response) {
             $("#formModal").modal("show");
-            $("#modalTitle").html("Sunting Data");
+            $("#modalTitle").html("Edit Artikel");
             $("#button").html("Simpan").addClass("btn-warning");
-            $("#name").val("").removeClass("is-invalid");
-            $("#email").val("").removeClass("is-invalid");
+            $("#titleError").html("");
+            $("#bodyError").html("");
 
             $("#id").val(response.id);
-            $("#name").val(response.name);
-            $("#email").val(response.email);
-            $("#hiddenPhoto").val(response.photo);
-
-            var dropify = $("#photo").dropify({
-                defaultFile: response.photo,
-            });
-
-            dropify = dropify.data("dropify");
-            dropify.resetPreview();
-            dropify.clearElement();
-            dropify.settings.defaultFile = response.photo;
-            dropify.destroy();
-            dropify.init();
+            $("#title").val(response.title);
+            $("#body").val(response.body);
         },
     });
+});
+
+$("body").on("click", ".publish", function () {
+    if (confirm("Posting?") === true) {
+        $.ajax({
+            type: "POST",
+            url: document.URL + "/publish",
+            data: {
+                id: $(this).data("id"),
+            },
+            success: function (response) {
+                table.draw();
+                Toast.fire({
+                    icon: "success",
+                    title: response.status + "\n" + response.message,
+                });
+            },
+            error: function (error) {
+                console.log(error);
+                if (error.status == 500) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Gagal! \nMohon ulangi beberapa saat lagi.",
+                    });
+                } else if (error.status == 404) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
+                    });
+                    table.draw();
+                } else if (error.status == 419) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Sesi Telah Berakhir! \nMemuat ulang sistem untuk anda.",
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                } else {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Masalah Tidak Dikenali! \nMencoba memuat kembali untuk anda.",
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                }
+            },
+        });
+    }
 });
 
 $("body").on("click", ".delete", function () {
@@ -178,7 +146,7 @@ $("body").on("click", ".delete", function () {
                 id: $(this).data("id"),
             },
             success: function (response) {
-                table.ajax.reload(null, false);
+                table.draw();
                 Toast.fire({
                     icon: "success",
                     title: response.status + "\n" + response.message,
@@ -188,14 +156,14 @@ $("body").on("click", ".delete", function () {
                 if (error.status == 500) {
                     Toast.fire({
                         icon: "error",
-                        title: "Gagal! \nPeriksa koneksi databasemu.",
+                        title: "Gagal! \nMohon ulangi beberapa saat lagi.",
                     });
                 } else if (error.status == 404) {
                     Toast.fire({
                         icon: "error",
                         title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
                     });
-                    table.ajax.reload(null, false);
+                    table.draw();
                 } else if (error.status == 419) {
                     Toast.fire({
                         icon: "error",

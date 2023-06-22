@@ -6,8 +6,6 @@
                     @include('landing-page.sections.logo')
                 </div>
             </div>
-            <p>Lorem Ipsum is simply dummy text of the and typesetting industry. Lorem Ipsum is
-                dummy text of the printing.</p>
             <div class="footer-address">
                 <ul>
                     <li>
@@ -38,21 +36,20 @@
             </div>
             <div class="ltn__social-media mt-20">
                 <ul>
-                    <li>
-                        <a href="#" title="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" title="Whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </li>
+                    @if (!empty(App\Models\WebConfig::first()->instagram))
+                        <li>
+                            <a href="{{ App\Models\WebConfig::first()->instagram }}" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                    @endif
+                    @if (!empty(App\Models\WebConfig::first()->facebook))
+                        <li>
+                            <a href="{{ App\Models\WebConfig::first()->facebook }}" title="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
@@ -85,17 +82,7 @@
     </div>
     <div class="col-xl-3 col-md-6 col-sm-12 col-12">
         <div class="footer-widget footer-newsletter-widget">
-            <h4 class="footer-title">Penawaran Menarik</h4>
-            <p>Subscribe to our weekly Newsletter and receive updates via email.</p>
-            <div class="footer-newsletter">
-                <form action="#">
-                    <input type="email" name="email" placeholder="Email*">
-                    <div class="btn-wrapper">
-                        <button class="theme-btn-1 btn" type="submit"><i class="fas fa-location-arrow"></i></button>
-                    </div>
-                </form>
-            </div>
-            <h5 class="mt-30">We Accept</h5>
+            <h4 class="footer-title">Kami Menerima</h4>
             <img src="{{ asset('assets-landing/img/icons/payment-4.png') }}" alt="Payment Image">
         </div>
     </div>

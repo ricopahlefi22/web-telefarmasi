@@ -5,14 +5,28 @@ var Toast = Swal.mixin({
     timer: 3000,
 });
 
+var dropify = $("#photo").dropify({
+    messages: {
+        default: "Klik atau seret gambar ke sini",
+        replace: "Klik atau seret untuk mengubah gambar",
+        remove: "Hapus",
+        error: "Oops, Terjadi Kesalahan",
+    },
+});
+
+dropify.on("dropify.afterClear", function () {
+    $("#hiddenPhoto").val("");
+});
+
 var table = $("#table").DataTable({
     stateSave: true,
     processing: true,
     serverSide: true,
     autoWidth: false,
     responsive: true,
-    ajax: "users",
-    columns: [{
+    ajax: document.URL,
+    columns: [
+        {
             data: "DT_RowIndex",
             name: "DT_RowIndex",
             searchable: false,
@@ -30,7 +44,7 @@ var table = $("#table").DataTable({
             name: "action",
             orderable: false,
             searchable: false,
-            class: "actions",
+            class: "actions text-center",
         },
     ],
     oLanguage: {
@@ -56,18 +70,27 @@ $.ajaxSetup({
     },
 });
 
-$("#create").click(function() {
+$("#create").click(function () {
     $("#formModal").modal("show");
     $("#modalTitle").html("Tambah Data");
     $("#button").html("Tambah").removeClass("btn-warning");
     $("#id").val("");
-    $("#name").val("");
-    $("#email").val("");
-    $("#nameError").html("");
-    $("#emailError").html("");
+    $("#name").val("").removeClass("is-invalid");
+    $("#email").val("").removeClass("is-invalid");
+
+    var dropify = $("#photo").dropify({
+        defaultFile: null,
+    });
+
+    dropify = dropify.data("dropify");
+    dropify.resetPreview();
+    dropify.clearElement();
+    dropify.settings.defaultFile = null;
+    dropify.destroy();
+    dropify.init();
 });
 
-$("#form").on("submit", function(e) {
+$("#form").on("submit", function (e) {
     e.preventDefault();
 
     $.ajax({
@@ -77,15 +100,15 @@ $("#form").on("submit", function(e) {
         processData: false,
         dataType: "json",
         contentType: false,
-        beforeSend: function() {
-            $("#nameError").html("");
-            $("#emailError").html("");
+        beforeSend: function () {
+            $("#name").removeClass("is-invalid");
+            $("#email").removeClass("is-invalid");
             $("#button").html(
                 '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
             );
         },
-        success: function(response) {
-            table.draw();
+        success: function (response) {
+            table.ajax.reload(null, false);
             $("#formModal").modal("hide");
 
             Toast.fire({
@@ -93,7 +116,7 @@ $("#form").on("submit", function(e) {
                 title: response.status + "\n" + response.message,
             });
         },
-        error: function(error) {
+        error: function (error) {
             $("#button").html("Simpan");
 
             if (error.status == 422) {
@@ -101,56 +124,67 @@ $("#form").on("submit", function(e) {
                 $("#nameError").html(responseError["name"]);
                 $("#emailError").html(responseError["email"]);
 
-                if (responseError["name"] && responseError["email"]) {
-                    $("#name").focus();
-                } else if (responseError["name"]) {
-                    $("#name").focus();
-                } else {
-                    $("#email").focus();
+                if (responseError["name"]) {
+                    $("#name").addClass("is-invalid").focus();
+                }
+
+                if (responseError["email"]) {
+                    $("#email").addClass("is-invalid");
                 }
             }
         },
     });
 });
 
-$("body").on("click", ".edit", function() {
+$("body").on("click", ".edit", function () {
     $.ajax({
         type: "POST",
-        url: "users/check",
+        url: document.URL + "/check",
         data: {
             id: $(this).data("id"),
         },
-        success: function(response) {
+        success: function (response) {
             $("#formModal").modal("show");
             $("#modalTitle").html("Sunting Data");
             $("#button").html("Simpan").addClass("btn-warning");
-            $("#nameError").html("");
-            $("#emailError").html("");
+            $("#name").val("").removeClass("is-invalid");
+            $("#email").val("").removeClass("is-invalid");
 
             $("#id").val(response.id);
             $("#name").val(response.name);
             $("#email").val(response.email);
+            $("#hiddenPhoto").val(response.photo);
+
+            var dropify = $("#photo").dropify({
+                defaultFile: response.photo,
+            });
+
+            dropify = dropify.data("dropify");
+            dropify.resetPreview();
+            dropify.clearElement();
+            dropify.settings.defaultFile = response.photo;
+            dropify.destroy();
+            dropify.init();
         },
-        error: function(error) {},
     });
 });
 
-$("body").on("click", ".delete", function() {
+$("body").on("click", ".delete", function () {
     if (confirm("Yakin ingin melanjutkan menghapus data ini?") === true) {
         $.ajax({
             type: "DELETE",
-            url: "users/destroy",
+            url: document.URL + "/destroy",
             data: {
                 id: $(this).data("id"),
             },
-            success: function(response) {
-                table.draw();
+            success: function (response) {
+                table.ajax.reload(null, false);
                 Toast.fire({
                     icon: "success",
                     title: response.status + "\n" + response.message,
                 });
             },
-            error: function(error) {
+            error: function (error) {
                 if (error.status == 500) {
                     Toast.fire({
                         icon: "error",
@@ -161,7 +195,7 @@ $("body").on("click", ".delete", function() {
                         icon: "error",
                         title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
                     });
-                    table.draw();
+                    table.ajax.reload(null, false);
                 } else if (error.status == 419) {
                     Toast.fire({
                         icon: "error",

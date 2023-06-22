@@ -2,37 +2,32 @@
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets-admin/vendor/summernote/dist/summernote.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets-admin/vendor/dropify/css/dropify.min.css') }}">
 @endpush
 
 @section('content')
     <div id="main-content">
         <div class="container-fluid">
-            <form id="form" action="{{ url('articles/store') }}" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="{{ empty($article->id) ? null : $article->id }}">
+            <form id="form" action="{{ url('about/store') }}" method="POST">
+                @csrf
                 <div class="block-header">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <h2>Buat Artikel</h2>
+                            <h2>Tentang Kami</h2>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="{{ url('dashboard') }}">
                                         <i class="fa fa-dashboard"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item">Master Data</li>
-                                <li class="breadcrumb-item">Data Artikel</li>
-                                <li class="breadcrumb-item active">{{ empty($article->id) ? 'Buat' : 'Edit' }}</li>
+                                <li class="breadcrumb-item">Konten Website</li>
+                                <li class="breadcrumb-item active">Tentang Kami</li>
                             </ul>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="d-flex flex-row-reverse">
                                 <div class="page_action">
-                                    <button type="button" class="btn btn-outline-dark">
-                                        <i class="fa fa-chevron-left"></i> Kembali
-                                    </button>
                                     <button type="submit" class="btn btn-secondary">
-                                        <i class="fa fa-send"></i> Simpan
+                                        <i class="fa fa-send"></i> Perbarui
                                     </button>
                                 </div>
                                 <div class="p-2 d-flex">
@@ -47,51 +42,8 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="body">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="mb-2">
-                                            <label for="title" class="form-label">Gambar Thumbnail</label>
-                                            <input type="hidden" name="hidden_image" value="{{ empty($article->image) ? null : $article->image }}">
-                                            <input id="image" type="file" class="dropify" name="image"
-                                                data-default-file="{{ empty($article->image) ? null : asset($article->image) }}"
-                                                data-allowed-file-extensions="jpeg jpg png" data-max-file-size="1000K">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="mb-2">
-                                            <label for="title" class="form-label">
-                                                Judul<strong class="text-danger" title="Wajib Diisi">*</strong>
-                                            </label>
-                                            <input type="text" class="form-control" id="title" name="title"
-                                                placeholder="Judul Berita"
-                                                value="{{ empty($article->title) ? null : $article->title }}">
-                                            <span id="titleError" class="invalid-feedback"></span>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label for="title" class="form-label">
-                                                Kategori<strong class="text-danger" title="Wajib Diisi">*</strong>
-                                            </label>
-                                            <select id="categoryId" name="category_id" class="form-control">
-                                                <option value="" hidden selected disabled>*Pilih Kategori Artikel
-                                                </option>
-                                                @foreach ($article_categories as $category)
-                                                    <option value="{{ $category->id }}"
-                                                        @if (!empty($article->category_id)) {{ $article->category_id == $category->id ? 'selected' : null }} @endif>
-                                                        {{ $category->category }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            <span id="categoryError" class="invalid-feedback"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="mb-2">
-                                    <label for="body" class="form-label">
-                                        Isi<strong class="text-danger" title="Wajib Diisi">*</strong> <span id="bodyError"
-                                            class="text-danger" style="font-size: 12px;"></span>
-                                    </label>
-                                    <textarea id="body" name="body" class="summernote">{{ empty($article->body) ? null : $article->body }}</textarea>
+                                    <textarea id="about" name="about" class="summernote">{{ $web_config->about }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +56,6 @@
 
 @push('script')
     <script src="{{ asset('assets-admin/vendor/summernote/dist/summernote.js') }}"></script>
-    <script src="{{ asset('assets-admin/vendor/dropify/js/dropify.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -118,15 +69,6 @@
             $.ajaxSetup({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-            });
-
-            $('.dropify').dropify({
-                messages: {
-                    default: 'Klik atau seret gambar ke sini',
-                    replace: 'Klik atau seret untuk mengubah gambar',
-                    remove: 'Hapus',
-                    error: 'Oops, Terjadi Kesalahan'
                 },
             });
 
@@ -171,11 +113,12 @@
                             },
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "/articles";
+                                window.location.reload();
                             }
                         });
                     },
                     error: function(error) {
+                        console.error(error);
                         $("#button").html("Simpan");
 
                         if (error.status == 422) {
