@@ -23,15 +23,12 @@ class ContactController extends Controller
 
     function store(Request $request)
     {
-        // dd($request->all());
-        if ($request->file('logo')) {
-            $path = 'public/logo/';
-            $file = $request->file('logo');
-            $file_name = Str::random(5) . time() . '_' . $file->getClientOriginalName();
-
-            $file->storeAs($path, $file_name);
-            $logo = "storage/logo/" . $file_name;
-        }
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'about' => 'required',
+            'email' => 'required',
+        ]);
 
         $data = WebConfig::first();
         $data->name = $request->name;

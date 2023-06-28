@@ -29,7 +29,7 @@
                 <div class="auth-box">
                     <div class="card">
                         <div class="header">
-                            <p class="lead">Login to your account</p>
+                            <p class="lead">Masuk ke akunmu</p>
                         </div>
                         <div class="body">
                             <form id="form" class="form-auth-small" action="login" method="POST">

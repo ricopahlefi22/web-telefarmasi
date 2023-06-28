@@ -106,7 +106,8 @@ Route::group(['domain' => 'admin.'.env('DOMAIN')], function () {
 */
 Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'index');
-    Route::get('articles/{slug}', 'detail');
+    Route::get('articles/{slug}', 'detailArticle');
+    Route::get('product/detail/{id}', 'detailProduct');
 });
 
 Route::controller(AboutUsController::class)->group(function () {

@@ -45,16 +45,6 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="mb-2">
-                                            <label for="title" class="form-label">Logo</label>
-                                            <input type="text" name="hidden_image"
-                                                value="{{ empty($web_config->logo) ? null : $web_config->logo }}">
-                                            <input id="image" type="file" class="dropify" name="image"
-                                                data-default-file="{{ empty($web_config->logo) ? null : asset($web_config->logo) }}"
-                                                data-allowed-file-extensions="jpeg jpg png" data-max-file-size="1000K">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="mb-2">
                                             <label for="name" class="form-label">
                                                 Nama Apotek<strong class="text-danger" title="Wajib Diisi">*</strong>
                                             </label>
@@ -78,6 +68,8 @@
                                                 value="{{ $web_config->email }}">
                                             <span id="titleError" class="invalid-feedback"></span>
                                         </div>
+                                    </div>
+                                    <div class="col-6">
                                         <div class="mb-2">
                                             <label for="phoneNumber" class="form-label">
                                                 Nomor Handphone<strong class="text-danger" title="Wajib Diisi">*</strong>
@@ -88,7 +80,7 @@
                                         </div>
                                         <div class="mb-2">
                                             <label for="facebook" class="form-label">
-                                                URL Facebook<strong class="text-danger" title="Wajib Diisi">*</strong>
+                                                URL Facebook
                                             </label>
                                             <input type="text" class="form-control" id="facebook" name="facebook"
                                                 value="{{ $web_config->facebook }}">
@@ -96,7 +88,7 @@
                                         </div>
                                         <div class="mb-2">
                                             <label for="instagram" class="form-label">
-                                                URL Instagram<strong class="text-danger" title="Wajib Diisi">*</strong>
+                                                URL Instagram
                                             </label>
                                             <input type="text" class="form-control" id="instagram" name="instagram"
                                                 value="{{ $web_config->instagram }}">
@@ -132,25 +124,6 @@
                 },
             });
 
-            $('.dropify').dropify({
-                messages: {
-                    default: 'Klik atau seret gambar ke sini',
-                    replace: 'Klik atau seret untuk mengubah gambar',
-                    remove: 'Hapus',
-                    error: 'Oops, Terjadi Kesalahan'
-                },
-            });
-
-            $('.summernote').summernote({
-                toolbar: [
-                    ['fontstyle', ['fontname', 'fontsize', 'bold', 'italic', 'underline',
-                        'strikethrough', 'superscript', 'subscript', 'deleteallformat'
-                    ]],
-                    ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
-                    ['misc', ['undo', 'redo', 'codeview']],
-                ]
-            });
-
             $("#form").on("submit", function(e) {
                 e.preventDefault();
                 $.ajax({
@@ -161,9 +134,9 @@
                     dataType: "json",
                     contentType: false,
                     beforeSend: function() {
-                        $("#title").removeClass('is-invalid');
-                        $("#categoryId").removeClass('is-invalid');
-                        $("#bodyError").html("");
+                        $("#name").removeClass('is-invalid');
+                        $("#address").removeClass('is-invalid');
+                        $("#email").removeClass('is-invalid');
 
                         $("#button").html(
                             '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
@@ -182,25 +155,30 @@
                             },
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "/articles";
+                                window.location.href = "/contact";
                             }
                         });
                     },
                     error: function(error) {
                         $("#button").html("Simpan");
 
+                        console.error(error);
                         if (error.status == 422) {
                             var responseError = error["responseJSON"]["errors"];
-                            $("#titleError").html(responseError["title"]);
-                            $("#categoryError").html(responseError["category_id"]);
-                            $("#bodyError").html(responseError["body"]);
 
-                            if (responseError["title"]) {
-                                $("#title").addClass('is-invalid').focus();
+                            if (responseError["email"]) {
+                                $("#email").addClass('is-invalid').focus();
+                                $("#emailError").html(responseError["email"]);
                             }
 
-                            if (responseError["category_id"]) {
-                                $("#categoryId").addClass('is-invalid');
+                            if (responseError["address"]) {
+                                $("#address").addClass('is-invalid').focus();
+                                $("#addressError").html(responseError["address"]);
+                            }
+
+                            if (responseError["name"]) {
+                                $("#name").addClass('is-invalid').focus();
+                                $("#nameError").html(responseError["name"]);
                             }
                         }
                     },
