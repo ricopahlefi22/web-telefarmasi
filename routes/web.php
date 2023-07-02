@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::group(['domain' => 'admin.'.env('DOMAIN')], function () {
+Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
     Route::controller(AuthAdminController::class)->group(function () {
         Route::get('/', 'login')->name('login');
         Route::post('login', 'loginProcess');
@@ -34,12 +34,12 @@ Route::group(['domain' => 'admin.'.env('DOMAIN')], function () {
 
         Route::get('chats', [ChatController::class, 'index']);
 
-        Route::controller(AboutUsController::class)->group(function(){
+        Route::controller(AboutUsController::class)->group(function () {
             Route::get('about', 'admin');
             Route::post('about/store', 'store');
         });
 
-        Route::controller(ContactController::class)->group(function(){
+        Route::controller(ContactController::class)->group(function () {
             Route::get('contact', 'admin');
             Route::post('contact/store', 'store');
         });
@@ -106,8 +106,14 @@ Route::group(['domain' => 'admin.'.env('DOMAIN')], function () {
 */
 Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'index');
+
+    Route::get('articles', 'articles');
+    Route::get('articles/category/{category}', 'categoryArticles');
     Route::get('articles/{slug}', 'detailArticle');
-    Route::get('product/detail/{id}', 'detailProduct');
+
+    Route::get('products', 'products');
+    Route::get('products/category/{category}', 'categoryProducts');
+    Route::get('products/detail/{id}', 'detailProduct');
 });
 
 Route::controller(AboutUsController::class)->group(function () {
@@ -120,6 +126,8 @@ Route::controller(ContactController::class)->group(function () {
 
 Route::controller(AuthUserController::class)->group(function () {
     Route::get('login', 'login');
+    Route::post('login', 'loginProcess');
+    Route::get('logout', 'logout');
 });
 
 Route::prefix('auth')->controller(SocialiteController::class)->group(function () {

@@ -63,7 +63,7 @@
     <script src="{{ asset('assets-admin/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
 
-    <script src="{{ asset('js/login-admin.js') }}"></script>
+    <script src="{{ asset('js/login.js') }}"></script>
 </body>
 
 </html>

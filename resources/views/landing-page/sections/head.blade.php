@@ -8,7 +8,9 @@
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="stylesheet" href="{{ asset('assets-admin/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!-- Place favicon.png in the root directory -->
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon" />
     <!-- Font Icons css -->
@@ -19,4 +21,5 @@
     <link rel="stylesheet" href="{{ asset('assets-landing/css/style.css') }}">
     <!-- Responsive css -->
     <link rel="stylesheet" href="{{ asset('assets-landing/css/responsive.css') }}">
-</head>
+
+    <link rel="stylesheet" href="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.css') }}"></head>

@@ -33,32 +33,17 @@
                             </div>
                         </div>
                         <div class="col--- ltn__header-options ltn__header-options-2 mb-sm-20">
-                            <!-- header-search-1 -->
-                            <div class="header-search-wrap">
-                                <div class="header-search-1">
-                                    <div class="search-icon">
-                                        <i class="icon-search for-search-show"></i>
-                                        <i class="icon-cancel  for-search-close"></i>
-                                    </div>
-                                </div>
-                                <div class="header-search-1-form">
-                                    <form id="#" method="get" action="#">
-                                        <input type="text" name="search" value=""
-                                            placeholder="Cari obat apa?" />
-                                        <button type="submit">
-                                            <span><i class="icon-search"></i></span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
                             <!-- user-menu -->
                             <div class="ltn__drop-menu user-menu">
                                 <ul>
                                     <li>
                                         <a href="javascript:void(0)"><i class="icon-user"></i></a>
                                         <ul>
-                                            <li><a href="{{ url('login') }}">Login</a></li>
-                                            <li><a href="{{ url('register') }}">Daftar</a></li>
+                                            @if (Auth::check())
+                                                <li><a href="{{ url('logout') }}">Keluar</a></li>
+                                            @else
+                                                <li><a href="{{ url('login') }}">Login</a></li>
+                                            @endif
                                         </ul>
                                     </li>
                                 </ul>
@@ -68,7 +53,7 @@
                                 <div class="mini-cart-icon">
                                     <a href="#ltn__utilize-cart-menu" class="ltn__utilize-toggle">
                                         <i class="icon-shopping-cart"></i>
-                                        <sup>2</sup>
+                                        {{-- <sup>2</sup> --}}
                                     </a>
                                 </div>
                             @endif
@@ -101,11 +86,8 @@
         <!-- Utilize Cart Menu End -->
 
         <!-- Utilize Mobile Menu Start -->
-        <div id="ltn__utilize-mobile-menu" class="ltn__utilize ltn__utilize-mobile-menu">
-            <div class="ltn__utilize-menu-inner ltn__scrollbar">
-                @include('landing-page.sections.navbar-mobile')
-            </div>
-        </div>
+        @include('landing-page.sections.navbar-mobile')
+
         <!-- Utilize Mobile Menu End -->
 
         <div class="ltn__utilize-overlay"></div>
@@ -128,7 +110,8 @@
                                                     keperluan.</p>
                                             </div>
                                             <div class="btn-wrapper animated">
-                                                <a href="#" class="theme-btn-1 btn btn-effect-1">Cari Obat</a>
+                                                <a href="{{ url('products') }}"
+                                                    class="theme-btn-1 btn btn-effect-1">Cari Obat</a>
                                             </div>
                                         </div>
                                     </div>
@@ -159,8 +142,9 @@
                                                     penggunaan obat..</p>
                                             </div>
                                             <div class="btn-wrapper animated">
-                                                <a href="#" class="theme-btn-1 btn btn-effect-1">Baca
-                                                    Artikel</a>
+                                                <a href="{{ url('articles') }}" class="theme-btn-1 btn btn-effect-1">
+                                                    Baca Artikel
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -205,13 +189,10 @@
                     @foreach ($product_categories as $category)
                         <div class="col-12">
                             <div class="ltn__category-item ltn__category-item-6 text-center">
-                                <div class="ltn__category-item-img">
-                                    <a href="shop.html">
-                                        <i class="fas fa-notes-medical"></i>
-                                    </a>
-                                </div>
                                 <div class="ltn__category-item-name">
-                                    <h6><a href="shop.html">{{ $category->category }}</a></h6>
+                                    <h6><a
+                                            href="{{ url('products/category', Str::slug($category->category)) }}">{{ $category->category }}</a>
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -259,7 +240,7 @@
                                 <div class="col-lg-3--- col-md-4 col-sm-6 col-6">
                                     <div class="ltn__product-item ltn__product-item-2 text-left">
                                         <div class="product-img">
-                                            <a href="{{ url('product/detail', $product->id) }}"><img
+                                            <a href="{{ url('products/detail', $product->id) }}"><img
                                                     src="{{ asset($product->image) }}" alt="#"></a>
                                             <div class="product-hover-action">
                                                 <ul>
@@ -279,18 +260,8 @@
                                             </div>
                                         </div>
                                         <div class="product-info">
-                                            <div class="product-ratting">
-                                                <ul>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fas fa-star-half-alt"></i></a>
-                                                    </li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                </ul>
-                                            </div>
                                             <h2 class="product-title">
-                                                <a href="{{ url('product/detail', $product->id) }}">
+                                                <a href="{{ url('products/detail', $product->id) }}">
                                                     {{ $product->name }}
                                                 </a>
                                             </h2>
@@ -371,7 +342,7 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                             <div class="ltn__product-item ltn__product-item-3 text-left">
                                 <div class="product-img">
-                                    <a href="{{ url('product/detail', $product->id) }}"><img
+                                    <a href="{{ url('products/detail', $product->id) }}"><img
                                             src="{{ asset($product->image) }}" alt="#"></a>
                                     <div class="product-badge">
                                         <ul>
@@ -381,14 +352,14 @@
                                     <div class="product-hover-action">
                                         <ul>
                                             <li>
-                                                <a href="javascript:void(0)" title="Quick View" data-bs-toggle="modal"
-                                                    data-bs-target="#quick_view_modal">
+                                                <a href="javascript:void(0)" title="Quick View"
+                                                    data-bs-toggle="modal" data-bs-target="#quick_view_modal">
                                                     <i class="far fa-eye"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0)" title="Add to Cart" data-bs-toggle="modal"
-                                                    data-bs-target="#add_to_cart_modal">
+                                                <a href="javascript:void(0)" title="Add to Cart"
+                                                    data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
                                                     <i class="fas fa-shopping-cart"></i>
                                                 </a>
                                             </li>
@@ -396,17 +367,8 @@
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        </ul>
-                                    </div>
                                     <h2 class="product-title"><a
-                                            href="{{ url('product/detail', $product->id) }}">{{ $product->name }}</a>
+                                            href="{{ url('products/detail', $product->id) }}">{{ $product->name }}</a>
                                     </h2>
                                     <div class="product-price">
                                         <span>Rp. {{ $product->price }}</span>
@@ -585,7 +547,7 @@
                                                                 )</a></li>
                                                     </ul>
                                                 </div>
-                                                <h3><a href="{{ url('product/detail', $product->id) }}">Digital
+                                                <h3><a href="{{ url('products/detail', $product->id) }}">Digital
                                                         Stethoscope</a></h3>
                                                 <div class="product-price">
                                                     <span>$15.00</span>
@@ -665,7 +627,7 @@
                                                     </ul>
                                                 </div>
                                                 <label class="float-end mb-0"><a class="text-decoration"
-                                                        href="{{ url('product/detail', $product->id) }}"><small>View
+                                                        href="{{ url('products/detail', $product->id) }}"><small>View
                                                             Details</small></a></label>
                                             </div>
                                         </div>
@@ -699,7 +661,7 @@
                                                     alt="#">
                                             </div>
                                             <div class="modal-product-info">
-                                                <h5><a href="{{ url('product/detail', $product->id) }}">Digital
+                                                <h5><a href="{{ url('products/detail', $product->id) }}">Digital
                                                         Stethoscope</a></h5>
                                                 <p class="added-cart"><i class="fa fa-check-circle"></i>
                                                     Successfully added to your Cart</p>
@@ -750,7 +712,7 @@
                                                     alt="#">
                                             </div>
                                             <div class="modal-product-info">
-                                                <h5><a href="{{ url('product/detail', $product->id) }}">Digital
+                                                <h5><a href="{{ url('products/detail', $product->id) }}">Digital
                                                         Stethoscope</a></h5>
                                                 <p class="added-cart"><i class="fa fa-check-circle"></i>
                                                     Successfully added to your Wishlist</p>

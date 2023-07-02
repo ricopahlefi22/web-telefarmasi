@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\WebConfig;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LandingPageController extends Controller
 {
@@ -20,6 +22,21 @@ class LandingPageController extends Controller
         return view('landing-page.index', $data);
     }
 
+    function articles()
+    {
+        $data['list_article'] = Article::all();
+
+        return view('landing-page.blog', $data);
+    }
+
+    function categoryArticles(Request $request)
+    {
+        $data['article_category'] = ArticleCategory::where('category', Str::slug($request->category, ' '))->first();
+        $data['list_article'] = Article::where('category_id', $data['article_category']->id)->get();
+
+        return view('landing-page.blog', $data);
+    }
+
     function detailArticle(Request $request)
     {
         $data['article'] = Article::where('slug', $request->slug)->firstOrFail();
@@ -28,9 +45,25 @@ class LandingPageController extends Controller
         return view('landing-page.detail-blog', $data);
     }
 
+    function products()
+    {
+        $data['list_product'] = Product::all();
+
+        return view('landing-page.product', $data);
+    }
+
+    function categoryProducts(Request $request)
+    {
+        $data['product_category'] = ProductCategory::where('category', 'LIKE', '%' . Str::slug($request->category, ' ') . '%')->first();
+        $data['list_product'] = Product::where('category_id', $data['product_category']->id)->get();
+
+        return view('landing-page.product', $data);
+    }
+
     function detailProduct(Request $request)
     {
-        $data['product'] = Article::where('id', $request->id)->firstOrFail();
+        $data['product'] = Product::where('id', $request->id)->firstOrFail();
+        $data['related_products'] = Product::where('category_id', $data['product']->category_id)->orderBy('created_at', 'desc')->take(6)->get();
 
         return view('landing-page.detail-product', $data);
     }

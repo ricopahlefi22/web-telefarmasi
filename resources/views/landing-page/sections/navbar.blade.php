@@ -4,7 +4,9 @@
     <li class="menu-icon"><a href="javascript:void(0)">Artikel</a>
         <ul>
             @foreach (App\Models\ArticleCategory::all() as $category)
-                <li><a href="{{ url('articles', $category->id) }}">{{ $category->category }}</a></li>
+                <li><a
+                        href="{{ url('articles/category', Str::slug($category->category)) }}">{{ $category->category }}</a>
+                </li>
             @endforeach
         </ul>
     </li>
@@ -13,7 +15,11 @@
             <li><a href="javascript:void(0)">Kategori</a>
                 <ul>
                     @foreach (App\Models\ProductCategory::all() as $category)
-                        <li><a href="{{ url('products', $category->id) }}">{{ $category->category }}</a></li>
+                        <li>
+                            <a href="{{ url('products/category', Str::slug($category->category)) }}">
+                                {{ $category->category }}
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
             </li>

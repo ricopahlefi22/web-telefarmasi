@@ -25,8 +25,11 @@
                 <li>
                     <a href="#"><i class="icon-user"></i></a>
                     <ul>
-                        <li><a href="{{ url('login') }}">Login</a></li>
-                        <li><a href="{{ url('register') }}">Daftar</a></li>
+                        @if (Auth::check())
+                            <li><a href="{{ url('logout') }}">Keluar</a></li>
+                        @else
+                            <li><a href="{{ url('login') }}">Login</a></li>
+                        @endif
                     </ul>
                 </li>
             </ul>

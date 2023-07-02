@@ -30,6 +30,7 @@ class AuthAdminController extends Controller
                     'code' => 200,
                     'status' => 'Berhasil!',
                     'message' => 'Selamat datang kembali, kami akan mengantarmu ke dalam sistem.',
+                    'route' => 'dashboard',
                 ]);
             } else {
                 return response()->json([

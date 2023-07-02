@@ -80,11 +80,8 @@
         <!-- Utilize Cart Menu End -->
 
         <!-- Utilize Mobile Menu Start -->
-        <div id="ltn__utilize-mobile-menu" class="ltn__utilize ltn__utilize-mobile-menu">
-            <div class="ltn__utilize-menu-inner ltn__scrollbar">
-                @include('landing-page.sections.navbar-mobile')
-            </div>
-        </div>
+        @include('landing-page.sections.navbar-mobile')
+
         <!-- Utilize Mobile Menu End -->
 
         <div class="ltn__utilize-overlay"></div>

@@ -8,7 +8,7 @@
                         <h1>Beli kebutuhan obatmu untuk melindungi orang-orang yang kamu sayangi</h1>
                     </div>
                     <div class="btn-wrapper">
-                        <a class="btn btn-effect-3 btn-white" href="#">Lihat Produk<i
+                        <a class="btn btn-effect-3 btn-white" href="{{ url('products') }}">Lihat Produk<i
                                 class="icon-next"></i></a>
                     </div>
                 </div>

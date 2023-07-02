@@ -79,11 +79,8 @@
         <!-- Utilize Cart Menu End -->
 
         <!-- Utilize Mobile Menu Start -->
-        <div id="ltn__utilize-mobile-menu" class="ltn__utilize ltn__utilize-mobile-menu">
-            <div class="ltn__utilize-menu-inner ltn__scrollbar">
-                @include('landing-page.sections.navbar-mobile')
-            </div>
-        </div>
+        @include('landing-page.sections.navbar-mobile')
+
         <!-- Utilize Mobile Menu End -->
 
         <div class="ltn__utilize-overlay"></div>
@@ -129,7 +126,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="account-login-inner">
-                            <form action="#" class="ltn__form-box contact-form-box">
+                            <form id="form" action="login" class="ltn__form-box contact-form-box" method="POST">
                                 <input type="text" name="email" placeholder="Email*">
                                 <input type="password" name="password" placeholder="Password*">
                                 <div class="btn-wrapper mt-0">
@@ -144,8 +141,7 @@
                     <div class="col-lg-6">
                         <div class="account-create text-center pt-50">
                             <h4>Belum Punya Akun?</h4>
-                            <p>Add items to your wishlistget personalised recommendations <br>
-                                check out more quickly track your orders register</p>
+                            <p>Buatlah akun terlebih dahulu untuk dapat menggunakan seluruh fasilitas kami</p>
                             <div class="btn-wrapper">
                                 <a href="{{ url('register') }}" class="theme-btn-1 btn black-btn">Buat Akun</a>
                             </div>
@@ -182,7 +178,9 @@
     <script src="{{ asset('assets-landing/js/plugins.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('assets-landing/js/main.js') }}"></script>
+    <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
 
+    <script src="{{ asset('js/login.js') }}"></script>
 </body>
 
 </html>

@@ -36,7 +36,7 @@ $(document).ready(function() {
                         },
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "dashboard";
+                            window.location.href = response.route;
                         }
                     });
                 } else {
