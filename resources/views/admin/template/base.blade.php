@@ -33,8 +33,7 @@
         <div class="page-loader-wrapper">
             <div class="loader">
                 <div class="m-t-30">
-                    <img src="{{ asset('favicon.png') }}" width="48" height="48"
-                        alt="Iconic">
+                    <img src="{{ asset('favicon.png') }}" width="48" height="48" alt="Iconic">
                 </div>
                 <p>Mohon Tunggu...</p>
             </div>
@@ -62,6 +61,16 @@
     <!-- page js file -->
     <script src="{{ asset('assets-admin/bundles/mainscripts.bundle.js') }}"></script>
     {{-- <script src="{{ asset('assets-admin/js/index.js') }}"></script> --}}
+
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            });
+        });
+    </script>
 
     @stack('script')
 </body>

@@ -114,6 +114,10 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('products', 'products');
     Route::get('products/category/{category}', 'categoryProducts');
     Route::get('products/detail/{id}', 'detailProduct');
+    Route::post('products/check', 'checkProduct');
+    Route::post('products/add-to-cart', 'addToCartProduct');
+
+    Route::get('cart', 'cart');
 });
 
 Route::controller(AboutUsController::class)->group(function () {
@@ -127,6 +131,8 @@ Route::controller(ContactController::class)->group(function () {
 Route::controller(AuthUserController::class)->group(function () {
     Route::get('login', 'login');
     Route::post('login', 'loginProcess');
+    Route::get('register', 'register');
+    Route::post('register', 'registerProcess');
     Route::get('logout', 'logout');
 });
 

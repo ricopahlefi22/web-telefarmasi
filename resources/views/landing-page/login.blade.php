@@ -2,7 +2,6 @@
 
 <body>
     <div class="body-wrapper">
-
         <!-- HEADER AREA START (header-3) -->
         <header class="ltn__header-area ltn__header-3">
             <!-- ltn__header-top-area start -->
@@ -73,11 +72,6 @@
         @include('landing-page.sections.menu')
         <!-- MOBILE MENU END -->
 
-        <!-- Utilize Cart Menu Start -->
-        @include('landing-page.sections.cart')
-
-        <!-- Utilize Cart Menu End -->
-
         <!-- Utilize Mobile Menu Start -->
         @include('landing-page.sections.navbar-mobile')
 
@@ -130,7 +124,7 @@
                                 <input type="text" name="email" placeholder="Email*">
                                 <input type="password" name="password" placeholder="Password*">
                                 <div class="btn-wrapper mt-0">
-                                    <button class="theme-btn-1 btn btn-block" type="submit">Login</button>
+                                    <button id="submit" class="theme-btn-1 btn btn-block" type="submit">Masuk</button>
                                 </div>
                                 <div class="go-to-btn mt-20">
                                     <a href="{{ url('forgot-password') }}"><small>Lupa Password?</small></a>
@@ -170,14 +164,11 @@
             </div>
         </footer>
         <!-- FOOTER AREA END -->
-
     </div>
     <!-- Body main wrapper end -->
 
-    <!-- All JS Plugins -->
-    <script src="{{ asset('assets-landing/js/plugins.js') }}"></script>
-    <!-- Main JS -->
-    <script src="{{ asset('assets-landing/js/main.js') }}"></script>
+    @include('landing-page.sections.script')
+
     <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script src="{{ asset('js/login.js') }}"></script>

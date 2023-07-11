@@ -26,6 +26,7 @@
                     <a href="#"><i class="icon-user"></i></a>
                     <ul>
                         @if (Auth::check())
+                            <li><a href="{{ url('profile') }}">Profil</a></li>
                             <li><a href="{{ url('logout') }}">Keluar</a></li>
                         @else
                             <li><a href="{{ url('login') }}">Login</a></li>
@@ -42,9 +43,7 @@
                 <a href="#ltn__utilize-cart-menu" class="ltn__utilize-toggle">
                     <span class="mini-cart-icon">
                         <i class="icon-shopping-cart"></i>
-                        <sup>2</sup>
                     </span>
-                    <h6><span>Your Cart</span> <span class="ltn__secondary-color">$89.25</span></h6>
                 </a>
             </div>
         @endif

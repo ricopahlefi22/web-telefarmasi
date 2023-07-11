@@ -24,7 +24,7 @@
                             <div class="content">
                                 <div class="text mb-2 text-uppercase">Produk</div>
                                 <h4 class="number mb-0">
-                                    3,251
+                                    {{ $product_count }}
                                 </h4>
                                 <small class="text-muted">Jumlah produk saat ini</small>
                             </div>
@@ -38,7 +38,7 @@
                             <div class="content">
                                 <div class="text mb-2 text-uppercase">Artikel</div>
                                 <h4 class="number mb-0">
-                                    3,251
+                                    {{ $article_count }}
                                 </h4>
                                 <small class="text-muted">Jumlah artikel saat ini</small>
                             </div>
@@ -52,7 +52,7 @@
                             <div class="content">
                                 <div class="text mb-2 text-uppercase">Pengguna</div>
                                 <h4 class="number mb-0">
-                                    3,251
+                                    {{ $user_count }}
                                 </h4>
                                 <small class="text-muted">Jumlah pengguna saat ini</small>
                             </div>

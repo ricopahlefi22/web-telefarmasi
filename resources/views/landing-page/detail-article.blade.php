@@ -75,10 +75,6 @@
         @include('landing-page.sections.menu')
         <!-- MOBILE MENU END -->
 
-        <!-- Utilize Cart Menu Start -->
-        @include('landing-page.sections.cart')
-        <!-- Utilize Cart Menu End -->
-
         <!-- Utilize Mobile Menu Start -->
         @include('landing-page.sections.navbar-mobile')
 
@@ -124,7 +120,8 @@
                                 <div class="ltn__blog-meta">
                                     <ul>
                                         <li class="ltn__blog-category">
-                                            <a href="#">{{ $article->category->category }}</a>
+                                            <a
+                                                href="{{ url('articles/category', Str::slug($article->category->category)) }}">{{ $article->category->category }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -160,7 +157,7 @@
                                                         <ul>
                                                             <li class="ltn__blog-date ltn__secondary-color">
                                                                 <i class="far fa-calendar-alt"></i>
-                                                                {{ $article->published_at }}
+                                                                {{ Carbon\Carbon::parse($article->published_at)->diffForHumans() }}
                                                             </li>
                                                         </ul>
                                                     </div>

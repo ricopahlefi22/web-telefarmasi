@@ -47,12 +47,6 @@ var table = $("#table").DataTable({
     },
 });
 
-$.ajaxSetup({
-    headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-    },
-});
-
 $("#create").click(function () {
     $("#formModal").modal("show");
     $("#modalTitle").html("Tambah Artikel");

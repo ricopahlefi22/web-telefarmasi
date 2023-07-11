@@ -73,14 +73,8 @@
         @include('landing-page.sections.menu')
         <!-- MOBILE MENU END -->
 
-        <!-- Utilize Cart Menu Start -->
-        @include('landing-page.sections.cart')
-
-        <!-- Utilize Cart Menu End -->
-
         <!-- Utilize Mobile Menu Start -->
         @include('landing-page.sections.navbar-mobile')
-
         <!-- Utilize Mobile Menu End -->
 
         <div class="ltn__utilize-overlay"></div>

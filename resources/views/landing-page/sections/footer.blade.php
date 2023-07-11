@@ -60,8 +60,6 @@
             <div class="footer-menu">
                 <ul>
                     <li><a href="{{ url('about') }}">Tentang Kami</a></li>
-                    <li><a href="{{ url('location') }}">Lokasi</a></li>
-                    <li><a href="{{ url('faq') }}">FAQ</a></li>
                     <li><a href="{{ url('contact') }}">Kontak</a></li>
                 </ul>
             </div>
@@ -73,9 +71,8 @@
             <div class="footer-menu">
                 <ul>
                     <li><a href="{{ url('chat') }}">Konsultasi</a></li>
-                    <li><a href="{{ url('products') }}">Belanja Obat dan Kebutuhan Lainnya</a></li>
+                    <li><a href="{{ url('products') }}">Belanja Obat dan Kebutuhan</a></li>
                     <li><a href="{{ url('articles') }}">Artikel Kesehatan</a></li>
-                    {{-- <li><a href="">Penawaran Menarik</a></li> --}}
                 </ul>
             </div>
         </div>

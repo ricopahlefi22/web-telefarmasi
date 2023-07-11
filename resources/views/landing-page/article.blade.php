@@ -72,10 +72,6 @@
         @include('landing-page.sections.menu')
         <!-- MOBILE MENU END -->
 
-        <!-- Utilize Cart Menu Start -->
-        @include('landing-page.sections.cart')
-        <!-- Utilize Cart Menu End -->
-
         <!-- Utilize Mobile Menu Start -->
         @include('landing-page.sections.navbar-mobile')
         <!-- Utilize Mobile Menu End -->
@@ -137,7 +133,7 @@
                                             <ul>
                                                 <li class="ltn__blog-date">
                                                     <i class="far fa-calendar-alt"></i>
-                                                    {{ $article->published_at }}
+                                                    {{ Carbon\Carbon::parse($article->published_at)->diffForHumans() }}
                                                 </li>
                                             </ul>
                                         </div>
@@ -180,10 +176,7 @@
     </div>
     <!-- Body main wrapper end -->
 
-    <!-- All JS Plugins -->
-    <script src="{{ asset('assets-landing/js/plugins.js') }}"></script>
-    <!-- Main JS -->
-    <script src="{{ asset('assets-landing/js/main.js') }}"></script>
+    @include('landing-page.sections.script')
 </body>
 
 </html>
