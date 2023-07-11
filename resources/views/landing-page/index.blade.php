@@ -321,24 +321,24 @@
                         <div class="about-us-info-wrap">
                             <div class="section-title-area ltn__section-title-2--- mb-20">
                                 <h1 class="section-title">Konsultasi Dengan Apoteker Kami!</h1>
-                                <p>Tanya apoteker kami jika kamu bingung dengan obat yang kamu butuhkan.</p>
+                                <p>Tanya apoteker kami jika kamu bingung dengan obat yang kamu butuhkan seputar</p>
                             </div>
                             <ul class="ltn__list-item-half clearfix">
                                 <li>
                                     <i class="flaticon-home-2"></i>
-                                    Activated Carbon
+                                    Cara Pemakaian
                                 </li>
                                 <li>
                                     <i class="flaticon-mountain"></i>
-                                    Breathing Valve
+                                    Dosis
                                 </li>
                                 <li>
                                     <i class="flaticon-heart"></i>
-                                    6 Layer Filteration
+                                    Obat Yang Cocok
                                 </li>
                                 <li>
                                     <i class="flaticon-secure"></i>
-                                    Rewashes & Reusable
+                                    Percakapan Aman
                                 </li>
                             </ul>
                             <div class="btn-wrapper animated">

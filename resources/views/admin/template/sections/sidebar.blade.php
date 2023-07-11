@@ -52,27 +52,23 @@
                                 </li>
                             </ul>
                         </li>
-                        <li
-                            class="{{ menuOpen('products, articles, product-categories, article-categories, users, administrators') }}">
+                        <li class="{{ menuOpen('orders, carts, products, articles, users, administrators') }}">
                             <a href="#App" class="has-arrow">
                                 <i class="fa fa-th-large"></i>
                                 <span>Master Data</span>
                             </a>
                             <ul>
-                                <li>
-                                    <a class="text-muted">Data Pesanan</a>
+                                <li class="{{ routeActive('orders') }}">
+                                    <a href="{{ url('orders') }}">Data Pesanan</a>
+                                </li>
+                                <li class="{{ routeActive('carts') }}">
+                                    <a href="{{ url('carts') }}">Data Keranjang</a>
                                 </li>
                                 <li class="{{ routeActive('products') }}">
                                     <a href="{{ url('products') }}">Data Produk</a>
                                 </li>
                                 <li class="{{ routeActive('articles') }}">
                                     <a href="{{ url('articles') }}">Data Artikel</a>
-                                </li>
-                                <li class="{{ routeActive('product-categories') }}">
-                                    <a href="{{ url('product-categories') }}">Data Kategori Produk</a>
-                                </li>
-                                <li class="{{ routeActive('article-categories') }}">
-                                    <a href="{{ url('article-categories') }}">Data Kategori Artikel</a>
                                 </li>
                                 <li class="{{ routeActive('users') }}">
                                     <a href="{{ url('users') }}">Data Pengguna</a>
@@ -82,10 +78,16 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="{{ menuOpen('about, contact') }}">
+                        <li class="{{ menuOpen('product-categories, article-categories, about, contact') }}">
                             <a href="#forms" class="has-arrow"><i class="fa fa-pencil"></i><span>Konten
                                     Website</span></a>
                             <ul>
+                                <li class="{{ routeActive('product-categories') }}">
+                                    <a href="{{ url('product-categories') }}">Data Kategori Produk</a>
+                                </li>
+                                <li class="{{ routeActive('article-categories') }}">
+                                    <a href="{{ url('article-categories') }}">Data Kategori Artikel</a>
+                                </li>
                                 <li class="{{ routeActive('about') }}">
                                     <a href="{{ url('about') }}">Tentang Kami</a>
                                 </li>

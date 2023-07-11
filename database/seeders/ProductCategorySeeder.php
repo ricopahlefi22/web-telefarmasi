@@ -22,7 +22,7 @@ class ProductCategorySeeder extends Seeder
         ]);
 
         ProductCategory::factory()->create([
-            'category' => 'Kecantikan & Perawatan Diri',
+            'category' => 'Kecantikan dan Perawatan Diri',
         ]);
 
         ProductCategory::factory()->create([

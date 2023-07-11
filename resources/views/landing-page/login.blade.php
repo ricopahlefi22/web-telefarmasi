@@ -20,16 +20,7 @@
                         </div>
                         <div class="col header-contact-serarch-column d-none d-lg-block">
                             <div class="header-contact-search">
-                                <!-- header-search-2 -->
-                                <div class="header-search-2">
-                                    <form id="#123" method="get" action="#">
-                                        <input type="text" name="search" value=""
-                                            placeholder="Cari Obatmu..." />
-                                        <button type="submit">
-                                            <span><i class="icon-search"></i></span>
-                                        </button>
-                                    </form>
-                                </div>
+                                @include('landing-page.sections.search')
                             </div>
                         </div>
                         <div class="col">
@@ -72,9 +63,21 @@
         @include('landing-page.sections.menu')
         <!-- MOBILE MENU END -->
 
+        <!-- Utilize Cart Menu Start -->
+        <div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
+            <div class="ltn__utilize-menu-head">
+                <span class="ltn__utilize-menu-title">Keranjang</span>
+                <button class="ltn__utilize-close">×</button>
+            </div>
+            <div id="cartWrapper" class="ltn__utilize-menu-inner ltn__scrollbar">
+
+                @include('landing-page.sections.cart')
+            </div>
+        </div>
+        <!-- Utilize Cart Menu End -->
+
         <!-- Utilize Mobile Menu Start -->
         @include('landing-page.sections.navbar-mobile')
-
         <!-- Utilize Mobile Menu End -->
 
         <div class="ltn__utilize-overlay"></div>
@@ -124,7 +127,8 @@
                                 <input type="text" name="email" placeholder="Email*">
                                 <input type="password" name="password" placeholder="Password*">
                                 <div class="btn-wrapper mt-0">
-                                    <button id="submit" class="theme-btn-1 btn btn-block" type="submit">Masuk</button>
+                                    <button id="submit" class="theme-btn-1 btn btn-block"
+                                        type="submit">Masuk</button>
                                 </div>
                                 <div class="go-to-btn mt-20">
                                     <a href="{{ url('forgot-password') }}"><small>Lupa Password?</small></a>
@@ -133,6 +137,17 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
+                        <div class="py-5">
+                            <p>
+                                <span>atau menggunakan: </span>
+                                <a href="{{ url('auth/google') }}" style="margin: 0 20px 0 20px">
+                                    <img src="{{ asset('assets-landing/img/google.png') }}" height="30">
+                                </a>
+                                <a href="{{ url('auth/facebook') }}">
+                                    <img src="{{ asset('assets-landing/img/facebook.png') }}" height="30">
+                                </a>
+                            </p>
+                        </div>
                         <div class="account-create text-center pt-50">
                             <h4>Belum Punya Akun?</h4>
                             <p>Buatlah akun terlebih dahulu untuk dapat menggunakan seluruh fasilitas kami</p>

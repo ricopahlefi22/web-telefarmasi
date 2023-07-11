@@ -9,6 +9,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
+
 class SocialiteController extends Controller
 {
     function redirectToProvider($provider)
@@ -18,17 +19,22 @@ class SocialiteController extends Controller
 
     function handleProviderCallback($provider)
     {
-        try {
-            $user = Socialite::driver($provider)->user();
-        } catch (Exception $e) {
-            return $e;
+
+        if (Auth::check()) {
+            return redirect('/')->with(['success' => 'Login Berhasil']);
+        } else {
+            try {
+                $user = Socialite::driver($provider)->user();
+            } catch (Exception $e) {
+                return redirect('login')->with('error', 'Login Gagal!');
+            }
+
+            $loggedUser = $this->findOrCreateUser($user, $provider);
+
+            Auth::login($loggedUser);
+
+            return redirect('/')->with(['success' => 'Login Berhasil']);
         }
-
-        $loggedUser = $this->findOrCreateUser($user, $provider);
-
-        Auth::login($loggedUser, true);
-
-        return 'success';
     }
 
     function findOrCreateUser($socialUser, $provider)

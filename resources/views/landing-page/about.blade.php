@@ -139,8 +139,8 @@
                                                     alt="#">
                                             </div>
                                             <div class="author-name-designation">
-                                                <h4 class="mb-0">Teman Vika Khairunnisa</h4>
-                                                <small>Apoteker</small>
+                                                <h4 class="mb-0">Alim Rahman Hakim</h4>
+                                                <small>Pemilik Apotek Desta Farma</small>
                                             </div>
                                         </div>
                                     </li>
@@ -159,7 +159,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title-area ltn__section-title-2--- text-center">
-                            <h1 class="section-title">Core Features</h1>
+                            <h1 class="section-title">Layanan Kami</h1>
                         </div>
                     </div>
                 </div>
@@ -221,259 +221,18 @@
         </div>
         <!-- FEATURE AREA END -->
 
-        <!-- PROGRESS BAR AREA START -->
-        <div class="ltn__progress-bar-area section-bg-1 pt-120 pb-10 mb-120 d-none">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="ltn__progress-bar-wrap">
-                            <div class="ltn__progress-bar-inner">
-                                <div class="row">
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="ltn__progress-bar-item-2 text-center">
-                                            <div class="progress" data-value='78'>
-                                                <span class="progress-left">
-                                                    <span class="progress-bar border-primary"></span>
-                                                </span>
-                                                <span class="progress-right">
-                                                    <span class="progress-bar border-primary"></span>
-                                                </span>
-                                                <div class="progress-value">
-                                                    <div class="progress-count">78<sup class="small">%</sup></div>
-                                                </div>
-                                            </div>
-                                            <div class="ltn__progress-info">
-                                                <h3>Project Done</h3>
-                                                <p>Construction Simulator</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="ltn__progress-bar-item-2 text-center">
-                                            <div class="progress" data-value='62'>
-                                                <span class="progress-left">
-                                                    <span class="progress-bar border-danger"></span>
-                                                </span>
-                                                <span class="progress-right">
-                                                    <span class="progress-bar border-danger"></span>
-                                                </span>
-                                                <div class="progress-value">
-                                                    <div class="progress-count">62<sup class="small">%</sup></div>
-                                                </div>
-                                            </div>
-                                            <div class="ltn__progress-info">
-                                                <h3>Country Cover</h3>
-                                                <p>Construction Simulator</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="ltn__progress-bar-item-2 text-center">
-                                            <div class="progress" data-value='50'>
-                                                <span class="progress-left">
-                                                    <span class="progress-bar border-success"></span>
-                                                </span>
-                                                <span class="progress-right">
-                                                    <span class="progress-bar border-success"></span>
-                                                </span>
-                                                <div class="progress-value">
-                                                    <div class="progress-count">50<sup class="small">%</sup></div>
-                                                </div>
-                                            </div>
-                                            <div class="ltn__progress-info">
-                                                <h3>Completed Co.</h3>
-                                                <p>Construction Simulator</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="ltn__progress-bar-item-2 text-center">
-                                            <div class="progress" data-value='90'>
-                                                <span class="progress-left">
-                                                    <span class="progress-bar border-warning"></span>
-                                                </span>
-                                                <span class="progress-right">
-                                                    <span class="progress-bar border-warning"></span>
-                                                </span>
-                                                <div class="progress-value">
-                                                    <div class="progress-count">90<sup class="small">%</sup></div>
-                                                </div>
-                                            </div>
-                                            <div class="ltn__progress-info">
-                                                <h3>Happy Clients</h3>
-                                                <p>Construction Simulator</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- PROGRESS BAR AREA END -->
-
-        <!-- COUNTER UP AREA START -->
-        <div class="ltn__counterup-area section-bg-1 bg-image bg-overlay-theme-black-80--- pt-115 pb-70"
-            data-bs-bg="img/bg/30.jpg')}}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 align-self-center">
-                        <div class="ltn__counterup-item text-center">
-                            <div class="counter-icon">
-                                <!-- <img src="{{ asset('assets-landing/img/icons/icon-img/2.png') }}" alt="#">  -->
-                                <i class="flaticon-add-user-1"></i>
-                            </div>
-                            <h1><span class="counter">733</span><span class="counterUp-icon">+</span> </h1>
-                            <h6>Active Clients</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 align-self-center">
-                        <div class="ltn__counterup-item text-center">
-                            <div class="counter-icon">
-                                <!-- <img src="{{ asset('assets-landing/img/icons/icon-img/3.png') }}" alt="#">  -->
-                                <i class="flaticon-dining-table-with-chairs"></i>
-                            </div>
-                            <h1><span class="counter">33</span><span class="counterUp-letter">K</span><span
-                                    class="counterUp-icon">+</span> </h1>
-                            <h6>Cup Of Coffee</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 align-self-center">
-                        <div class="ltn__counterup-item text-center">
-                            <div class="counter-icon">
-                                <!-- <img src="{{ asset('assets-landing/img/icons/icon-img/3.png') }}" alt="#">  -->
-                                <i class="flaticon-package"></i>
-                            </div>
-                            <h1><span class="counter">100</span><span class="counterUp-icon">+</span> </h1>
-                            <h6>Get Rewards</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 align-self-center">
-                        <div class="ltn__counterup-item text-center">
-                            <div class="counter-icon">
-                                <!-- <img src="{{ asset('assets-landing/img/icons/icon-img/3.png') }}" alt="#">  -->
-                                <i class="flaticon-maps-and-location"></i>
-                            </div>
-                            <h1><span class="counter">21</span><span class="counterUp-icon">+</span> </h1>
-                            <h6>Country Cover</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- COUNTER UP AREA END -->
-
-        <!-- TESTIMONIAL AREA START (testimonial-4) -->
-        <div class="ltn__testimonial-area section-bg-1 pt-290 pb-70">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title-area ltn__section-title-2 text-center">
-                            <h1 class="section-title">Clients Feedbacks<span>.</span></h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="row ltn__testimonial-slider-3-active slick-arrow-1 slick-arrow-1-inner">
-                    <div class="col-lg-12">
-                        <div class="ltn__testimonial-item ltn__testimonial-item-4">
-                            <div class="ltn__testimoni-img">
-                                <img src="{{ asset('assets-landing/img/testimonial/6.jpg') }}" alt="#">
-                            </div>
-                            <div class="ltn__testimoni-info">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. </p>
-                                <h4>Rosalina D. William</h4>
-                                <h6>Founder</h6>
-                            </div>
-                            <div class="ltn__testimoni-bg-icon">
-                                <i class="far fa-comments"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="ltn__testimonial-item ltn__testimonial-item-4">
-                            <div class="ltn__testimoni-img">
-                                <img src="{{ asset('assets-landing/img/testimonial/7.jpg') }}" alt="#">
-                            </div>
-                            <div class="ltn__testimoni-info">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. </p>
-                                <h4>Rosalina D. William</h4>
-                                <h6>Founder</h6>
-                            </div>
-                            <div class="ltn__testimoni-bg-icon">
-                                <i class="far fa-comments"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="ltn__testimonial-item ltn__testimonial-item-4">
-                            <div class="ltn__testimoni-img">
-                                <img src="{{ asset('assets-landing/img/testimonial/1.jpg') }}" alt="#">
-                            </div>
-                            <div class="ltn__testimoni-info">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. </p>
-                                <h4>Rosalina D. William</h4>
-                                <h6>Founder</h6>
-                            </div>
-                            <div class="ltn__testimoni-bg-icon">
-                                <i class="far fa-comments"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="ltn__testimonial-item ltn__testimonial-item-4">
-                            <div class="ltn__testimoni-img">
-                                <img src="{{ asset('assets-landing/img/testimonial/2.jpg') }}" alt="#">
-                            </div>
-                            <div class="ltn__testimoni-info">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. </p>
-                                <h4>Rosalina D. William</h4>
-                                <h6>Founder</h6>
-                            </div>
-                            <div class="ltn__testimoni-bg-icon">
-                                <i class="far fa-comments"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="ltn__testimonial-item ltn__testimonial-item-4">
-                            <div class="ltn__testimoni-img">
-                                <img src="{{ asset('assets-landing/img/testimonial/5.jpg') }}" alt="#">
-                            </div>
-                            <div class="ltn__testimoni-info">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. </p>
-                                <h4>Rosalina D. William</h4>
-                                <h6>Founder</h6>
-                            </div>
-                            <div class="ltn__testimoni-bg-icon">
-                                <i class="far fa-comments"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <!--  -->
-                </div>
-            </div>
-        </div>
-        <!-- TESTIMONIAL AREA END -->
-
         <!-- FAQ AREA START (faq-2) (ID > accordion_2) -->
         <div class="ltn__faq-area pt-115 pb-120">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title-area ltn__section-title-2 text-center">
-                            <h1 class="section-title white-color---">Some Questions</h1>
+                            <h1 class="section-title white-color---">Pertanyaan Yang Sering Ditanyakan</h1>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-12">
                         <div class="ltn__faq-inner ltn__faq-inner-2">
                             <div id="accordion_2">
                                 <!-- card -->
@@ -561,73 +320,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <aside class="about-us-img-wrap about-img-right">
-                            <img src="{{ asset('assets-landing/img/others/100.jpg') }}" alt="Banner Image">
-                        </aside>
-                    </div>
                 </div>
             </div>
         </div>
         <!-- FAQ AREA START -->
-
-        <!-- FEATURE AREA START ( Feature - 6) -->
-        <div class="ltn__feature-area section-bg-1 pt-115 pb-90">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title-area ltn__section-title-2 text-center">
-                            <h1 class="section-title">Layanan Kami<span>.</span></h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-sm-6 col-12">
-                        <div class="ltn__feature-item ltn__feature-item-7">
-                            <div class="ltn__feature-icon-title">
-                                <div class="ltn__feature-icon">
-                                    <span><i class="fas fa-hand-holding-medical"></i> </span>
-                                </div>
-                                <h3><a href="service-details.html">All Kind Brand</a></h3>
-                            </div>
-                            <div class="ltn__feature-info">
-                                <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or
-                                    incididunt ut labore.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 col-12">
-                        <div class="ltn__feature-item ltn__feature-item-7">
-                            <div class="ltn__feature-icon-title">
-                                <div class="ltn__feature-icon">
-                                    <span><i class="fas fa-microscope"></i> </span>
-                                </div>
-                                <h3><a href="service-details.html">Curated Products</a></h3>
-                            </div>
-                            <div class="ltn__feature-info">
-                                <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or
-                                    incididunt ut labore.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 col-12">
-                        <div class="ltn__feature-item ltn__feature-item-7">
-                            <div class="ltn__feature-icon-title">
-                                <div class="ltn__feature-icon">
-                                    <span><i class="fas fa-stethoscope"></i> </span>
-                                </div>
-                                <h3><a href="service-details.html">Pesticide Free Goods</a></h3>
-                            </div>
-                            <div class="ltn__feature-info">
-                                <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or
-                                    incididunt ut labore.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- FEATURE AREA END -->
 
         <!-- BLOG AREA START (blog-3) -->
         @if (count($articles) >= 5)
@@ -659,7 +355,7 @@
                                     <div class="ltn__blog-meta">
                                         <ul>
                                             <li class="ltn__blog-tags">
-                                                <a href="#">
+                                                <a href="{{ url('articles/category', Str::slug($article->category->category)) }}">
                                                     <i class="fas fa-tags"></i>{{ $article->category->category }}
                                                 </a>
                                             </li>
@@ -672,7 +368,7 @@
                                         <div class="ltn__blog-meta">
                                             <ul>
                                                 <li class="ltn__blog-date">
-                                                    {{ $article->published_at }}
+                                                    {{ Carbon\Carbon::parse($article->published_at)->diffForHumans() }}
                                                 </li>
                                             </ul>
                                         </div>
