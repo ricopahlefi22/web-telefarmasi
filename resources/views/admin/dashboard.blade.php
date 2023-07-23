@@ -59,6 +59,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card top_widget">
+                        <div class="body">
+                            <div class="icon"><i class="fa fa-shopping-bag"></i> </div>
+                            <div class="content">
+                                <div class="text mb-2 text-uppercase">Pesanan</div>
+                                <h4 class="number mb-0">
+                                    {{ $order_count }}
+                                </h4>
+                                <small class="text-muted">Jumlah pesanan saat ini</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@ class SocialiteController extends Controller
     function handleProviderCallback($provider)
     {
 
-        if (Auth::check()) {
+        if (Auth::guard('user')->check()) {
             return redirect('/')->with(['success' => 'Login Berhasil']);
         } else {
             try {
@@ -31,7 +31,7 @@ class SocialiteController extends Controller
 
             $loggedUser = $this->findOrCreateUser($user, $provider);
 
-            Auth::login($loggedUser);
+            Auth::login($loggedUser, true);
 
             return redirect('/')->with(['success' => 'Login Berhasil']);
         }

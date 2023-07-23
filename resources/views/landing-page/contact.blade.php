@@ -2,15 +2,10 @@
 
 <body>
     <div class="body-wrapper">
-
-        <!-- HEADER AREA START (header-3) -->
         <header class="ltn__header-area ltn__header-3">
-            <!-- ltn__header-top-area start -->
             <div class="ltn__header-top-area border-bottom">
                 @include('landing-page.sections.header')
             </div>
-            <!-- ltn__header-top-area end -->
-            <!-- ltn__header-middle-area start -->
             <div class="ltn__header-middle-area">
                 <div class="container">
                     <div class="row">
@@ -180,13 +175,11 @@
             <div class="footer-top-area  section-bg-2 plr--5">
                 <div class="container-fluid">
                     @include('landing-page.sections.footer')
-
                 </div>
             </div>
             <div class="ltn__copyright-area ltn__copyright-2 section-bg-7  plr--5">
                 <div class="container-fluid ltn__border-top-2">
                     @include('landing-page.sections.copyright')
-
                 </div>
             </div>
         </footer>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Cart;
+use App\Models\Chat;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
@@ -82,7 +84,7 @@ class LandingPageController extends Controller
 
         $checkCart = Cart::where('product_id', $request->product_id)->first();
 
-        if($checkCart){
+        if ($checkCart) {
             $checkCart->quantity += $request->quantity;
             $checkCart->save();
         } else {
@@ -102,4 +104,58 @@ class LandingPageController extends Controller
         ]);
     }
 
+    function cart()
+    {
+        $data['carts'] = Cart::where('user_id', Auth::user()->id)->get();
+        return view('landing-page.cart', $data);
+    }
+
+    function chat()
+    {
+        $data['chats'] = Chat::where('user_id', Auth::guard('user')->user()->id)->get();
+        return view('landing-page.chat', $data);
+    }
+
+    function readChat()
+    {
+        $data['chats'] = Chat::where('user_id', Auth::guard('user')->user()->id)->get();
+        return view('landing-page.sections.chat-scrolling', $data);
+    }
+
+    function checkout(Request $request)
+    {
+        dd($request->all());
+        $data['order'] = new Order;
+        $data['order']->user_id = $request->user_id;
+        $data['order']->total_price = $request->total_price;
+        $data['order']->products = $request->user_id;
+        $data['order']->status = "Unpaid";
+        $data['order']->save();
+
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $data['order']->id,
+                'gross_amount' => $request->total_price,
+            ),
+            'customer_details' => array(
+                'first_name' => 'budi',
+                'last_name' => 'pratama',
+                'email' => 'budi.pra@example.com',
+                'phone' => '08111222333',
+            ),
+        );
+
+        $data['snapToken'] = \Midtrans\Snap::getSnapToken($params);
+
+        return response()->json($data);
+    }
 }

@@ -14,6 +14,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,9 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
         Route::get('dashboard', [DashboardController::class, 'dashboard']);
 
         Route::get('chats', [ChatController::class, 'index']);
+        Route::post('chat/store', [ChatController::class, 'sendMessage']);
+        Route::get('chat/read/{id}', [ChatController::class, 'readChat']);
+
 
         Route::controller(AboutUsController::class)->group(function () {
             Route::get('about', 'admin');
@@ -58,6 +62,16 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
             Route::delete('destroy', 'destroy');
         });
 
+        Route::prefix('orders')->controller(OrderController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::get('create', 'create');
+            Route::get('detail/{id}', 'detail');
+            Route::get('edit/{id}', 'edit');
+            Route::post('check', 'check');
+            Route::post('store', 'store');
+            Route::delete('destroy', 'destroy');
+        });
+
         Route::prefix('products')->controller(ProductController::class)->group(function () {
             Route::get('/', 'index');
             Route::get('create', 'create');
@@ -65,7 +79,6 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
             Route::get('edit/{id}', 'edit');
             Route::post('check', 'check');
             Route::post('store', 'store');
-            Route::post('publish', 'publish');
             Route::delete('destroy', 'destroy');
         });
 
@@ -104,6 +117,19 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
 | Landing Page and Website Routes
 |--------------------------------------------------------------------------
 */
+Route::controller(AuthUserController::class)->group(function () {
+    Route::get('login', 'login')->name('login')->middleware('guest:user');
+    Route::post('login', 'loginProcess');
+    Route::get('register', 'register');
+    Route::post('register', 'registerProcess');
+    Route::get('logout', 'logout');
+});
+
+Route::prefix('auth')->controller(SocialiteController::class)->group(function () {
+    Route::get('{provider}', 'redirectToProvider');
+    Route::get('{provider}/callback', 'handleProviderCallback');
+});
+
 Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'index');
 
@@ -117,7 +143,13 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::post('products/check', 'checkProduct');
     Route::post('products/add-to-cart', 'addToCartProduct');
 
-    Route::get('cart', 'cart');
+    Route::middleware('auth:user')->group(function () {
+        Route::get('cart', 'cart');
+        Route::get('chat', 'chat');
+        Route::get('chat/read', 'readChat');
+        Route::post('chat/store', [ChatController::class, 'sendMessage']);
+        Route::post('checkout', 'checkout');
+    });
 });
 
 Route::controller(AboutUsController::class)->group(function () {
@@ -126,17 +158,4 @@ Route::controller(AboutUsController::class)->group(function () {
 
 Route::controller(ContactController::class)->group(function () {
     Route::get('contact', 'contact');
-});
-
-Route::controller(AuthUserController::class)->group(function () {
-    Route::get('login', 'login');
-    Route::post('login', 'loginProcess');
-    Route::get('register', 'register');
-    Route::post('register', 'registerProcess');
-    Route::get('logout', 'logout');
-});
-
-Route::prefix('auth')->controller(SocialiteController::class)->group(function () {
-    Route::get('{provider}', 'redirectToProvider');
-    Route::get('{provider}/callback', 'handleProviderCallback');
 });

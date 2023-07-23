@@ -20,7 +20,7 @@ class WebConfigSeeder extends Seeder
             'logo' => 'img/favicon.png',
             'address' => 'Jl. Jenderal Sudirman No. 67',
             'email' => 'apotekdestafarma@gmail.com',
-            'phone_number' => '6285171004535',
+            'phone_number' => '085171004535',
             'facebook' => 'https://www.facebook.com/apotekdestafarma/',
             'instagram' => 'https://www.instagram.com/apotekdestafarma/',
             'latitude' => -1.8403967,

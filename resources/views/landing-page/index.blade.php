@@ -178,7 +178,8 @@
                                                     keluhan atau masalah anda.</p>
                                             </div>
                                             <div class="btn-wrapper animated">
-                                                <a href="#" class="theme-btn-1 btn btn-effect-1">Konsultasi</a>
+                                                <a href="{{ url('chat') }}"
+                                                    class="theme-btn-1 btn btn-effect-1">Konsultasi</a>
                                             </div>
                                         </div>
                                     </div>

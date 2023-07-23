@@ -118,7 +118,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="shoping-cart-inner">
-                            <form id="form" action="checkout" method="POST">
+                            <form action="checkout" method="POST">
+                                @csrf
                                 <div class="shoping-cart-table table-responsive">
                                     <table class="table">
                                         <tbody>
@@ -218,71 +219,10 @@
     </div>
     <!-- Body main wrapper end -->
 
-    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key="{{ config('midtrans.client_key') }}"></script>
-
     <!-- All JS Plugins -->
     <script src="{{ asset('assets-landing/js/plugins.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('assets-landing/js/main.js') }}"></script>
-
-    <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-            });
-
-            $("#form").on("submit", function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    url: $(this).attr("action"),
-                    method: $(this).attr("method"),
-                    data: new FormData(this),
-                    processData: false,
-                    dataType: "json",
-                    contentType: false,
-                    beforeSend: function() {
-                        $("#submit").html(
-                            '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div></div>'
-                        );
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        window.snap.pay(response.snapToken, {
-                            onSuccess: function(result) {
-                                /* You may add your own implementation here */
-                                alert("payment success!");
-                                console.log(result);
-                            },
-                            onPending: function(result) {
-                                /* You may add your own implementation here */
-                                alert("wating your payment!");
-                                console.log(result);
-                            },
-                            onError: function(result) {
-                                /* You may add your own implementation here */
-                                alert("payment failed!");
-                                console.log(result);
-                            },
-                            onClose: function() {
-                                /* You may add your own implementation here */
-                                alert(
-                                    'you closed the popup without finishing the payment'
-                                    );
-                            }
-                        });
-                    },
-                    error: function(error) {
-                        console.error(error);
-                    },
-                });
-
-            });
-        });
-    </script>
 </body>
 
 </html>
