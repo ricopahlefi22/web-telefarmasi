@@ -89,7 +89,7 @@ class LandingPageController extends Controller
             $checkCart->save();
         } else {
             $cart = new Cart;
-            $cart->user_id = Auth::user()->id;
+            $cart->user_id = Auth::guard('user')->user()->id;
             $cart->product_id = $request->product_id;
             $cart->quantity = $request->quantity;
             $cart->save();
@@ -106,7 +106,7 @@ class LandingPageController extends Controller
 
     function cart()
     {
-        $data['carts'] = Cart::where('user_id', Auth::user()->id)->get();
+        $data['carts'] = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
         return view('landing-page.cart', $data);
     }
 
@@ -124,7 +124,6 @@ class LandingPageController extends Controller
 
     function checkout(Request $request)
     {
-        dd($request->all());
         $data['order'] = new Order;
         $data['order']->user_id = $request->user_id;
         $data['order']->total_price = $request->total_price;
@@ -147,8 +146,7 @@ class LandingPageController extends Controller
                 'gross_amount' => $request->total_price,
             ),
             'customer_details' => array(
-                'first_name' => 'budi',
-                'last_name' => 'pratama',
+                'name' => 'budi',
                 'email' => 'budi.pra@example.com',
                 'phone' => '08111222333',
             ),

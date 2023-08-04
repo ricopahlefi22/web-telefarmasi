@@ -137,7 +137,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="py-5">
+                        {{-- <div class="py-5">
                             <p>
                                 <span>atau menggunakan: </span>
                                 <a href="{{ url('auth/google') }}" style="margin: 0 20px 0 20px">
@@ -147,7 +147,7 @@
                                     <img src="{{ asset('assets-landing/img/facebook.png') }}" height="30">
                                 </a>
                             </p>
-                        </div>
+                        </div> --}}
                         <div class="account-create text-center pt-50">
                             <h4>Belum Punya Akun?</h4>
                             <p>Buatlah akun terlebih dahulu untuk dapat menggunakan seluruh fasilitas kami</p>

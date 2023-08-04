@@ -9,7 +9,6 @@
         <div class="ltn__utilize-menu">
             <ul>
                 <li><a href="{{ url('/') }}">Beranda</a></li>
-                <li><a href="{{ url('about') }}">Tentang Kami</a></li>
                 <li><a href="javascript:void(0)">Artikel</a>
                     <ul class="sub-menu">
                         @foreach (App\Models\ArticleCategory::all() as $category)
@@ -28,6 +27,7 @@
                     </ul>
                 </li>
                 <li><a href="{{ url('contact') }}">Kontak</a></li>
+                <li><a href="{{ url('about') }}">Tentang Kami</a></li>
             </ul>
         </div>
         <div class="ltn__utilize-buttons ltn__utilize-buttons-2">

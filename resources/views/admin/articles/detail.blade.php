@@ -6,41 +6,30 @@
             <div class="block-header">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <h2>Blog Details</h2>
+                        <h2>Detail Artikel</h2>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
-                            <li class="breadcrumb-item">App</li>
-                            <li class="breadcrumb-item active">Blog</li>
+                            <li class="breadcrumb-item">Master Data</li>
+                            <li class="breadcrumb-item">Data Artikel</li>
+                            <li class="breadcrumb-item active">Detail</li>
                         </ul>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="d-flex flex-row-reverse">
-                            <div class="page_action">
-                                <button type="button" class="btn btn-primary">Generate Report</button>
-                                <a href="blog-post.html" class="btn btn-secondary" title="new post">New post</a>
-                            </div>
-                            <div class="p-2 d-flex">
-
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="row clearfix">
-                <div class="col-lg-8 col-md-12 left-box">
+                <div class="col-lg-12 col-md-12 left-box">
                     <div class="card single_post">
                         <div class="body">
                             <div class="img-post">
-                                {{-- <img class="d-block img-fluid" src="{{ asset($article->image) }}" alt="Gambar"> --}}
+                                <img class="d-block img-fluid" src="{{ asset($article->image) }}" alt="Gambar">
                             </div>
-                            <h3 class="mt-3">{{ $article->title }}</h3>
+                            <h1 class="mt-3 text-dark"><strong>{{ $article->title }}</strong></h1>
                             {!! nl2br($article->body) !!}
                         </div>
                     </div>
-
                 </div>
-                <div class="col-lg-4 col-md-12 right-box">
+                {{-- <div class="col-lg-4 col-md-12 right-box">
                     <div class="card">
                         <div class="header">
                             <h2>Comments 3</h2>
@@ -117,7 +106,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
         </div>

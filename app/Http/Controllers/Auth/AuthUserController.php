@@ -18,7 +18,7 @@ class AuthUserController extends Controller
     function loginProcess(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
         ], [
             'email.required' => 'Email tidak boleh kosong',

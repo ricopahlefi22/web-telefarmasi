@@ -28,9 +28,9 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="d-flex flex-row-reverse">
                                 <div class="page_action">
-                                    <button type="button" class="btn btn-outline-dark">
+                                    <a href="{{ url()->previous() }}" class="btn btn-outline-dark">
                                         <i class="fa fa-chevron-left"></i> Kembali
-                                    </button>
+                                    </a>
                                     <button type="submit" class="btn btn-secondary">
                                         <i class="fa fa-send"></i> Simpan
                                     </button>
@@ -51,7 +51,8 @@
                                     <div class="col-6">
                                         <div class="mb-2">
                                             <label for="title" class="form-label">Gambar Thumbnail</label>
-                                            <input type="hidden" name="hidden_image" value="{{ empty($article->image) ? null : $article->image }}">
+                                            <input type="hidden" name="hidden_image"
+                                                value="{{ empty($article->image) ? null : $article->image }}">
                                             <input id="image" type="file" class="dropify" name="image"
                                                 data-default-file="{{ empty($article->image) ? null : asset($article->image) }}"
                                                 data-allowed-file-extensions="jpeg jpg png" data-max-file-size="1000K">

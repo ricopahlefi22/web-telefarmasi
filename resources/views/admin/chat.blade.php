@@ -30,8 +30,8 @@
                                         <li class="clearfix">
                                             <img src="{{ asset('assets-admin/images/xs/avatar2.jpg') }}" alt="avatar" />
                                             <div class="about">
-                                                <div class="name">{{ $user->name }}</div>
-                                                <div class="status"> <i class="fa fa-circle online"></i>Online</div>
+                                                <div class="name text-dark">{{ $user->name }}</div>
+                                                <div class="status text-dark"> <i class="fa fa-circle online"></i>Online</div>
                                             </div>
                                         </li>
                                     </a>
@@ -117,11 +117,13 @@
                 read();
             }, 1000);
 
-            function read() {
-                $.get("chat/read/{{ Crypt::encrypt($user_room->id) }}", {}, function(data) {
-                    $("#chatWrapper").html(data);
-                });
-            }
+            @if (!empty($user_room))
+                function read() {
+                    $.get("chat/read/{{ Crypt::encrypt($user_room->id) }}", {}, function(data) {
+                        $("#chatWrapper").html(data);
+                    });
+                }
+            @endif
 
             $.ajaxSetup({
                 headers: {

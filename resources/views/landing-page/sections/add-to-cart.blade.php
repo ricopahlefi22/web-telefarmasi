@@ -26,9 +26,6 @@
                                             <a href="{{ url('cart') }}" class="theme-btn-1 btn btn-effect-1">
                                                 Lihat Keranjang
                                             </a>
-                                            <a href="{{ url('checkout') }}" class="theme-btn-2 btn btn-effect-2">
-                                                Bayar
-                                            </a>
                                         </div>
                                     </div>
                                 </div>

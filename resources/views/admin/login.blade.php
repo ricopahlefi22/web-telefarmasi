@@ -29,7 +29,8 @@
                 <div class="auth-box">
                     <div class="card">
                         <div class="header">
-                            <p class="lead">Masuk ke akunmu</p>
+                            <h5><strong>Masuk</strong></h5>
+                            <p>masukkan email dan passwordmu untuk memastikan identitasmu</p>
                         </div>
                         <div class="body">
                             <form id="form" class="form-auth-small" action="login" method="POST">

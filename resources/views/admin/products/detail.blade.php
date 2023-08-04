@@ -32,10 +32,10 @@
                     <div class="card single_post">
                         <div class="body">
                             <div class="img-post">
-                                {{-- <img class="d-block img-fluid" src="{{ asset($article->image) }}" alt="Gambar"> --}}
+                                {{-- <img class="d-block img-fluid" src="{{ asset($product->image) }}" alt="Gambar"> --}}
                             </div>
-                            <h3 class="mt-3">{{ $article->title }}</h3>
-                            {!! nl2br($article->body) !!}
+                            <h3 class="mt-3">{{ $product->name }}</h3>
+                            {!! nl2br($product->description) !!}
                         </div>
                     </div>
 
@@ -78,7 +78,7 @@
                                             src="{{ asset('assets-admin/images/sm/avatar4.jpg') }}" alt="Awesome Image"></div>
                                     <div class="text-box col-md-10 col-8 p-l-0 p-r0">
                                         <h5 class="mb-0">Kendall Jenner</h5>
-                                        <p>Very nice and informative article. In all the years I've done small and
+                                        <p>Very nice and informative product. In all the years I've done small and
                                             side-projects as a freelancer, I've ran into a few problems here and there.</p>
                                         <ul class="list-inline">
                                             <li><a href="javascript:void(0);">Mar 20 2018</a></li>

@@ -40,6 +40,10 @@ var table = $("#table").DataTable({
             name: "email",
         },
         {
+            data: "phone_number",
+            name: "phone_number",
+        },
+        {
             data: "action",
             name: "action",
             orderable: false,
@@ -77,6 +81,7 @@ $("#create").click(function () {
     $("#id").val("");
     $("#name").val("").removeClass("is-invalid");
     $("#email").val("").removeClass("is-invalid");
+    $("#phoneNumber").val("").removeClass("is-invalid");
 
     var dropify = $("#photo").dropify({
         defaultFile: null,
@@ -103,6 +108,7 @@ $("#form").on("submit", function (e) {
         beforeSend: function () {
             $("#name").removeClass("is-invalid");
             $("#email").removeClass("is-invalid");
+            $("#phoneNumber").removeClass("is-invalid");
             $("#button").html(
                 '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
             );
@@ -123,13 +129,18 @@ $("#form").on("submit", function (e) {
                 var responseError = error["responseJSON"]["errors"];
                 $("#nameError").html(responseError["name"]);
                 $("#emailError").html(responseError["email"]);
+                $("#phoneNumberError").html(responseError["phone_number"]);
 
-                if (responseError["name"]) {
-                    $("#name").addClass("is-invalid").focus();
+                if (responseError["phone_number"]) {
+                    $("#phoneNumber").addClass("is-invalid").focus();
                 }
 
                 if (responseError["email"]) {
-                    $("#email").addClass("is-invalid");
+                    $("#email").addClass("is-invalid").focus();
+                }
+
+                if (responseError["name"]) {
+                    $("#name").addClass("is-invalid").focus();
                 }
             }
         },
@@ -149,10 +160,12 @@ $("body").on("click", ".edit", function () {
             $("#button").html("Simpan").addClass("btn-warning");
             $("#name").val("").removeClass("is-invalid");
             $("#email").val("").removeClass("is-invalid");
+            $("#phoneNumber").val("").removeClass("is-invalid");
 
             $("#id").val(response.id);
             $("#name").val(response.name);
             $("#email").val(response.email);
+            $("#phoneNumber").val(response.phone_number);
             $("#hiddenPhoto").val(response.photo);
 
             var dropify = $("#photo").dropify({

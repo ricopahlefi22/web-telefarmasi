@@ -34,11 +34,13 @@ class AdminController extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|email',
+                'phone_number' => 'required',
             ],
             [
                 'name.required' => 'Mohon isi kolom nama',
                 'email.required' => 'Mohon isi kolom email',
                 'email.email' => 'Format email tidak sesuai',
+                'phone_number.required' => 'Mohon isi kolom nomor handphone',
             ]
         );
 
@@ -58,7 +60,7 @@ class AdminController extends Controller
         ], [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt('12341234'),
+            'phone_number' => $request->phone_number,
             'photo' => $photo,
         ]);
 

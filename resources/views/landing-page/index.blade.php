@@ -107,6 +107,32 @@
             <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
                 <!-- ltn__slide-item -->
                 <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60---"
+                    data-bs-bg="{{ asset('assets-landing/img/slider/slider-3.jpg') }}">
+                    <div class="ltn__slide-item-inner  text-right text-end">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 align-self-center">
+                                    <div class="slide-item-info">
+                                        <div class="slide-item-info-inner ltn__slide-animation">
+                                            <h1 class="slide-title animated ">Konsultasi Obat Bersama Apoteker</h1>
+                                            <div class="slide-brief animated">
+                                                <p>Kami menyediakan layanan konsultasi mengenai obat yang tepat dengan
+                                                    keluhan atau masalah anda.</p>
+                                            </div>
+                                            <div class="btn-wrapper animated">
+                                                <a href="{{ url('chat') }}"
+                                                    class="theme-btn-1 btn btn-effect-1">Konsultasi</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- ltn__slide-item -->
+                <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60---"
                     data-bs-bg="{{ asset('assets-landing/img/slider/slider-1.jpg') }}">
                     <div class="ltn__slide-item-inner  text-left">
                         <div class="container">
@@ -163,58 +189,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- ltn__slide-item -->
-                <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60---"
-                    data-bs-bg="{{ asset('assets-landing/img/slider/slider-3.jpg') }}">
-                    <div class="ltn__slide-item-inner  text-right text-end">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12 align-self-center">
-                                    <div class="slide-item-info">
-                                        <div class="slide-item-info-inner ltn__slide-animation">
-                                            <h1 class="slide-title animated ">Konsultasi Obat Bersama Apoteker</h1>
-                                            <div class="slide-brief animated">
-                                                <p>Kami menyediakan layanan konsultasi mengenai obat yang tepat dengan
-                                                    keluhan atau masalah anda.</p>
-                                            </div>
-                                            <div class="btn-wrapper animated">
-                                                <a href="{{ url('chat') }}"
-                                                    class="theme-btn-1 btn btn-effect-1">Konsultasi</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
             </div>
         </div>
         <!-- SLIDER AREA END -->
 
-        <!-- CATEGORY AREA START -->
-        <div class="ltn__category-area section-bg-1-- pt-50 pb-90">
-            <div class="container">
-                <div class="row ltn__category-slider-active-six slick-arrow-1 border-bottom">
-                    @foreach ($product_categories as $category)
-                        <div class="col-12">
-                            <div class="ltn__category-item ltn__category-item-6 text-center">
-                                <div class="ltn__category-item-name">
-                                    <h6><a
-                                            href="{{ url('products/category', Str::slug($category->category)) }}">{{ $category->category }}</a>
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-        <!-- CATEGORY AREA END -->
-
         <!-- PRODUCT AREA START (product-item-3) -->
-        <div class="ltn__product-area ltn__product-gutter  no-product-ratting pt-20 pb-70">
+        <div class="ltn__product-area ltn__product-gutter  no-product-ratting pt-120 pb-70">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -224,27 +204,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3">
-                        <div class="row">
-                            <div class="col-lg-12 col-sm-6">
-                                <div class="ltn__banner-item">
-                                    <div class="ltn__banner-img">
-                                        <img src="{{ asset('assets-landing/img/banner/banner-1.jpg') }}"
-                                            alt="Banner Image">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-sm-6">
-                                <div class="ltn__banner-item">
-                                    <div class="ltn__banner-img">
-                                        <img src="{{ asset('assets-landing/img/banner/banner-2.jpg') }}"
-                                            alt="Banner Image">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="row ltn__tab-product-slider-one-active--- slick-arrow-1">
                             @foreach ($random_products as $product)
                                 <!-- ltn__product-item -->

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+    <div class="col-xl-4 col-md-6 col-sm-6 col-12">
         <div class="footer-widget footer-about-widget">
             <div class="footer-logo">
                 <div class="site-logo">
@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+    <div class="col-xl-4 col-md-6 col-sm-6 col-12">
         <div class="footer-widget footer-menu-widget clearfix">
             <h4 class="footer-title">Informasi</h4>
             <div class="footer-menu">
@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+    <div class="col-xl-4 col-md-6 col-sm-6 col-12">
         <div class="footer-widget footer-menu-widget clearfix">
             <h4 class="footer-title">Layanan</h4>
             <div class="footer-menu">
@@ -75,12 +75,6 @@
                     <li><a href="{{ url('articles') }}">Artikel Kesehatan</a></li>
                 </ul>
             </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6 col-sm-12 col-12">
-        <div class="footer-widget footer-newsletter-widget">
-            <h4 class="footer-title">Kami Menerima</h4>
-            <img src="{{ asset('assets-landing/img/icons/payment-4.png') }}" alt="Payment Image">
         </div>
     </div>
 </div>

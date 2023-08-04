@@ -25,12 +25,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
     Route::controller(AuthAdminController::class)->group(function () {
-        Route::get('/', 'login')->name('login');
+        Route::get('login', 'login')->name('login');
         Route::post('login', 'loginProcess');
         Route::get('logout', 'logout');
     });
 
     Route::middleware('auth:admin')->group(function () {
+        Route::get('/', [DashboardController::class, 'dashboard']);
         Route::get('dashboard', [DashboardController::class, 'dashboard']);
 
         Route::get('chats', [ChatController::class, 'index']);

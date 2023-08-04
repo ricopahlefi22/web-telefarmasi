@@ -26,8 +26,8 @@
                     <div class="col-lg-6">
                         <img src="{{ asset('favicon.png') }}" alt="avatar" />
                         <div class="chat-about">
-                            <h5 class="mb-0">Alim Rahman Hakim</h5>
-                            <small>Apoteker Desta Farma</small>
+                            <h5 class="mb-0">Apoteker Desta Farma</h5>
+                            <small>Buka dari jam 08.00 - 21.00</small>
                         </div>
                     </div>
                     <div class="col-lg-6 hidden-sm text-right">
