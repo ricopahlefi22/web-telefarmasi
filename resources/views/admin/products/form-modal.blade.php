@@ -28,9 +28,9 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="d-flex flex-row-reverse">
                                 <div class="page_action">
-                                    <button type="button" class="btn btn-outline-dark">
+                                    <a href="{{ url()->previous() }}" class="btn btn-outline-dark">
                                         <i class="fa fa-chevron-left"></i> Kembali
-                                    </button>
+                                    </a>
                                     <button type="submit" class="btn btn-secondary">
                                         <i class="fa fa-send"></i> Simpan
                                     </button>
@@ -50,7 +50,9 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="mb-2">
-                                            <label for="title" class="form-label">Gambar Produk<strong class="text-danger" title="Wajib Diisi">*</strong><span id="imageError" class="text-danger" style="font-size: 12px;"></span></label>
+                                            <label for="title" class="form-label">Gambar Produk<strong
+                                                    class="text-danger" title="Wajib Diisi">*</strong><span id="imageError"
+                                                    class="text-danger" style="font-size: 12px;"></span></label>
                                             <input type="hidden" name="hidden_image"
                                                 value="{{ empty($product->image) ? null : $product->image }}">
                                             <input id="image" type="file" class="dropify" name="image"

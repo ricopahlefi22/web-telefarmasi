@@ -8,7 +8,7 @@
     <meta name="author" content="Rico Pahlefi, Kayong Developer">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Login - Admin Apotek Desta Farma</title>
+    <title>Reset Password - Admin Apotek Desta Farma</title>
 
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
     <!-- VENDOR CSS -->
@@ -29,29 +29,25 @@
                 <div class="auth-box">
                     <div class="card">
                         <div class="header">
-                            <h5><strong>Login</strong></h5>
-                            <p>masukkan email dan passwordmu untuk memastikan identitasmu.</p>
+                            <h5><strong>Reset Password</strong></h5>
+                            <p>atur ulang kata sandimu untuk dapat masuk ke dalam sistem.</p>
                         </div>
                         <div class="body">
-                            <form id="form" class="form-auth-small" action="login" method="POST">
-                                <div class="form-group">
-                                    <label for="email" class="control-label sr-only">Email</label>
-                                    <input id="email" type="email" name="email" class="form-control" placeholder="Email">
-                                    <span id="emailError" class="invalid-feedback"></span   >
-                                </div>
+                            <form id="form" class="form-auth-small" action="reset-password" method="POST">
+                                <input type="hidden" name="token" value="{{ $token }}">
+
                                 <div class="form-group">
                                     <label for="password" class="control-label sr-only">Password</label>
                                     <input id="password" type="password" name="password" class="form-control" placeholder="Password">
                                     <span id="passwordError" class="invalid-feedback"></span>
                                 </div>
-                                <button id="submit" type="submit"
-                                    class="btn btn-primary btn-lg btn-block">Masuk</button>
-                                <div class="bottom">
-                                    <span class="helper-text m-b-10">
-                                        <i class="fa fa-lock"></i>
-                                        <a href="{{ url('forgot-password') }}">Lupa Kata Sandi?</a>
-                                    </span>
+                                <div class="form-group">
+                                    <label for="confirmPassword" class="control-label sr-only">Konfirmasi Password</label>
+                                    <input id="confirmPassword" type="password" name="confirm_password" class="form-control" placeholder="Konfirmasi Password">
+                                    <span id="confirmPasswordError" class="invalid-feedback"></span>
                                 </div>
+                                <button id="submit" type="submit"
+                                    class="btn btn-primary btn-lg btn-block">Ganti</button>
                             </form>
                         </div>
                     </div>
@@ -64,7 +60,7 @@
     <script src="{{ asset('assets-admin/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
 
-    <script src="{{ asset('js/login.js') }}"></script>
+    <script src="{{ asset('js/reset-password.js') }}"></script>
 </body>
 
 </html>

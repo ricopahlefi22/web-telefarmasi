@@ -44,6 +44,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Produk</th>
+                                            <th>Harga</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -51,6 +52,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Produk</th>
+                                            <th>Harga</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>

@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Cart;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
-class UserController extends Controller
+class CartController extends Controller
 {
     function index(Request $request)
     {
-        $data['title'] = 'Data Pengguna';
+        $data['title'] = 'Data Keranjang';
 
         if ($request->ajax()) {
-            return DataTables::of(User::all())
+            return DataTables::of(Cart::all())
                 ->addIndexColumn()
-                ->addColumn('action', function (User $user) {
+                ->addColumn('action', function (Cart $user) {
                     $btn = '<button data-id="' . $user->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save edit" data-toggle="tooltip" data-original-title="Save"><i class="icon-pencil" aria-hidden="true"></i></button> ';
                     $btn .= '<button data-id="' . $user->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save delete" data-toggle="tooltip" data-original-title="Save"><i class="icon-trash" aria-hidden="true"></i></button> ';
                     return $btn;
@@ -25,43 +24,24 @@ class UserController extends Controller
                 ->make(true);
         }
 
-        return view('admin.user.index', $data);
+        return view('admin.cart.index', $data);
     }
 
     function store(Request $request)
     {
         $request->validate(
             [
-                'name' => 'required',
-                'email' => 'required|email',
-                'phone_number' => 'required',
+                'category' => 'required',
             ],
             [
-                'name.required' => 'Mohon isi kolom nama',
-                'email.required' => 'Mohon isi kolom email',
-                'email.email' => 'Format email tidak sesuai',
-                'phone_number.required' => 'Mohon isi kolom nomor handphone',
+                'category.required' => 'Mohon isi kolom kategori',
             ]
         );
 
-        $photo = $request->hidden_photo;
-
-        if ($request->file('photo')) {
-            $path = 'public/user-photos/';
-            $file = $request->file('photo');
-            $file_name = Str::random(5) . time() . '_' . $file->getClientOriginalName();
-
-            $file->storeAs($path, $file_name);
-            $photo = "storage/user-photos/" . $file_name;
-        }
-
-        $data = User::updateOrCreate([
+        $data = Cart::updateOrCreate([
             'id' => $request->id,
         ], [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt('12341234'),
-            'photo' => $photo,
+            'category' => ucwords(strtolower($request->category)),
         ]);
 
         if ($request->id != $data->id) {
@@ -81,15 +61,22 @@ class UserController extends Controller
 
     function check(Request $request)
     {
-        $data = User::findOrFail($request->id);
+        $data = Cart::findOrFail($request->id);
 
         return response()->json($data);
     }
 
     function destroy(Request $request)
     {
-        $data = User::findOrFail($request->id);
+        $data = Cart::findOrFail($request->id);
+        foreach ($data->articles as $article) {
+            $article->category_id = null;
+            $article->published_at = null;
+            $article->update();
+        }
+
         $data->delete();
+
 
         return response()->json([
             'code' => 200,

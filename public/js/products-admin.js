@@ -23,6 +23,10 @@ var table = $("#table").DataTable({
             name: "name",
         },
         {
+            data: "price",
+            name: "price",
+        },
+        {
             data: "action",
             name: "action",
             orderable: false,

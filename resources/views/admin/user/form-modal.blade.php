@@ -34,6 +34,13 @@
                                     placeholder="Email">
                                 <span id="emailError" class="invalid-feedback"></span>
                             </div>
+                            <div class="mb-2">
+                                <label for="phoneNumber" class="form-label">No. Handphone<strong class="text-danger">*</strong>
+                                </label>
+                                <input type="text" class="form-control" id="phoneNumber" name="phone_number"
+                                    placeholder="Nomor Handphone">
+                                <span id="phoneNumberError" class="invalid-feedback"></span>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthUserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\ContactController;
@@ -25,8 +26,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
     Route::controller(AuthAdminController::class)->group(function () {
-        Route::get('login', 'login')->name('login');
+        Route::get('login', 'login')->name('login')->middleware('guest:admin');
         Route::post('login', 'loginProcess');
+        Route::get('forgot-password', 'forgotPassword');
+        Route::post('forgot-password', 'forgotPasswordProcess');
+        Route::get('reset-password', 'resetPassword');
+        Route::post('reset-password', 'resetPasswordProcess');
+        Route::post('otp', 'otp');
         Route::get('logout', 'logout');
     });
 
@@ -57,6 +63,13 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
         });
 
         Route::prefix('users')->controller(UserController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('check', 'check');
+            Route::post('store', 'store');
+            Route::delete('destroy', 'destroy');
+        });
+
+        Route::prefix('carts')->controller(CartController::class)->group(function () {
             Route::get('/', 'index');
             Route::post('check', 'check');
             Route::post('store', 'store');

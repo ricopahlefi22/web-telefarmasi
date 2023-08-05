@@ -124,8 +124,20 @@
                     <div class="col-lg-6">
                         <div class="account-login-inner">
                             <form id="form" action="login" class="ltn__form-box contact-form-box" method="POST">
-                                <input type="text" name="email" placeholder="Email*">
-                                <input type="password" name="password" placeholder="Password*">
+                                <div>
+                                    <label for="form-label">
+                                        Email<span class="text-danger">*</span>
+                                        <span id="emailError" class="text-danger"></span>
+                                    </label>
+                                    <input type="text" name="email" placeholder="Email">
+                                </div>
+                                <div>
+                                    <label for="form-label">
+                                        Kata Sandi<span class="text-danger">*</span>
+                                        <span id="passwordError" class="text-danger"></span>
+                                    </label>
+                                    <input type="password" name="password" placeholder="Kata Sandi">
+                                </div>
                                 <div class="btn-wrapper mt-0">
                                     <button id="submit" class="theme-btn-1 btn btn-block"
                                         type="submit">Masuk</button>

@@ -123,14 +123,46 @@
                 <div class="row">
                     <div class="col-lg-6 offset-lg-3">
                         <div class="account-login-inner">
-                            <form id="form" action="register" class="ltn__form-box contact-form-box" method="POST">
-                                <input type="text" name="name" placeholder="Nama Lengkap">
-                                <input type="text" name="email" placeholder="Email">
-                                <input type="password" name="password" placeholder="Kata Sandi">
-                                <input type="password" name="confirm_password" placeholder="Konfirmasi Kata Sandi">
+                            <form id="form" action="register" class="ltn__form-box" method="POST">
+                                <div>
+                                    <label for="form-label">
+                                        Nama Lengkap<span class="text-danger">*</span>
+                                        <span id="nameError" class="text-danger"></span>
+                                    </label>
+                                    <input type="text" name="name" placeholder="Nama Lengkap">
+                                </div>
+                                <div>
+                                    <label for="form-label">
+                                        Email<span class="text-danger">*</span>
+                                        <span id="emailError" class="text-danger"></span>
+                                    </label>
+                                    <input type="text" name="email" placeholder="Email">
+                                </div>
+                                <div>
+                                    <label for="form-label">
+                                        Nomor Handphone<span class="text-danger">*</span>
+                                        <span id="phoneNumberError" class="text-danger"></span>
+                                    </label>
+                                    <input type="text" name="phone_number" placeholder="Nomor Handphone">
+                                </div>
+                                <div>
+                                    <label for="form-label">
+                                        Kata Sandi<span class="text-danger">*</span>
+                                        <span id="passwordError" class="text-danger"></span>
+                                    </label>
+                                    <input type="password" name="password" placeholder="Kata Sandi">
+                                </div>
+                                <div>
+                                    <label for="form-label">
+                                        Konfirmasi Kata Sandi<span class="text-danger">*</span>
+                                        <span id="confirmPasswordError" class="text-danger"></span>
+                                    </label>
+                                    <input type="text" name="confirm_password" placeholder="Konfirmasi Kata Sandi">
+                                </div>
 
                                 <div class="btn-wrapper">
-                                    <button class="theme-btn-1 btn reverse-color btn-block" type="submit">
+                                    <button id="submit" class="theme-btn-1 btn reverse-color btn-block"
+                                        type="submit">
                                         Daftar
                                     </button>
                                 </div>

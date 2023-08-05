@@ -8,7 +8,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <h2>Detail Artikel</h2>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i></a></li>
                             <li class="breadcrumb-item">Master Data</li>
                             <li class="breadcrumb-item">Data Artikel</li>
                             <li class="breadcrumb-item active">Detail</li>
