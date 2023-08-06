@@ -24,6 +24,12 @@ class AboutUsController extends Controller
 
     function store(Request $request)
     {
+        $request->validate([
+            'about' => 'required',
+        ], [
+            'about.required' => 'Jangan kosongkan kolom tentang kami',
+        ]);
+
         $data = WebConfig::first();
         $data->about = $request->about;
         $data->update();

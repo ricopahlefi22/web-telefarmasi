@@ -15,9 +15,15 @@ class CartController extends Controller
         if ($request->ajax()) {
             return DataTables::of(Cart::all())
                 ->addIndexColumn()
-                ->addColumn('action', function (Cart $user) {
-                    $btn = '<button data-id="' . $user->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save edit" data-toggle="tooltip" data-original-title="Save"><i class="icon-pencil" aria-hidden="true"></i></button> ';
-                    $btn .= '<button data-id="' . $user->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save delete" data-toggle="tooltip" data-original-title="Save"><i class="icon-trash" aria-hidden="true"></i></button> ';
+                ->addColumn('user', function (Cart $cart) {
+                    return $cart->user->name;
+                })
+                ->addColumn('product', function (Cart $cart) {
+                    return $cart->product->name;
+                })
+                ->addColumn('action', function (Cart $cart) {
+                    $btn = '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save edit" data-toggle="tooltip" data-original-title="Save"><i class="icon-pencil" aria-hidden="true"></i></button> ';
+                    $btn .= '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save delete" data-toggle="tooltip" data-original-title="Save"><i class="icon-trash" aria-hidden="true"></i></button> ';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -69,12 +75,6 @@ class CartController extends Controller
     function destroy(Request $request)
     {
         $data = Cart::findOrFail($request->id);
-        foreach ($data->articles as $article) {
-            $article->category_id = null;
-            $article->published_at = null;
-            $article->update();
-        }
-
         $data->delete();
 
 

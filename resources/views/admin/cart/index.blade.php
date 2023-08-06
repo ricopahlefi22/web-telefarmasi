@@ -16,14 +16,6 @@
                         </ul>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="d-flex flex-row-reverse">
-                            <div class="page_action">
-                                <button id="create" class="btn btn-secondary">
-                                    <i class="fa fa-plus"></i> Tambah
-                                </button>
-                            </div>
-                            <div class="p-2 d-flex"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -36,15 +28,17 @@
                                 <table id="table" class="table table-bordered table-hover js-basic-example dataTable table-custom">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama Kategori</th>
+                                            <th>Pengguna</th>
+                                            <th>Produk</th>
+                                            <th>Jumlah</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama Kategori</th>
+                                            <th>Pengguna</th>
+                                            <th>Produk</th>
+                                            <th>Jumlah</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -60,5 +54,5 @@
 @endsection
 
 @push('script')
-    <script type="text/javascript" src="{{ asset('js/article-category-admin.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/cart-admin.js') }}"></script>
 @endpush

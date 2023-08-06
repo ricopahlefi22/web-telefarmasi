@@ -19,15 +19,15 @@
     <button type="button" class="btn-toggle-offcanvas"><i class="fa fa-arrow-left"></i></button>
     <div class="sidebar-scroll">
         <div class="user-account">
-            <img src="{{ asset('assets-admin/images/user.png') }}" class="rounded-circle user-photo"
-                alt="User Profile Picture">
+            <img src="{{ asset(empty(Auth::guard('admin')->user()->photo) ? 'assets-admin/images/user.png' : Auth::guard('admin')->user()->photo) }}"
+                class="rounded-circle user-photo">
             <div class="dropdown">
                 <span>Hi!</span>
                 <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown">
                     <strong>{{ Auth::user()->name }}</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right account">
-                    <li><a href="page-profile2.html"><i class="icon-user"></i>Profile Saya</a></li>
+                    <li><a href="{{ url('profile') }}"><i class="icon-user"></i>Profile Saya</a></li>
                     <li class="divider"></li>
                     <li><a href="{{ url('logout') }}"><i class="icon-power"></i>Keluar</a></li>
                 </ul>

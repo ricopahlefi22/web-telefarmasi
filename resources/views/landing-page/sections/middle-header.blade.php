@@ -22,17 +22,31 @@
         <!-- user-menu -->
         <div class="ltn__drop-menu user-menu">
             <ul>
-                <li>
-                    <a href="#"><i class="icon-user"></i></a>
-                    <ul>
-                        @if (Auth::check())
+                @if (Auth::check())
+                    <li>
+                        <a href="#"><i class="icon-user"></i></a>
+                        <ul>
                             <li><a href="{{ url('profile') }}">Profil</a></li>
                             <li><a href="{{ url('logout') }}">Keluar</a></li>
+                        </ul>
+                    </li>
+                @else
+                    <li>
+                        @if (Route::current()->uri == 'login')
+                            <a href="{{ url('register') }}"
+                                style="font-size: 12pt;color: white;padding-left: 10px;padding-right: 10px;"
+                                class="bg-success">
+                                <i class="fa fa-sign-in-alt"></i> Daftar
+                            </a>
                         @else
-                            <li><a href="{{ url('login') }}">Login</a></li>
+                            <a href="{{ url('login') }}"
+                                style="font-size: 12pt;color: white;padding-left: 10px;padding-right: 10px;"
+                                class="bg-success">
+                                <i class="fa fa-sign-in-alt"></i> Login
+                            </a>
                         @endif
-                    </ul>
-                </li>
+                    </li>
+                @endif
             </ul>
         </div>
     </li>

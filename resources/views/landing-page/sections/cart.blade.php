@@ -3,7 +3,7 @@
 @endphp
 
 <div class="mini-cart-product-area ltn__scrollbar">
-    @foreach ($carts as $cart)
+    @forelse ($carts as $cart)
         <div class="mini-cart-item clearfix">
             <div class="mini-cart-img">
                 <a href="#">
@@ -16,7 +16,9 @@
                 <span class="mini-cart-quantity">{{ $cart->quantity }} x Rp. {{ $cart->product->price }}</span>
             </div>
         </div>
-    @endforeach
+    @empty
+        <p class="text-center">Keranjang Masih Kosong</p>
+    @endforelse
 </div>
 <div class="mini-cart-footer">
     <div class="mini-cart-sub-total">
@@ -31,6 +33,5 @@
     </div>
     <div class="btn-wrapper">
         <a href="{{ url('cart') }}" class="theme-btn-1 btn btn-effect-1">Keranjang</a>
-        <a href="{{ url('checkout') }}" class="theme-btn-2 btn btn-effect-2">Bayar</a>
     </div>
 </div>

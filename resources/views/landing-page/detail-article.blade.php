@@ -71,6 +71,19 @@
         </header>
         <!-- HEADER AREA END -->
 
+        <!-- Utilize Cart Menu Start -->
+        <div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
+            <div class="ltn__utilize-menu-head">
+                <span class="ltn__utilize-menu-title">Keranjang</span>
+                <button class="ltn__utilize-close">×</button>
+            </div>
+            <div id="cartWrapper" class="ltn__utilize-menu-inner ltn__scrollbar">
+
+                @include('landing-page.sections.cart')
+            </div>
+        </div>
+        <!-- Utilize Cart Menu End -->
+
         <!-- MOBILE MENU START -->
         @include('landing-page.sections.menu')
         <!-- MOBILE MENU END -->
@@ -285,11 +298,7 @@
     </div>
     <!-- Body main wrapper end -->
 
-    <!-- All JS Plugins -->
-    <script src="{{ asset('assets-landing/js/plugins.js') }}"></script>
-    <!-- Main JS -->
-    <script src="{{ asset('assets-landing/js/main.js') }}"></script>
-
+    @include('landing-page.sections.script')
 </body>
 
 </html>

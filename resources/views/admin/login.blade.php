@@ -36,7 +36,7 @@
                             <form id="form" class="form-auth-small" action="login" method="POST">
                                 <div class="form-group">
                                     <label for="email" class="control-label sr-only">Email</label>
-                                    <input id="email" type="email" name="email" class="form-control" placeholder="Email">
+                                    <input id="email" type="text" name="email" class="form-control" placeholder="Email">
                                     <span id="emailError" class="invalid-feedback"></span   >
                                 </div>
                                 <div class="form-group">
@@ -49,7 +49,7 @@
                                 <div class="bottom">
                                     <span class="helper-text m-b-10">
                                         <i class="fa fa-lock"></i>
-                                        <a href="{{ url('forgot-password') }}">Lupa Kata Sandi?</a>
+                                        <a href="{{ url('forgot-password') }}" class="text-dark">Lupa Kata Sandi?</a>
                                     </span>
                                 </div>
                             </form>

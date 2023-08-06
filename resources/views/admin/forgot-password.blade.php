@@ -45,7 +45,7 @@
                                 <div class="bottom">
                                     <span class="helper-text m-b-10">
                                         <i class="fa fa-lock"></i>
-                                        <a href="{{ url('login') }}">Sudah Ingat Kata Sandimu?</a>
+                                        <a href="{{ url('login') }}" class="text-dark">Sudah Ingat Kata Sandimu?</a>
                                     </span>
                                 </div>
                             </form>

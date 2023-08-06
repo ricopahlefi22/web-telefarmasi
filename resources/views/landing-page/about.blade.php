@@ -8,7 +8,6 @@
             <!-- ltn__header-top-area start -->
             <div class="ltn__header-top-area border-bottom">
                 @include('landing-page.sections.header')
-
             </div>
             <!-- ltn__header-top-area end -->
             <!-- ltn__header-middle-area start -->
@@ -37,10 +36,7 @@
                         <div class="col">
                             <!-- header-options -->
                             <div class="ltn__header-options">
-                                <ul>
-                                    @include('landing-page.sections.middle-header')
-
-                                </ul>
+                                @include('landing-page.sections.middle-header')
                             </div>
                         </div>
                     </div>
@@ -77,6 +73,19 @@
         <!-- MOBILE MENU START -->
         @include('landing-page.sections.menu')
         <!-- MOBILE MENU END -->
+
+        <!-- Utilize Cart Menu Start -->
+        <div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
+            <div class="ltn__utilize-menu-head">
+                <span class="ltn__utilize-menu-title">Keranjang</span>
+                <button class="ltn__utilize-close">×</button>
+            </div>
+            <div id="cartWrapper" class="ltn__utilize-menu-inner ltn__scrollbar">
+
+                @include('landing-page.sections.cart')
+            </div>
+        </div>
+        <!-- Utilize Cart Menu End -->
 
         <!-- Utilize Mobile Menu Start -->
         @include('landing-page.sections.navbar-mobile')
@@ -122,8 +131,7 @@
                                 <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us
                                 </h6>
                                 <h1 class="section-title">Kami Rekan Terbaik untuk kebutuhan Obatmu</h1>
-                                <p>Houzez allow you to design unlimited panels and real estate custom
-                                    forms to capture leads and keep record of all information</p>
+                                <p>Inilah keunggulan-keunggulan kami dibanding apotek lainnya.</p>
                             </div>
                             <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
                                 <li><i class="fas fa-check-square"></i> Layanan antar obat gratis.</li>
@@ -134,10 +142,6 @@
                                 <ul>
                                     <li>
                                         <div class="about-author-info-2-brief  d-flex">
-                                            <div class="author-img">
-                                                <img src="{{ asset('assets-landing/img/blog/author.jpg') }}"
-                                                    alt="#">
-                                            </div>
                                             <div class="author-name-designation">
                                                 <h4 class="mb-0">Alim Rahman Hakim</h4>
                                                 <small>Pemilik Apotek Desta Farma</small>
@@ -154,7 +158,7 @@
         <!-- ABOUT US AREA END -->
 
         <!-- FEATURE AREA START ( Feature - 6) -->
-        <div class="ltn__feature-area pt-90 pb-90">
+        <div class="ltn__feature-area pt-40 pb-90">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -171,9 +175,8 @@
                                 <img src="{{ asset('assets-landing/img/icons/icon-img/24.png') }}" alt="#">
                             </div>
                             <div class="ltn__feature-info">
-                                <h4><a href="service-details.html">Free Delivery</a></h4>
-                                <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or
-                                    incididunt ut labore.</p>
+                                <h4><a href="javascript:void(0)">Gratis Antar</a></h4>
+                                <p>Kami antar gratis seputar area Ketapang Kota.</p>
                             </div>
                         </div>
                     </div>
@@ -184,9 +187,8 @@
                                 <img src="{{ asset('assets-landing/img/icons/icon-img/25.png') }}" alt="#">
                             </div>
                             <div class="ltn__feature-info">
-                                <h4><a href="service-details.html">100% Cash Back</a></h4>
-                                <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or
-                                    incididunt ut labore.</p>
+                                <h4><a href="javascript:void(0)">100% Uang Kembali</a></h4>
+                                <p>Kami akan kembalikan uangmu secara utuh jika obat tidak diantarkan.</p>
                             </div>
                         </div>
                     </div>
@@ -197,9 +199,8 @@
                                 <img src="{{ asset('assets-landing/img/icons/icon-img/26.png') }}" alt="#">
                             </div>
                             <div class="ltn__feature-info">
-                                <h4><a href="service-details.html">Quality Product</a></h4>
-                                <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or
-                                    incididunt ut labore.</p>
+                                <h4><a href="javascript:void(0)">Produk Berkualitas</a></h4>
+                                <p>Semua produk kami berasal dari sumber terbaik dan dirawat dengan baik.</p>
                             </div>
                         </div>
                     </div>
@@ -210,9 +211,8 @@
                                 <img src="{{ asset('assets-landing/img/icons/icon-img/27.png') }}" alt="#">
                             </div>
                             <div class="ltn__feature-info">
-                                <h4><a href="service-details.html">24/7 Support</a></h4>
-                                <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or
-                                    incididunt ut labore.</p>
+                                <h4><a href="javascript:void(0)">Layanan 24/7</a></h4>
+                                <p>Layanan konsultasi kami tersedia setiap hari dan 24 jam.</p>
                             </div>
                         </div>
                     </div>
@@ -222,12 +222,12 @@
         <!-- FEATURE AREA END -->
 
         <!-- FAQ AREA START (faq-2) (ID > accordion_2) -->
-        <div class="ltn__faq-area pt-115 pb-120">
+        <div class="ltn__faq-area pt-40 pb-120">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title-area ltn__section-title-2 text-center">
-                            <h1 class="section-title white-color---">Pertanyaan Yang Sering Ditanyakan</h1>
+                            <h2 class="white-color---">Pertanyaan Yang Sering Ditanyakan</h2>
                         </div>
                     </div>
                 </div>
@@ -247,28 +247,6 @@
                                                 tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend
                                                 donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat
                                                 interdum. Condimentum lacinia quis vel eros donec ac.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- card -->
-                                <div class="card">
-                                    <h6 class="ltn__card-title" data-bs-toggle="collapse"
-                                        data-bs-target="#faq-item-2-2" aria-expanded="true">
-                                        How can i make refund from your website?
-                                    </h6>
-                                    <div id="faq-item-2-2" class="collapse show" data-bs-parent="#accordion_2">
-                                        <div class="card-body">
-                                            <div class="ltn__video-img alignleft">
-                                                <img src="{{ asset('assets-landing/img/bg/17.jpg') }}"
-                                                    alt="video popup bg image">
-                                                <a class="ltn__video-icon-2 ltn__video-icon-2-small ltn__video-icon-2-border----"
-                                                    href="https://www.youtube.com/embed/Cr4LFOgRGeo?autoplay=1&showinfo=0"
-                                                    data-rel="lightcase:myCollection">
-                                                    <i class="fa fa-play"></i>
-                                                </a>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Scelerisque </p>
                                         </div>
                                     </div>
                                 </div>
@@ -327,63 +305,64 @@
 
         <!-- BLOG AREA START (blog-3) -->
         @if (count($articles) >= 5)
-        <div class="ltn__blog-area pt-115 pb-45">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title-area ltn__section-title-2--- text-center">
-                            <h1 class="section-title">Artikel Terbaru</h1>
+            <div class="ltn__blog-area pt-115 pb-45">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section-title-area ltn__section-title-2--- text-center">
+                                <h1 class="section-title">Artikel Terbaru</h1>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row  ltn__blog-slider-one-active slick-arrow-1 ltn__blog-item-3-normal">
-                    @foreach ($articles as $article)
-                        <div class="col-lg-12">
-                            <div class="ltn__blog-item ltn__blog-item-3">
-                                <div class="ltn__blog-img" style="height: 200px;">
-                                    <a href="{{ url('articles', $article->slug) }}">
-                                        @if (empty($article->image))
-                                            <img src="{{ asset('assets-landing/img/slider/slider-1.jpg') }}"
-                                                style="background-size:cover;">
-                                        @else
-                                            <img src="{{ asset($article->image) }}"
-                                                style="background-size:cover;">
-                                        @endif
-                                    </a>
-                                </div>
-                                <div class="ltn__blog-brief">
-                                    <div class="ltn__blog-meta">
-                                        <ul>
-                                            <li class="ltn__blog-tags">
-                                                <a href="{{ url('articles/category', Str::slug($article->category->category)) }}">
-                                                    <i class="fas fa-tags"></i>{{ $article->category->category }}
-                                                </a>
-                                            </li>
-                                        </ul>
+                    <div class="row  ltn__blog-slider-one-active slick-arrow-1 ltn__blog-item-3-normal">
+                        @foreach ($articles as $article)
+                            <div class="col-lg-12">
+                                <div class="ltn__blog-item ltn__blog-item-3">
+                                    <div class="ltn__blog-img" style="height: 200px;">
+                                        <a href="{{ url('articles', $article->slug) }}">
+                                            @if (empty($article->image))
+                                                <img src="{{ asset('assets-landing/img/slider/slider-1.jpg') }}"
+                                                    style="background-size:cover;">
+                                            @else
+                                                <img src="{{ asset($article->image) }}"
+                                                    style="background-size:cover;">
+                                            @endif
+                                        </a>
                                     </div>
-                                    <h3 class="ltn__blog-title">
-                                        <a href="{{ url('articles', $article->slug) }}">{{ $article->title }}</a>
-                                    </h3>
-                                    <div class="ltn__blog-meta-btn">
+                                    <div class="ltn__blog-brief">
                                         <div class="ltn__blog-meta">
                                             <ul>
-                                                <li class="ltn__blog-date">
-                                                    {{ Carbon\Carbon::parse($article->published_at)->diffForHumans() }}
+                                                <li class="ltn__blog-tags">
+                                                    <a
+                                                        href="{{ url('articles/category', Str::slug($article->category->category)) }}">
+                                                        <i class="fas fa-tags"></i>{{ $article->category->category }}
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="ltn__blog-btn">
-                                            <a href="{{ url('articles', $article->slug) }}">Lanjut Baca</a>
+                                        <h3 class="ltn__blog-title">
+                                            <a href="{{ url('articles', $article->slug) }}">{{ $article->title }}</a>
+                                        </h3>
+                                        <div class="ltn__blog-meta-btn">
+                                            <div class="ltn__blog-meta">
+                                                <ul>
+                                                    <li class="ltn__blog-date">
+                                                        {{ Carbon\Carbon::parse($article->published_at)->diffForHumans() }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="ltn__blog-btn">
+                                                <a href="{{ url('articles', $article->slug) }}">Lanjut Baca</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
-    @endif
+        @endif
         <!-- BLOG AREA END -->
 
         <!-- CALL TO ACTION START (call-to-action-6) -->
@@ -408,11 +387,7 @@
     </div>
     <!-- Body main wrapper end -->
 
-    <!-- All JS Plugins -->
-    <script src="{{ asset('assets-landing/js/plugins.js') }}"></script>
-    <!-- Main JS -->
-    <script src="{{ asset('assets-landing/js/main.js') }}"></script>
-
+    @include('landing-page.sections.script')
 </body>
 
 </html>

@@ -26,7 +26,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="d-flex flex-row-reverse">
                                 <div class="page_action">
-                                    <button type="submit" class="btn btn-secondary">
+                                    <button id="submit" type="submit" class="btn btn-secondary">
                                         <i class="fa fa-send"></i> Perbarui
                                     </button>
                                 </div>
@@ -50,7 +50,7 @@
                                             </label>
                                             <input type="text" class="form-control" id="name" name="name"
                                                 value="{{ $web_config->name }}">
-                                            <span id="titleError" class="invalid-feedback"></span>
+                                            <span id="nameError" class="invalid-feedback"></span>
                                         </div>
                                         <div class="mb-2">
                                             <label for="address" class="form-label">
@@ -58,7 +58,7 @@
                                             </label>
                                             <input type="text" class="form-control" id="address" name="address"
                                                 value="{{ $web_config->address }}">
-                                            <span id="titleError" class="invalid-feedback"></span>
+                                            <span id="addressError" class="invalid-feedback"></span>
                                         </div>
                                         <div class="mb-2">
                                             <label for="email" class="form-label">
@@ -66,7 +66,7 @@
                                             </label>
                                             <input type="text" class="form-control" id="email" name="email"
                                                 value="{{ $web_config->email }}">
-                                            <span id="titleError" class="invalid-feedback"></span>
+                                            <span id="emailError" class="invalid-feedback"></span>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -76,7 +76,7 @@
                                             </label>
                                             <input type="text" class="form-control" id="phoneNumber" name="phone_number"
                                                 value="{{ $web_config->phone_number }}">
-                                            <span id="titleError" class="invalid-feedback"></span>
+                                            <span id="phoneNumberError" class="invalid-feedback"></span>
                                         </div>
                                         <div class="mb-2">
                                             <label for="facebook" class="form-label">
@@ -84,7 +84,6 @@
                                             </label>
                                             <input type="text" class="form-control" id="facebook" name="facebook"
                                                 value="{{ $web_config->facebook }}">
-                                            <span id="titleError" class="invalid-feedback"></span>
                                         </div>
                                         <div class="mb-2">
                                             <label for="instagram" class="form-label">
@@ -92,7 +91,6 @@
                                             </label>
                                             <input type="text" class="form-control" id="instagram" name="instagram"
                                                 value="{{ $web_config->instagram }}">
-                                            <span id="titleError" class="invalid-feedback"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -111,13 +109,6 @@
 
     <script>
         $(document).ready(function() {
-            var Toast = Swal.mixin({
-                toast: true,
-                position: "bottom-end",
-                showConfirmButton: false,
-                timer: 3000,
-            });
-
             $.ajaxSetup({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -137,12 +128,15 @@
                         $("#name").removeClass('is-invalid');
                         $("#address").removeClass('is-invalid');
                         $("#email").removeClass('is-invalid');
+                        $("#phoneNumber").removeClass('is-invalid');
 
-                        $("#button").html(
+                        $("#submit").html(
                             '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
                         );
                     },
                     success: function(response) {
+                        $("#submit").html('<i class="fa fa-send"></i> Perbarui');
+
                         Swal.fire({
                             icon: "success",
                             title: response.status,
@@ -160,11 +154,16 @@
                         });
                     },
                     error: function(error) {
-                        $("#button").html("Simpan");
+                        $("#submit").html('<i class="fa fa-send"></i> Perbarui');
 
                         console.error(error);
                         if (error.status == 422) {
                             var responseError = error["responseJSON"]["errors"];
+
+                            if (responseError["phone_number"]) {
+                                $("#phoneNumber").addClass('is-invalid').focus();
+                                $("#phoneNumberError").html(responseError["phone_number"]);
+                            }
 
                             if (responseError["email"]) {
                                 $("#email").addClass('is-invalid').focus();

@@ -27,6 +27,8 @@ class AuthAdminController extends Controller
         ], [
             'email.required' => 'Email tidak boleh kosong',
             'email.email' => 'Mohon isi sesuai format email',
+            'password.required' => 'Kata sandi tidak boleh kosong',
+            'password.min' => 'Kata sandi minimal 8 karakter',
         ]);
 
         try {

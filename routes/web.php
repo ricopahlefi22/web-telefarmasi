@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,10 +41,16 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
         Route::get('/', [DashboardController::class, 'dashboard']);
         Route::get('dashboard', [DashboardController::class, 'dashboard']);
 
+
         Route::get('chats', [ChatController::class, 'index']);
         Route::post('chat/store', [ChatController::class, 'sendMessage']);
         Route::get('chat/read/{id}', [ChatController::class, 'readChat']);
 
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('profile', 'admin');
+            Route::post('edit-profile', 'editProfileAdmin');
+            Route::post('change-password', 'changePasswordAdmin');
+        });
 
         Route::controller(AboutUsController::class)->group(function () {
             Route::get('about', 'admin');
@@ -125,7 +132,6 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
 });
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Landing Page and Website Routes
@@ -136,6 +142,11 @@ Route::controller(AuthUserController::class)->group(function () {
     Route::post('login', 'loginProcess');
     Route::get('register', 'register');
     Route::post('register', 'registerProcess');
+    Route::get('forgot-password', 'forgotPassword');
+    Route::post('forgot-password', 'forgotPasswordProcess');
+    Route::get('reset-password', 'resetPassword');
+    Route::post('reset-password', 'resetPasswordProcess');
+    Route::post('otp', 'otp');
     Route::get('logout', 'logout');
 });
 

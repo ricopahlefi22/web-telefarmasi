@@ -26,7 +26,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="d-flex flex-row-reverse">
                                 <div class="page_action">
-                                    <button type="submit" class="btn btn-secondary">
+                                    <button id="submit" type="submit" class="btn btn-secondary">
                                         <i class="fa fa-send"></i> Perbarui
                                     </button>
                                 </div>
@@ -96,11 +96,13 @@
                         $("#categoryId").removeClass('is-invalid');
                         $("#bodyError").html("");
 
-                        $("#button").html(
+                        $("#submit").html(
                             '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
                         );
                     },
                     success: function(response) {
+                        $("#submit").html('<i class="fa fa-send"></i> Perbarui');
+
                         Swal.fire({
                             icon: "success",
                             title: response.status,
@@ -118,22 +120,14 @@
                         });
                     },
                     error: function(error) {
-                        console.error(error);
-                        $("#button").html("Simpan");
+                        $("#submit").html('<i class="fa fa-send"></i> Perbarui');
 
                         if (error.status == 422) {
-                            var responseError = error["responseJSON"]["errors"];
-                            $("#titleError").html(responseError["title"]);
-                            $("#categoryError").html(responseError["category_id"]);
-                            $("#bodyError").html(responseError["body"]);
-
-                            if (responseError["title"]) {
-                                $("#title").addClass('is-invalid').focus();
-                            }
-
-                            if (responseError["category_id"]) {
-                                $("#categoryId").addClass('is-invalid');
-                            }
+                            Swal.fire({
+                                icon: "error",
+                                title: "Gagal!",
+                                text: error.responseJSON.message,
+                            });
                         }
                     },
                 });

@@ -27,6 +27,12 @@ class ContactController extends Controller
             'name' => 'required',
             'address' => 'required',
             'email' => 'required',
+            'phone_number' => 'required',
+        ], [
+            'name.required' => 'Mohon isi kolom nama',
+            'address.required' => 'Mohon isi kolom alamat',
+            'email.required' => 'Mohon isi kolom email',
+            'phone_number.required' => 'Mohon isi kolom nomor handphone',
         ]);
 
         $data = WebConfig::first();

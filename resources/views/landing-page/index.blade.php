@@ -36,17 +36,21 @@
                             <!-- user-menu -->
                             <div class="ltn__drop-menu user-menu">
                                 <ul>
-                                    <li>
-                                        <a href="javascript:void(0)"><i class="icon-user"></i></a>
-                                        <ul>
-                                            @if (Auth::check())
+                                    @if (Auth::check())
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="icon-user"></i></a>
+                                            <ul>
                                                 <li><a href="{{ url('profile') }}">Profil</a></li>
                                                 <li><a href="{{ url('logout') }}">Keluar</a></li>
-                                            @else
-                                                <li><a href="{{ url('login') }}">Login</a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
+                                            </ul>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="{{ url('login') }}" title="Login" style="font-size: 12pt;color:white;" class="bg-success">
+                                                <i class="fa fa-sign-in-alt"></i>
+                                            </a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                             <!-- mini-cart -->
