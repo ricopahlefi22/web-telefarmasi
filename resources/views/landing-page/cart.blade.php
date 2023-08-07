@@ -158,31 +158,22 @@
                                 <div class="shoping-cart-total mt-50">
                                     <table class="table">
                                         @php
-                                            $subtotal = 0;
-                                            $ongkir = 0;
+                                            $total = 0;
 
                                             foreach ($carts as $cart) {
-                                                $subtotal += $cart->quantity * $cart->product->price;
+                                                $total += $cart->quantity * $cart->product->price;
                                             }
                                         @endphp
                                         <tbody>
                                             <tr>
-                                                <td>Subtotal Keranjang</td>
-                                                <td>Rp. {{ $subtotal }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ongkos Kirim</td>
-                                                <td>Rp. {{ $ongkir }}</td>
-                                            </tr>
-                                            <tr>
                                                 <td><strong>Total</strong></td>
-                                                <td><strong>Rp. {{ $subtotal + $ongkir }}</strong></td>
+                                                <td class="text-right"><strong>Rp. {{ $total }}</strong></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <div class="btn-wrapper text-right">
                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                        <input type="hidden" name="total_price" value="{{ $subtotal + $ongkir }}">
+                                        <input type="hidden" name="total_price" value="{{ $total }}">
                                         <button type="submit" class="theme-btn-1 btn mt-2 btn-block btn-effect-1">
                                             Bayar
                                         </button>

@@ -46,7 +46,8 @@
                                         </li>
                                     @else
                                         <li>
-                                            <a href="{{ url('login') }}" title="Login" style="font-size: 12pt;color:white;" class="bg-success">
+                                            <a href="{{ url('login') }}" title="Login"
+                                                style="font-size: 12pt;color:white;" class="bg-success">
                                                 <i class="fa fa-sign-in-alt"></i>
                                             </a>
                                         </li>
@@ -244,6 +245,7 @@
                                                             </a>
                                                         @else
                                                             <a href="{{ url('login') }}"
+                                                                onclick="confirm('Sebelum melanjutkan, loginlah terlebih dahulu!')"
                                                                 title="Tambah Ke Keranjang">
                                                                 <i class="fas fa-shopping-cart"></i>
                                                             </a>
@@ -363,7 +365,8 @@
                                                         <i class="fas fa-shopping-cart"></i>
                                                     </a>
                                                 @else
-                                                    <a href="{{ url('login') }}" title="Tambah Ke Keranjang">
+                                                    <a href="{{ url('login') }}" title="Tambah Ke Keranjang"
+                                                        onclick="confirm('Sebelum melanjutkan, loginlah terlebih dahulu!')">
                                                         <i class="fas fa-shopping-cart"></i>
                                                     </a>
                                                 @endif
