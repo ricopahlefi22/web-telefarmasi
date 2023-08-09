@@ -221,91 +221,9 @@
         </div>
         <!-- FEATURE AREA END -->
 
-        <!-- FAQ AREA START (faq-2) (ID > accordion_2) -->
-        <div class="ltn__faq-area pt-40 pb-120">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title-area ltn__section-title-2 text-center">
-                            <h2 class="white-color---">Pertanyaan Yang Sering Ditanyakan</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="ltn__faq-inner ltn__faq-inner-2">
-                            <div id="accordion_2">
-                                <!-- card -->
-                                <div class="card">
-                                    <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse"
-                                        data-bs-target="#faq-item-2-1" aria-expanded="false">
-                                        How to buy a product?
-                                    </h6>
-                                    <div id="faq-item-2-1" class="collapse" data-bs-parent="#accordion_2">
-                                        <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend
-                                                donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat
-                                                interdum. Condimentum lacinia quis vel eros donec ac.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- card -->
-                                <div class="card">
-                                    <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse"
-                                        data-bs-target="#faq-item-2-3" aria-expanded="false">
-                                        I am a new user. How should I start?
-                                    </h6>
-                                    <div id="faq-item-2-3" class="collapse" data-bs-parent="#accordion_2">
-                                        <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend
-                                                donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat
-                                                interdum. Condimentum lacinia quis vel eros donec ac.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- card -->
-                                <div class="card">
-                                    <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse"
-                                        data-bs-target="#faq-item-2-4" aria-expanded="false">
-                                        Returns and refunds
-                                    </h6>
-                                    <div id="faq-item-2-4" class="collapse" data-bs-parent="#accordion_2">
-                                        <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend
-                                                donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat
-                                                interdum. Condimentum lacinia quis vel eros donec ac.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- card -->
-                                <div class="card">
-                                    <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse"
-                                        data-bs-target="#faq-item-2-5" aria-expanded="false">
-                                        Are my details secured?
-                                    </h6>
-                                    <div id="faq-item-2-5" class="collapse" data-bs-parent="#accordion_2">
-                                        <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend
-                                                donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat
-                                                interdum. Condimentum lacinia quis vel eros donec ac.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- FAQ AREA START -->
-
         <!-- BLOG AREA START (blog-3) -->
         @if (count($articles) >= 5)
-            <div class="ltn__blog-area pt-115 pb-45">
+            <div class="ltn__blog-area pt-40 pb-45">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">

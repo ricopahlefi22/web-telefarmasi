@@ -33,7 +33,7 @@
         <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
             <ul>
                 <li>
-                    <a href="account.html" title="My Account">
+                    <a href="{{ url('profile') }}">
                         <span class="utilize-btn-icon">
                             <i class="far fa-user"></i>
                         </span>
@@ -42,10 +42,9 @@
                 </li>
                 @if (Auth::check())
                     <li>
-                        <a href="cart.html" title="Shoping Cart">
+                        <a href="{{ url('cart') }}">
                             <span class="utilize-btn-icon">
                                 <i class="fas fa-shopping-cart"></i>
-                                <sup>5</sup>
                             </span>
                             Keranjang
                         </a>

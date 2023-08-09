@@ -28,7 +28,9 @@
                                 <div class="col-9">
                                     <span>Nama Produk : <strong>{{ $product->name }}</strong></span><br>
                                     <span>Harga : <strong>{{ $product->price }}</strong></span><br>
-                                    <span>Kategori : <strong>{{ $product->category->category }}</strong></span>
+                                    <span>Kategori : <strong>{{ $product->category->category }}</strong></span><br>
+                                    <span>Data Dibuat Pada : <strong>{{ $product->created_at }}</strong></span><br>
+                                    <span>Diedit Pada : <strong>{{ $product->updated_at }}</strong></span><br>
                                 </div>
                             </div>
                             <p class="mt-2">{!! nl2br($product->description) !!}</p>

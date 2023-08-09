@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $data['product_count'] = Product::count();
         $data['article_count'] = Article::count();
         $data['user_count'] = User::count();
-        $data['order_count'] = Order::where('status', 'Paid')->count();
+        $data['order_count'] = Order::where('status', '!=', 'Belum Dibayar')->count();
 
         return view('admin.dashboard', $data);
     }

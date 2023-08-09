@@ -22,8 +22,8 @@ class CartController extends Controller
                     return $cart->product->name;
                 })
                 ->addColumn('action', function (Cart $cart) {
-                    $btn = '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save edit" data-toggle="tooltip" data-original-title="Save"><i class="icon-pencil" aria-hidden="true"></i></button> ';
-                    $btn .= '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save delete" data-toggle="tooltip" data-original-title="Save"><i class="icon-trash" aria-hidden="true"></i></button> ';
+                    $btn = '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save edit" title="Edit Jumlah"><i class="icon-pencil" aria-hidden="true"></i></button> ';
+                    $btn .= '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save delete"><i class="icon-trash" aria-hidden="true"></i></button> ';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -37,17 +37,17 @@ class CartController extends Controller
     {
         $request->validate(
             [
-                'category' => 'required',
+                'quantity' => 'required',
             ],
             [
-                'category.required' => 'Mohon isi kolom kategori',
+                'quantity.required' => 'Mohon isi kolom kategori',
             ]
         );
 
         $data = Cart::updateOrCreate([
             'id' => $request->id,
         ], [
-            'category' => ucwords(strtolower($request->category)),
+            'quantity' => $request->quantity,
         ]);
 
         if ($request->id != $data->id) {

@@ -11,10 +11,11 @@
                 <input type="hidden" id="id" name="id">
                 <div class="modal-body">
                     <div class="mb-2">
-                        <label for="quantity" class="form-label">Jumlah Barang<strong class="text-danger">*</strong>
-                        </label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" min="1">
-                        <span id="quantityError" class="invalid-feedback"></span>
+                        <label for="category" class="form-label">Kategori<strong class="text-danger">*</strong>
+                            <span id="nameError" class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="category" name="category"
+                            placeholder="Nama Kategori">
+                        <span id="categoryError" class="invalid-feedback"></span>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">

@@ -41,7 +41,8 @@
                                             <a href="javascript:void(0)"><i class="icon-user"></i></a>
                                             <ul>
                                                 <li><a href="{{ url('profile') }}">Profil</a></li>
-                                                <li><a href="{{ url('logout') }}">Keluar</a></li>
+                                                <li><a href="{{ url('orders') }}">Lihat Pesanan</a></li>
+                                                <li><a href="{{ url('logout') }}" class="text-danger">Keluar</a></li>
                                             </ul>
                                         </li>
                                     @else

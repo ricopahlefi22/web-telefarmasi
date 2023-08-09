@@ -167,6 +167,7 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('products/detail/{id}', 'detailProduct');
     Route::post('products/check', 'checkProduct');
     Route::post('products/add-to-cart', 'addToCartProduct');
+    Route::post('products/delete-to-cart', 'deleteToCartProduct');
 
     Route::middleware('auth:user')->group(function () {
         Route::get('cart', 'cart');
@@ -174,6 +175,7 @@ Route::controller(LandingPageController::class)->group(function () {
         Route::get('chat/read', 'readChat');
         Route::post('chat/store', [ChatController::class, 'sendMessage']);
         Route::post('checkout', 'checkout');
+        Route::post('change-order-status', 'changeStatus');
     });
 });
 

@@ -19,17 +19,11 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function (Order $product) {
                     $btn = '<a href="products/detail/' . $product->id . '"  class="dropdown-item info"><i class="fa fa-eye"></i> Lihat</a> ';
-                    $btn .= '<a href="products/edit/' . $product->id . '"  class="dropdown-item edit"><i class="icon-pencil""></i> Edit</a> ';
-
+                    $btn .= '<button data-id="' . $product->id . '"  class="dropdown-item change-status"><i class="icon-pencil""></i> Ganti Status</button> ';
                     $btn .= '<button data-id="' . $product->id . '"  class="dropdown-item delete"><i class="icon-trash""></i> Hapus</button> ';
 
-                    $btnColor = 'btn-dark';
-
-                    if (is_null($product->published_at)) {
-                        $btnColor = 'btn-outline-dark';
-                    }
                     return '<div role="group">
-                                <button id="btnDropdown" type="button" class="btn ' . $btnColor . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="btnDropdown" type="button" class="btn btn-outline-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-ellipsis-v"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="btnDropdown">' .
@@ -41,14 +35,14 @@ class OrderController extends Controller
                 ->make(true);
         }
 
-        return view('admin.products.index', $data);
+        return view('admin.orders.index', $data);
     }
 
     function create()
     {
         $data['title'] = 'Buat Produk';
 
-        return view('admin.products.form-modal', $data);
+        return view('admin.orders.form-modal', $data);
     }
 
     function detail(Request $request)
@@ -56,7 +50,7 @@ class OrderController extends Controller
         $data['title'] = 'Edit Produk';
         $data['product'] = Order::findOrFail($request->id);
 
-        return view('admin.products.detail', $data);
+        return view('admin.orders.detail', $data);
     }
 
     function edit(Request $request)

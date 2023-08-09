@@ -122,9 +122,15 @@
                                 <div class="shoping-cart-table table-responsive">
                                     <table class="table">
                                         <tbody>
-                                            @foreach ($carts as $cart)
+                                            @forelse ($carts as $cart)
+                                                <input type="hidden" name="product_id[]"
+                                                    value="{{ $cart->product->id }}">
+                                                <input type="hidden" name="quantities[]" value="{{ $cart->quantity }}">
                                                 <tr>
-                                                    <td class="cart-product-remove">x</td>
+                                                    <td class="cart-product-remove">
+                                                        <button type="button" data-id="{{ $cart->id }}"
+                                                            class="delete">x</button>
+                                                    </td>
                                                     <td class="cart-product-image">
                                                         <a href="{{ url('products/detail', $cart->product->id) }}">
                                                             <img src="{{ asset($cart->product->image) }}"
@@ -138,20 +144,19 @@
                                                             </a>
                                                         </h4>
                                                     </td>
-                                                    <td class="cart-product-price">{{ $cart->product->price }}</td>
-                                                    <td class="cart-product-quantity">
-                                                        <div class="cart-plus-minus">
-                                                            <input type="hidden" name="product_id[]"
-                                                                value="{{ $cart->product->id }}">
-                                                            <input type="number" value="{{ $cart->quantity }}"
-                                                                name="product_quantity[]" class="cart-plus-minus-box">
-                                                        </div>
+                                                    <td class="cart-product-price">
+                                                        Jumlah Produk: {{ $cart->quantity }}<br>
+                                                        Harga Satuan: Rp.
+                                                        {{ str_replace(',', '.', number_format($cart->product->price)) }}
                                                     </td>
                                                     <td class="cart-product-subtotal">
-                                                        {{ $cart->quantity * $cart->product->price }}
+                                                        Subtotal:<br> Rp.
+                                                        {{ str_replace(',', '.', number_format($cart->quantity * $cart->product->price)) }}
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @empty
+                                                <p class="text-center">Keranjang Kosong</p>
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>
@@ -217,6 +222,8 @@
     <!-- Main JS -->
     <script src="{{ asset('assets-landing/js/main.js') }}"></script>
 
+    <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -242,27 +249,79 @@
                     },
                     success: function(response) {
                         console.log(response);
+
+                        var order_id = response.order.id;
+                        var user_id = response.user.id;
+
                         window.snap.pay(response.snapToken, {
                             onSuccess: function(result) {
                                 /* You may add your own implementation here */
-                                alert("payment success!");
                                 console.log(result);
+                                $.ajax({
+                                    url: 'change-order-status',
+                                    method: 'POST',
+                                    data: {
+                                        order_id: order_id,
+                                        user_id: user_id,
+                                    },
+                                    success: function(response) {
+                                        console.log(response);
+                                        $("#submit").html(
+                                            'Bayar<i class="far fa-long-arrow-right"></i>'
+                                        );
+                                        Swal.fire({
+                                            type: "success",
+                                            title: response
+                                                .status,
+                                            text: response
+                                                .message,
+                                            confirmButtonColor: "#59C4BC",
+                                            confirmButtonText: "Lanjut",
+                                            backdrop: true,
+                                            allowOutsideClick: () => {
+                                                console.log(
+                                                    "Klik Tombol Lanjut"
+                                                );
+                                            },
+                                        }).then((result) => {
+                                            if (result.value ==
+                                                true) {
+                                                window.location
+                                                    .href = '/';
+                                            }
+                                        });
+                                    },
+                                    error: function(error) {
+                                        console.log(error)
+                                    }
+                                })
                             },
                             onPending: function(result) {
                                 /* You may add your own implementation here */
-                                alert("wating your payment!");
                                 console.log(result);
+                                Swal.fire({
+                                    type: "warning",
+                                    title: "Mohon Segera Dibayar",
+                                    text: "Kami Masih Menunggu Pembayaranmu",
+                                });
+                                $("#submit").html('Bayar');
                             },
                             onError: function(result) {
                                 /* You may add your own implementation here */
-                                alert("payment failed!");
                                 console.log(result);
+                                Swal.fire({
+                                    type: "error",
+                                    title: "Transaksi Gagal",
+                                    text: "Coba Lagi Dalam Beberapa Saat",
+                                });
+                                $("#submit").html('Bayar');
                             },
                             onClose: function() {
                                 /* You may add your own implementation here */
                                 alert(
-                                    'you closed the popup without finishing the payment'
+                                    'Kamu menutup pembayaran'
                                 );
+                                $("#submit").html('Bayar');
                             }
                         });
                     },
@@ -270,7 +329,34 @@
                         console.error(error);
                     },
                 });
+            });
 
+            $("body").on('click', '.delete', function() {
+                $.ajax({
+                    url: 'products/delete-to-cart',
+                    method: 'POST',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        Swal.fire({
+                            icon: "success",
+                            title: response.status,
+                            text: response.message,
+                            confirmButtonColor: "#59C4BC",
+                            confirmButtonText: "Lanjut",
+                            backdrop: true,
+                            allowOutsideClick: () => {
+                                console.log("Klik Tombol Lanjut");
+                            },
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>

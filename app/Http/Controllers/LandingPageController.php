@@ -7,11 +7,13 @@ use App\Models\ArticleCategory;
 use App\Models\Cart;
 use App\Models\Chat;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class LandingPageController extends Controller
 {
@@ -104,6 +106,18 @@ class LandingPageController extends Controller
         ]);
     }
 
+    function deleteToCartProduct(Request $request)
+    {
+        $data = Cart::findOrFail($request->id);
+        $data->delete();
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'Berhasil!',
+            'message' => 'Produk telah dihapus dari keranjangmu.',
+        ]);
+    }
+
     function cart()
     {
         $data['carts'] = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
@@ -124,11 +138,19 @@ class LandingPageController extends Controller
 
     function checkout(Request $request)
     {
+        $data['user'] = User::findOrFail($request->user_id);
+
+        for ($i = 0; $i < count($request->product_id); $i++) {
+            $products[] = [
+                'product_id' => $request->product_id[$i],
+                'quantity' => $request->quantities[$i],
+            ];
+        }
         $data['order'] = new Order;
         $data['order']->user_id = $request->user_id;
         $data['order']->total_price = $request->total_price;
-        $data['order']->products = $request->user_id;
-        $data['order']->status = "Unpaid";
+        $data['order']->products = json_encode($products);
+        $data['order']->status = "Belum Dibayar";
         $data['order']->save();
 
         // Set your Merchant Server Key
@@ -142,18 +164,36 @@ class LandingPageController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => $data['order']->id,
+                'order_id' => Str::random(5),
                 'gross_amount' => $request->total_price,
             ),
             'customer_details' => array(
-                'name' => 'budi',
-                'email' => 'budi.pra@example.com',
-                'phone' => '08111222333',
+                'name' => $data['user']->name,
+                'email' => $data['user']->email,
             ),
         );
 
         $data['snapToken'] = \Midtrans\Snap::getSnapToken($params);
 
         return response()->json($data);
+    }
+
+    function changeStatus(Request $request)
+    {
+        $user = User::findOrFail($request->user_id);
+        $order = Order::findOrFail($request->order_id);
+        $order->update(['status' => 'Sudah Dibayar']);
+
+        $response = Http::asForm()->post('https://wa.srv2.wapanels.com/send-message', [
+            'api_key' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
+            'sender' => '6285171121070',
+            'number' => $user->phone_number,
+            'message' => "Pembayaran anda sudah diterima sebesar Rp. " . number_format($order->total_price) . ".\nMohon kirim desain yang ingin disablon kepada kami melalui nomor ini.\nTerima kasih telah percaya kepada *Pondok Sablon*",
+        ]);
+
+        return response()->json([
+            'status' => 'Pembayaran Berhasil',
+            'message' => 'Terima kasih telah percaya pada kami.',
+        ]);
     }
 }

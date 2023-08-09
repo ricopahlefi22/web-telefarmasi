@@ -14,23 +14,27 @@ var table = $("#table").DataTable({
     ajax: document.URL,
     columns: [
         {
-            data: "user",
-            name: "user",
+            data: "user_id",
+            name: "user_id",
         },
         {
-            data: "product",
-            name: "product",
+            data: "products",
+            name: "products",
         },
         {
-            data: "quantity",
-            name: "quantity",
+            data: "total_price",
+            name: "total_price",
+        },
+        {
+            data: "status",
+            name: "status",
         },
         {
             data: "action",
             name: "action",
             orderable: false,
             searchable: false,
-            class: "actions text-center",
+            class: "text-center",
         },
     ],
     oLanguage: {
@@ -50,51 +54,15 @@ var table = $("#table").DataTable({
     },
 });
 
-$.ajaxSetup({
-    headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-    },
-});
-
-$("#form").on("submit", function (e) {
-    e.preventDefault();
-
-    $.ajax({
-        url: document.URL + "/store",
-        method: $(this).attr("method"),
-        data: new FormData(this),
-        processData: false,
-        dataType: "json",
-        contentType: false,
-        beforeSend: function () {
-            $("#category").removeClass("is-invalid");
-            $("#button").html(
-                '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
-            );
-        },
-        success: function (response) {
-            table.ajax.reload(null, false);
-            $("#formModal").modal("hide");
-
-            Toast.fire({
-                icon: "success",
-                title: response.status + "\n" + response.message,
-            });
-        },
-        error: function (error) {
-            $("#button").html("Simpan");
-
-            if (error.status == 422) {
-                var responseError = error["responseJSON"]["errors"];
-                $("#quantityError").html(responseError["quantity"]);
-
-                if (responseError["quantity"]) {
-                    $("#quantity").addClass("is-invalid");
-                    $("#quantity").focus();
-                }
-            }
-        },
-    });
+$("#create").click(function () {
+    $("#formModal").modal("show");
+    $("#modalTitle").html("Tambah Artikel");
+    $("#button").html("Tambah").removeClass("btn-warning");
+    $("#id").val("");
+    $("#title").val("");
+    $("#body").val("");
+    $("#titleError").html("");
+    $("#bodyError").html("");
 });
 
 $("body").on("click", ".edit", function () {
@@ -106,47 +74,68 @@ $("body").on("click", ".edit", function () {
         },
         success: function (response) {
             $("#formModal").modal("show");
-            $("#modalTitle").html("Edit Jumlah");
+            $("#modalTitle").html("Edit Artikel");
             $("#button").html("Simpan").addClass("btn-warning");
-            $("#category").removeClass("is-invalid");
+            $("#titleError").html("");
+            $("#bodyError").html("");
 
             $("#id").val(response.id);
-            $("#quantity").val(response.quantity);
-        },
-        error: function (error) {
-            console.error(error);
-            if (error.status == 500) {
-                Toast.fire({
-                    icon: "error",
-                    title: "Gagal! \nTerjadi masalah pada server.",
-                });
-            } else if (error.status == 404) {
-                Toast.fire({
-                    icon: "error",
-                    title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
-                });
-                table.ajax.reload(null, false);
-            } else if (error.status == 419) {
-                Toast.fire({
-                    icon: "error",
-                    title: "Sesi Telah Berakhir! \nMemuat ulang sistem untuk anda.",
-                });
-
-                setTimeout(() => {
-                    window.location.reload();
-                }, 3000);
-            } else {
-                Toast.fire({
-                    icon: "error",
-                    title: "Masalah Tidak Dikenali! \nMencoba memuat kembali untuk anda.",
-                });
-
-                setTimeout(() => {
-                    window.location.reload();
-                }, 3000);
-            }
+            $("#title").val(response.title);
+            $("#body").val(response.body);
         },
     });
+});
+
+$("body").on("click", ".publish", function () {
+    if (confirm("Posting?") === true) {
+        $.ajax({
+            type: "POST",
+            url: document.URL + "/publish",
+            data: {
+                id: $(this).data("id"),
+            },
+            success: function (response) {
+                table.draw();
+                Toast.fire({
+                    icon: "success",
+                    title: response.status + "\n" + response.message,
+                });
+            },
+            error: function (error) {
+                console.log(error);
+                if (error.status == 500) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Gagal! \nMohon ulangi beberapa saat lagi.",
+                    });
+                } else if (error.status == 404) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
+                    });
+                    table.draw();
+                } else if (error.status == 419) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Sesi Telah Berakhir! \nMemuat ulang sistem untuk anda.",
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                } else {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Masalah Tidak Dikenali! \nMencoba memuat kembali untuk anda.",
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                }
+            },
+        });
+    }
 });
 
 $("body").on("click", ".delete", function () {
@@ -158,25 +147,24 @@ $("body").on("click", ".delete", function () {
                 id: $(this).data("id"),
             },
             success: function (response) {
-                table.ajax.reload(null, false);
+                table.draw();
                 Toast.fire({
                     icon: "success",
                     title: response.status + "\n" + response.message,
                 });
             },
             error: function (error) {
-                console.error(error);
                 if (error.status == 500) {
                     Toast.fire({
                         icon: "error",
-                        title: "Gagal! \nTerjadi masalah pada server.",
+                        title: "Gagal! \nMohon ulangi beberapa saat lagi.",
                     });
                 } else if (error.status == 404) {
                     Toast.fire({
                         icon: "error",
                         title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
                     });
-                    table.ajax.reload(null, false);
+                    table.draw();
                 } else if (error.status == 419) {
                     Toast.fire({
                         icon: "error",
