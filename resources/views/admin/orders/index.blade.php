@@ -1,7 +1,7 @@
 @extends('admin.template.base')
 
 @section('content')
-    @include('admin.article-category.form-modal')
+    @include('admin.orders.change-status')
 
     <div id="main-content">
         <div class="container-fluid">

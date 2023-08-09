@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ltn__breadcrumb-inner">
-                            <h1 class="page-title">Daftar</h1>
+                            <h1 class="page-title">Lupa Kata Sandi</h1>
                             <div class="ltn__breadcrumb-list">
                                 <ul>
                                     <li>
@@ -99,7 +99,7 @@
                                             </span> Beranda
                                         </a>
                                     </li>
-                                    <li>Daftar</li>
+                                    <li>Lupa Kata Sandi</li>
                                 </ul>
                             </div>
                         </div>

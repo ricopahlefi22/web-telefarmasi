@@ -85,11 +85,9 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
 
         Route::prefix('orders')->controller(OrderController::class)->group(function () {
             Route::get('/', 'index');
-            Route::get('create', 'create');
             Route::get('detail/{id}', 'detail');
-            Route::get('edit/{id}', 'edit');
             Route::post('check', 'check');
-            Route::post('store', 'store');
+            Route::post('change-status', 'changeStatus');
             Route::delete('destroy', 'destroy');
         });
 

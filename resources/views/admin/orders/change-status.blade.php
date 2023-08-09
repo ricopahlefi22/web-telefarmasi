@@ -7,15 +7,17 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form" method="POST">
+            <form id="form" action="orders/change-status" method="POST">
                 <input type="hidden" id="id" name="id">
                 <div class="modal-body">
                     <div class="mb-2">
-                        <label for="category" class="form-label">Kategori<strong class="text-danger">*</strong>
-                            <span id="nameError" class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="category" name="category"
-                            placeholder="Nama Kategori">
-                        <span id="categoryError" class="invalid-feedback"></span>
+                        <select id="status" class="form-control" name="status">
+                            <option value="Belum Dibayar">Belum Dibayar</option>
+                            <option value="Sudah Dibayar">Sudah Dibayar</option>
+                            <option value="Dalam Perjalanan">Dalam Perjalanan</option>
+                            <option value="Selesai">Selesai</option>
+                        </select>
+                        <span id="statusError" class="invalid-feedback"></span>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">

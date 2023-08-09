@@ -14,8 +14,8 @@ var table = $("#table").DataTable({
     ajax: document.URL,
     columns: [
         {
-            data: "user_id",
-            name: "user_id",
+            data: "user",
+            name: "user",
         },
         {
             data: "products",
@@ -54,18 +54,38 @@ var table = $("#table").DataTable({
     },
 });
 
-$("#create").click(function () {
-    $("#formModal").modal("show");
-    $("#modalTitle").html("Tambah Artikel");
-    $("#button").html("Tambah").removeClass("btn-warning");
-    $("#id").val("");
-    $("#title").val("");
-    $("#body").val("");
-    $("#titleError").html("");
-    $("#bodyError").html("");
+$("#form").on("submit", function (e) {
+    e.preventDefault();
+
+    $.ajax({
+        url: $(this).attr("action"),
+        method: $(this).attr("method"),
+        data: new FormData(this),
+        processData: false,
+        dataType: "json",
+        contentType: false,
+        beforeSend: function () {
+            $("#button").html(
+                '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
+            );
+        },
+        success: function (response) {
+            table.ajax.reload(null, false);
+            $("#formModal").modal("hide");
+
+            Toast.fire({
+                icon: "success",
+                title: response.status + "\n" + response.message,
+            });
+            $("#button").html("Simpan");
+        },
+        error: function (error) {
+            $("#button").html("Simpan");
+        },
+    });
 });
 
-$("body").on("click", ".edit", function () {
+$("body").on("click", ".change-status", function () {
     $.ajax({
         type: "POST",
         url: document.URL + "/check",
@@ -74,68 +94,14 @@ $("body").on("click", ".edit", function () {
         },
         success: function (response) {
             $("#formModal").modal("show");
-            $("#modalTitle").html("Edit Artikel");
+            $("#modalTitle").html("Ganti Status");
             $("#button").html("Simpan").addClass("btn-warning");
-            $("#titleError").html("");
-            $("#bodyError").html("");
+            $("#status").val("").removeClass("is-invalid");
 
             $("#id").val(response.id);
-            $("#title").val(response.title);
-            $("#body").val(response.body);
+            $("#status").val(response.status);
         },
     });
-});
-
-$("body").on("click", ".publish", function () {
-    if (confirm("Posting?") === true) {
-        $.ajax({
-            type: "POST",
-            url: document.URL + "/publish",
-            data: {
-                id: $(this).data("id"),
-            },
-            success: function (response) {
-                table.draw();
-                Toast.fire({
-                    icon: "success",
-                    title: response.status + "\n" + response.message,
-                });
-            },
-            error: function (error) {
-                console.log(error);
-                if (error.status == 500) {
-                    Toast.fire({
-                        icon: "error",
-                        title: "Gagal! \nMohon ulangi beberapa saat lagi.",
-                    });
-                } else if (error.status == 404) {
-                    Toast.fire({
-                        icon: "error",
-                        title: "Data Tidak Ditemukan! \nData mungkin telah terhapus sebelumnya.",
-                    });
-                    table.draw();
-                } else if (error.status == 419) {
-                    Toast.fire({
-                        icon: "error",
-                        title: "Sesi Telah Berakhir! \nMemuat ulang sistem untuk anda.",
-                    });
-
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 3000);
-                } else {
-                    Toast.fire({
-                        icon: "error",
-                        title: "Masalah Tidak Dikenali! \nMencoba memuat kembali untuk anda.",
-                    });
-
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 3000);
-                }
-            },
-        });
-    }
 });
 
 $("body").on("click", ".delete", function () {

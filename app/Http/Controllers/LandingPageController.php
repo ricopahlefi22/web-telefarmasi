@@ -188,7 +188,7 @@ class LandingPageController extends Controller
             'api_key' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
             'sender' => '6285171121070',
             'number' => $user->phone_number,
-            'message' => "Pembayaran anda sudah diterima sebesar Rp. " . number_format($order->total_price) . ".\nMohon kirim desain yang ingin disablon kepada kami melalui nomor ini.\nTerima kasih telah percaya kepada *Pondok Sablon*",
+            'message' => "Hi! Kami telah menerima pembayaranmu sebesar Rp. " . number_format($order->total_price) . ".\nMohon kirimkan alamat anda agar kami dapat mengirimkan obat yang sudah anda pesan.\n\n*Apotek Desta Farma*",
         ]);
 
         return response()->json([

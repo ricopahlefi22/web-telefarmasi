@@ -89,7 +89,7 @@ class AuthAdminController extends Controller
                         'api_key' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
                         'sender' => '6285171121070',
                         'number' => $request->phone_number,
-                        'message' => $otp . " adalah kode OTP anda untuk mengatur ulang kata sandi. Jangan berikan kode ini kepada siapapun. \n\n*Website Pondok Sablon*",
+                        'message' => $otp . " adalah kode OTP anda untuk mengatur ulang kata sandi. Jangan berikan kode ini kepada siapapun. \n\n*Apotek Desta Farma*",
                     ]);
 
                     return response()->json([
