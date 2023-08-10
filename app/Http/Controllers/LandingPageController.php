@@ -196,4 +196,11 @@ class LandingPageController extends Controller
             'message' => 'Terima kasih telah percaya pada kami.',
         ]);
     }
+
+    function orders()
+    {
+        $data['title'] = 'Pesanan Saya';
+        $data['orders'] = Order::where('user_id', Auth::user()->id)->get();
+        return view('landing-page.profile', $data);
+    }
 }

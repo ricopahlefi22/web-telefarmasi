@@ -95,7 +95,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ltn__breadcrumb-inner">
-                            <h1 class="page-title">Profil</h1>
+                            <h1 class="page-title">{{ $title }}</h1>
                             <div class="ltn__breadcrumb-list">
                                 <ul>
                                     <li>
@@ -104,7 +104,7 @@
                                             Beranda
                                         </a>
                                     </li>
-                                    <li>Profil</li>
+                                    <li>{{ $title }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -126,67 +126,67 @@
                                     <div class="col-lg-4">
                                         <div class="ltn__tab-menu-list mb-50">
                                             <div class="nav">
-                                                <a class="active show" data-bs-toggle="tab" href="#liton_tab_1_1">Profil
+                                                <a class="{{ Route::current()->uri == 'profile' ? 'active show' : null }}"
+                                                    data-bs-toggle="tab" href="#liton_tab_1_1">Profil
                                                     <i class="fas fa-home"></i></a>
-                                                <a data-bs-toggle="tab" href="#liton_tab_1_2">Pesanan Saya<i
+                                                <a class="{{ Route::current()->uri == 'orders' ? 'active show' : null }}"
+                                                    data-bs-toggle="tab" href="#liton_tab_1_2">Pesanan Saya<i
                                                         class="fas fa-file-alt"></i></a>
                                                 <a data-bs-toggle="tab" href="#liton_tab_1_3">Edit Profil <i
-                                                        class="fas fa-arrow-down"></i></a>
+                                                        class="fas fa-edit"></i></a>
                                                 <a data-bs-toggle="tab" href="#liton_tab_1_4">Ganti Password <i
-                                                        class="fas fa-user"></i></a>
-                                                <a href="{{ url('logout') }}">Keluar <i
+                                                        class="fas fa-key"></i></a>
+                                                <a href="{{ url('logout') }}"
+                                                    onclick="confirm('Yakin ingin keluar?')">Keluar <i
                                                         class="fas fa-sign-out-alt"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="tab-content">
-                                            <div class="tab-pane fade active show" id="liton_tab_1_1">
+                                            <div class="tab-pane fade {{ Route::current()->uri == 'profile' ? 'active show' : null }}"
+                                                id="liton_tab_1_1">
                                                 <div class="ltn__myaccount-tab-content-inner">
-                                                    <p>Hello <strong>UserName</strong> (not <strong>UserName</strong>?
-                                                        <small><a href="login-register.html">Log out</a></small> )
+                                                    <p>Hi <strong>{{ Auth::user()->name }}</strong> (bukan
+                                                        <strong>{{ Auth::user()->name }}</strong>?
+                                                        <small><a href="{{ url('logout') }}">Keluar</a></small> )
                                                     </p>
-                                                    <p>From your account dashboard you can view your <span>recent
-                                                            orders</span>, manage your <span>shipping and billing
-                                                            addresses</span>, and <span>edit your password and account
-                                                            details</span>.</p>
+                                                    <p>
+                                                        <span>Nama : {{ Auth::user()->name }}</span><br>
+                                                        <span>Email : {{ Auth::user()->email }}</span><br>
+                                                        <span>No. Handphone : {{ Auth::user()->phone_number }}</span><br>
+                                                        <span>Bergabung Sejak : {{ Auth::user()->created_at }}</span><br>
+                                                        <span>Terakhir Kali Edit Data : {{ Auth::user()->updated_at }}</span><br>
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="liton_tab_1_2">
+                                            <div class="tab-pane fade {{ Route::current()->uri == 'orders' ? 'active show' : null }}"
+                                                id="liton_tab_1_2">
                                                 <div class="ltn__myaccount-tab-content-inner">
                                                     <div class="table-responsive">
                                                         <table class="table">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Order</th>
-                                                                    <th>Date</th>
+                                                                    <th>Produk Yang Dipesan</th>
                                                                     <th>Status</th>
-                                                                    <th>Total</th>
-                                                                    <th>Action</th>
+                                                                    <th>Harga</th>
+                                                                    <th>Aksi</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>Jun 22, 2019</td>
-                                                                    <td>Pending</td>
-                                                                    <td>$3000</td>
-                                                                    <td><a href="cart.html">View</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td>Nov 22, 2019</td>
-                                                                    <td>Approved</td>
-                                                                    <td>$200</td>
-                                                                    <td><a href="cart.html">View</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>3</td>
-                                                                    <td>Jan 12, 2020</td>
-                                                                    <td>On Hold</td>
-                                                                    <td>$990</td>
-                                                                    <td><a href="cart.html">View</a></td>
-                                                                </tr>
+                                                                @forelse ($orders as $order)
+                                                                    <tr>
+                                                                        <td>{{ $order->products }}</td>
+                                                                        <td>{{ $order->status }}</td>
+                                                                        <td>{{ $order->total_price }}</td>
+                                                                        <td>-</td>
+                                                                    </tr>
+                                                                @empty
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">Belum ada
+                                                                            pesanan tersedia</td>
+                                                                    </tr>
+                                                                @endforelse
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -194,71 +194,74 @@
                                             </div>
                                             <div class="tab-pane fade" id="liton_tab_1_3">
                                                 <div class="ltn__myaccount-tab-content-inner">
-                                                    <div class="table-responsive">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Product</th>
-                                                                    <th>Date</th>
-                                                                    <th>Expire</th>
-                                                                    <th>Download</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>Carsafe - Car Service PSD Template</td>
-                                                                    <td>Nov 22, 2020</td>
-                                                                    <td>Yes</td>
-                                                                    <td><a href="#"><i
-                                                                                class="far fa-arrow-to-bottom mr-1"></i>
-                                                                            Download File</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Carsafe - Car Service HTML Template</td>
-                                                                    <td>Nov 10, 2020</td>
-                                                                    <td>Yes</td>
-                                                                    <td><a href="#"><i
-                                                                                class="far fa-arrow-to-bottom mr-1"></i>
-                                                                            Download File</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Carsafe - Car Service WordPress Theme</td>
-                                                                    <td>Nov 12, 2020</td>
-                                                                    <td>Yes</td>
-                                                                    <td><a href="#"><i
-                                                                                class="far fa-arrow-to-bottom mr-1"></i>
-                                                                            Download File</a></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                    <div class="ltn__form-box">
+                                                        <form action="#">
+                                                            <div>
+                                                                <label for="form-label">
+                                                                    Nama Lengkap
+                                                                    <span id="nameError" class="text-danger"></span>
+                                                                </label>
+                                                                <input type="text" name="name"
+                                                                    value="{{ Auth::user()->name }}"
+                                                                    placeholder="Nama Lengkap">
+                                                            </div>
+                                                            <div>
+                                                                <label for="form-label">
+                                                                    Email
+                                                                    <span id="emailError" class="text-danger"></span>
+                                                                </label>
+                                                                <input type="text" name="email"
+                                                                    value="{{ Auth::user()->email }}"
+                                                                    placeholder="Email">
+                                                            </div>
+                                                            <div>
+                                                                <label for="form-label">
+                                                                    Nomor Handphone
+                                                                    <span id="phoneNumberError"
+                                                                        class="text-danger"></span>
+                                                                </label>
+                                                                <input type="text" name="phone_number"
+                                                                    value="{{ Auth::user()->phone_number }}"
+                                                                    placeholder="Nomor Handphone">
+                                                            </div>
+                                                            <div class="btn-wrapper">
+                                                                <button type="submit"
+                                                                    class="btn theme-btn-1 btn-effect-1 text-uppercase">
+                                                                    Simpan Perubahan
+                                                                </button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="liton_tab_1_5">
+                                            <div class="tab-pane fade" id="liton_tab_1_4">
                                                 <div class="ltn__myaccount-tab-content-inner">
-                                                    <p>The following addresses will be used on the checkout page by
-                                                        default.</p>
+                                                    <p>Kosongkan kolom jika tidak ingin mengganti kata sandimu</p>
                                                     <div class="ltn__form-box">
                                                         <form action="#">
-                                                            <fieldset>
-                                                                <legend>Password change</legend>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <label>Current password (leave blank to leave
-                                                                            unchanged):</label>
-                                                                        <input type="password" name="ltn__name">
-                                                                        <label>New password (leave blank to leave
-                                                                            unchanged):</label>
-                                                                        <input type="password" name="ltn__lastname">
-                                                                        <label>Confirm new password:</label>
-                                                                        <input type="password" name="ltn__lastname">
-                                                                    </div>
-                                                                </div>
-                                                            </fieldset>
+                                                            <div>
+                                                                <label for="form-label">
+                                                                    Kata Sandi Baru
+                                                                    <span id="passwordError"
+                                                                        class="text-danger"></span>
+                                                                </label>
+                                                                <input type="password" name="password"
+                                                                    placeholder="Kata Sandi">
+                                                            </div>
+                                                            <div>
+                                                                <label for="form-label">
+                                                                    Konfirmasi Kata Sandi Baru
+                                                                    <span id="confirmPasswordError"
+                                                                        class="text-danger"></span>
+                                                                </label>
+                                                                <input type="password" name="confirm_password"
+                                                                    placeholder="Konfirmasi Kata Sandi">
+                                                            </div>
                                                             <div class="btn-wrapper">
                                                                 <button type="submit"
-                                                                    class="btn theme-btn-1 btn-effect-1 text-uppercase">Save
-                                                                    Changes</button>
+                                                                    class="btn theme-btn-1 btn-effect-1 text-uppercase">
+                                                                    Ganti
+                                                                </button>
                                                             </div>
                                                         </form>
                                                     </div>

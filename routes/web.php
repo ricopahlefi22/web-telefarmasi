@@ -173,6 +173,8 @@ Route::controller(LandingPageController::class)->group(function () {
             Route::get('profile', 'user');
         });
 
+        Route::get('orders', 'orders');
+
         Route::get('cart', 'cart');
         Route::get('chat', 'chat');
         Route::get('chat/read', 'readChat');

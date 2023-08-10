@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Admin;
+use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -85,6 +87,7 @@ class ProfileController extends Controller
     function user()
     {
         $data['title'] = 'Profil Saya';
+        $data['orders'] = Order::where('user_id', Auth::user()->id)->get();
         return view('landing-page.profile', $data);
     }
 }

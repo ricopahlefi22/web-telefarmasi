@@ -122,7 +122,7 @@
                 <div class="row">
                     <div class="col-lg-6 align-self-center">
                         <div class="about-us-img-wrap about-img-left">
-                            <img src="{{ asset('assets-landing/img/dokter.png') }}" alt="About Us Image">
+                            <img src="{{ asset('assets-landing/img/about.jpeg') }}" alt="About Us Image">
                         </div>
                     </div>
                     <div class="col-lg-6 align-self-center">
