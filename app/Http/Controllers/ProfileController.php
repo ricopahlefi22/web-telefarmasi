@@ -81,4 +81,10 @@ class ProfileController extends Controller
             'message' => 'Kata sandi telah diganti.',
         ]);
     }
+
+    function user()
+    {
+        $data['title'] = 'Profil Saya';
+        return view('landing-page.profile', $data);
+    }
 }

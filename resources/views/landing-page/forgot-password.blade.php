@@ -115,29 +115,15 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title-area text-center">
-                            <h1 class="section-title">Buat Akun</h1>
-                            <p>Silahkan daftar untuk menggunakan lebih banyak layanan kami.</p>
+                            <h1 class="section-title">Lupa Kata Sandi</h1>
+                            <p>Kami akan mengirimkan kode OTP melalui whatsapp.</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 offset-lg-3">
                         <div class="account-login-inner">
-                            <form id="form" action="register" class="ltn__form-box" method="POST">
-                                <div>
-                                    <label for="form-label">
-                                        Nama Lengkap<span class="text-danger">*</span>
-                                        <span id="nameError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="name" placeholder="Nama Lengkap">
-                                </div>
-                                <div>
-                                    <label for="form-label">
-                                        Email<span class="text-danger">*</span>
-                                        <span id="emailError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="email" placeholder="Email">
-                                </div>
+                            <form id="form" class="ltn__form-box" method="POST">
                                 <div>
                                     <label for="form-label">
                                         Nomor Handphone<span class="text-danger">*</span>
@@ -145,31 +131,17 @@
                                     </label>
                                     <input type="text" name="phone_number" placeholder="Nomor Handphone">
                                 </div>
-                                <div>
-                                    <label for="form-label">
-                                        Kata Sandi<span class="text-danger">*</span>
-                                        <span id="passwordError" class="text-danger"></span>
-                                    </label>
-                                    <input type="password" name="password" placeholder="Kata Sandi">
-                                </div>
-                                <div>
-                                    <label for="form-label">
-                                        Konfirmasi Kata Sandi<span class="text-danger">*</span>
-                                        <span id="confirmPasswordError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="confirm_password" placeholder="Konfirmasi Kata Sandi">
-                                </div>
 
                                 <div class="btn-wrapper">
                                     <button id="submit" class="theme-btn-1 btn reverse-color btn-block"
                                         type="submit">
-                                        Daftar
+                                        Kirim OTP
                                     </button>
                                 </div>
                             </form>
                             <div class="by-agree text-center">
                                 <div class="go-to-btn mt-20">
-                                    <a href="{{ url('login') }}">Sudah Punya Akun?</a>
+                                    <a href="{{ url('login') }}">Sudah Ingat Kata Sandimu?</a>
                                 </div>
                             </div>
                         </div>
@@ -177,6 +149,43 @@
                 </div>
             </div>
         </div>
+
+        <div class="ltn__modal-area ltn__add-to-cart-modal-area">
+            <div class="modal fade" id="otpModal" tabindex="-1">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="ltn__quick-view-modal-inner">
+                                <div class="modal-product-item">
+                                    <form id="otpForm" method="POST">
+                                        <input id="token" type="hidden" name="token">
+                                        <div>
+                                            <label for="form-label">
+                                                Kode OTP<span class="text-danger">*</span>
+                                                <span id="otpError" class="text-danger"></span>
+                                            </label>
+                                            <input type="text" name="otp" placeholder="Kode One Time Password">
+                                        </div>
+                                        <div class="btn-wrapper">
+                                            <button id="otpSubmit" class="theme-btn-1 btn reverse-color btn-block"
+                                                type="submit">
+                                                Lanjut
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- LOGIN AREA END -->
 
         <!-- CALL TO ACTION START (call-to-action-6) -->
@@ -205,7 +214,7 @@
 
     <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
 
-    <script src="{{ asset('js/register.js') }}"></script>
+    <script src="{{ asset('js/forgot-password.js') }}"></script>
 </body>
 
 </html>

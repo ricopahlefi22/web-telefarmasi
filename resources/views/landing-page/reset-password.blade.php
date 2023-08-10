@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ltn__breadcrumb-inner">
-                            <h1 class="page-title">Daftar</h1>
+                            <h1 class="page-title">Atur Ulang Kata Sandi</h1>
                             <div class="ltn__breadcrumb-list">
                                 <ul>
                                     <li>
@@ -99,7 +99,7 @@
                                             </span> Beranda
                                         </a>
                                     </li>
-                                    <li>Daftar</li>
+                                    <li>Atur Ulang Kata Sandi</li>
                                 </ul>
                             </div>
                         </div>
@@ -115,36 +115,16 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title-area text-center">
-                            <h1 class="section-title">Buat Akun</h1>
-                            <p>Silahkan daftar untuk menggunakan lebih banyak layanan kami.</p>
+                            <h1 class="section-title">Atur Ulang Kata Sandimu</h1>
+                            <p>Masukkan kata sandi baru untuk mengatur ulang kata sandimu.</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 offset-lg-3">
                         <div class="account-login-inner">
-                            <form id="form" action="register" class="ltn__form-box" method="POST">
-                                <div>
-                                    <label for="form-label">
-                                        Nama Lengkap<span class="text-danger">*</span>
-                                        <span id="nameError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="name" placeholder="Nama Lengkap">
-                                </div>
-                                <div>
-                                    <label for="form-label">
-                                        Email<span class="text-danger">*</span>
-                                        <span id="emailError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="email" placeholder="Email">
-                                </div>
-                                <div>
-                                    <label for="form-label">
-                                        Nomor Handphone<span class="text-danger">*</span>
-                                        <span id="phoneNumberError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="phone_number" placeholder="Nomor Handphone">
-                                </div>
+                            <form id="form" class="ltn__form-box" method="POST">
+                                <input type="hidden" name="token" value="{{ $token }}">
                                 <div>
                                     <label for="form-label">
                                         Kata Sandi<span class="text-danger">*</span>
@@ -157,21 +137,16 @@
                                         Konfirmasi Kata Sandi<span class="text-danger">*</span>
                                         <span id="confirmPasswordError" class="text-danger"></span>
                                     </label>
-                                    <input type="text" name="confirm_password" placeholder="Konfirmasi Kata Sandi">
+                                    <input type="password" name="confirm_password" placeholder="Konfirmasi Kata Sandi">
                                 </div>
 
                                 <div class="btn-wrapper">
                                     <button id="submit" class="theme-btn-1 btn reverse-color btn-block"
                                         type="submit">
-                                        Daftar
+                                        Ganti
                                     </button>
                                 </div>
                             </form>
-                            <div class="by-agree text-center">
-                                <div class="go-to-btn mt-20">
-                                    <a href="{{ url('login') }}">Sudah Punya Akun?</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -205,7 +180,7 @@
 
     <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
 
-    <script src="{{ asset('js/register.js') }}"></script>
+    <script src="{{ asset('js/reset-password.js') }}"></script>
 </body>
 
 </html>

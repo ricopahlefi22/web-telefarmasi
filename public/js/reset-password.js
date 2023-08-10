@@ -19,7 +19,9 @@ $(document).ready(function() {
             contentType: false,
             beforeSend: function() {
                 $("#password").removeClass('is-invalid');
+                $("#passwordError").html('');
                 $("#confirmPassword").removeClass('is-invalid');
+                $("#confirmPasswordError").html('');
 
                 $("#button").html(
                     '<i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>'

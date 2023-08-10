@@ -157,7 +157,7 @@
                                         Konfirmasi Kata Sandi<span class="text-danger">*</span>
                                         <span id="confirmPasswordError" class="text-danger"></span>
                                     </label>
-                                    <input type="text" name="confirm_password" placeholder="Konfirmasi Kata Sandi">
+                                    <input type="password" name="confirm_password" placeholder="Konfirmasi Kata Sandi">
                                 </div>
 
                                 <div class="btn-wrapper">

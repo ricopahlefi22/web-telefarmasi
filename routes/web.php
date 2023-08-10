@@ -153,6 +153,7 @@ Route::prefix('auth')->controller(SocialiteController::class)->group(function ()
     Route::get('{provider}/callback', 'handleProviderCallback');
 });
 
+
 Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'index');
 
@@ -168,6 +169,10 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::post('products/delete-to-cart', 'deleteToCartProduct');
 
     Route::middleware('auth:user')->group(function () {
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('profile', 'user');
+        });
+
         Route::get('cart', 'cart');
         Route::get('chat', 'chat');
         Route::get('chat/read', 'readChat');

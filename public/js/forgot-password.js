@@ -17,6 +17,7 @@ $(document).ready(function() {
             contentType: false,
             beforeSend: function() {
                 $("#phoneNumber").removeClass('is-invalid');
+                $("#phoneNumberError").html('');
 
                 $("#submit").html(
                     'Mengirim'
@@ -79,6 +80,7 @@ $(document).ready(function() {
             contentType: false,
             beforeSend: function() {
                 $("#otp").removeClass('is-invalid');
+                $("#otpError").html('');
 
                 $("#otpSubmit").prop('disabled', true);
             },
