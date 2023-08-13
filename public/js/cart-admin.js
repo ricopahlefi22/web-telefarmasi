@@ -106,7 +106,7 @@ $("body").on("click", ".edit", function () {
         },
         success: function (response) {
             $("#formModal").modal("show");
-            $("#modalTitle").html("Edit Jumlah");
+            $("#modalTitle").html("Edit Jumlah Barang");
             $("#button").html("Simpan").addClass("btn-warning");
             $("#category").removeClass("is-invalid");
 

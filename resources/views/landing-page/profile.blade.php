@@ -154,9 +154,12 @@
                                                     <p>
                                                         <span>Nama : {{ Auth::user()->name }}</span><br>
                                                         <span>Email : {{ Auth::user()->email }}</span><br>
-                                                        <span>No. Handphone : {{ Auth::user()->phone_number }}</span><br>
-                                                        <span>Bergabung Sejak : {{ Auth::user()->created_at }}</span><br>
-                                                        <span>Terakhir Kali Edit Data : {{ Auth::user()->updated_at }}</span><br>
+                                                        <span>No. Handphone :
+                                                            {{ Auth::user()->phone_number }}</span><br>
+                                                        <span>Bergabung Sejak :
+                                                            {{ Auth::user()->created_at }}</span><br>
+                                                        <span>Terakhir Kali Edit Data :
+                                                            {{ Auth::user()->updated_at }}</span><br>
                                                     </p>
                                                 </div>
                                             </div>
@@ -176,10 +179,24 @@
                                                             <tbody>
                                                                 @forelse ($orders as $order)
                                                                     <tr>
-                                                                        <td>{{ $order->products }}</td>
+                                                                        <td>
+                                                                            <ul>
+                                                                                @foreach (json_decode($order->products, true) as $product)
+                                                                                    <li>
+                                                                                        {{ App\Models\Product::findOrFail($product['product_id'])->name }}
+                                                                                        ({{ $product['quantity'] }}
+                                                                                        Buah)
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        </td>
                                                                         <td>{{ $order->status }}</td>
-                                                                        <td>{{ $order->total_price }}</td>
-                                                                        <td>-</td>
+                                                                        <td>{{ formatRupiah($order->total_price) }}
+                                                                        </td>
+                                                                        <td><a href="{{ url('orders/invoice', $order->id) }}"
+                                                                                class="btn btn-sm btn-dark"
+                                                                                target="_blank">Lihat
+                                                                                Bukti</a></td>
                                                                     </tr>
                                                                 @empty
                                                                     <tr>
@@ -195,7 +212,11 @@
                                             <div class="tab-pane fade" id="liton_tab_1_3">
                                                 <div class="ltn__myaccount-tab-content-inner">
                                                     <div class="ltn__form-box">
-                                                        <form action="#">
+                                                        <form id="editProfileForm" action="{{ url('edit-profile') }}"
+                                                            method="POST" enctype="multipart/form-data">
+                                                            <input type="hidden" id="id" name="id"
+                                                                value="{{ Auth::user()->id }}">
+
                                                             <div>
                                                                 <label for="form-label">
                                                                     Nama Lengkap
@@ -238,7 +259,10 @@
                                                 <div class="ltn__myaccount-tab-content-inner">
                                                     <p>Kosongkan kolom jika tidak ingin mengganti kata sandimu</p>
                                                     <div class="ltn__form-box">
-                                                        <form action="#">
+                                                        <form id="changePasswordForm" action="change-password"
+                                                            method="POST" enctype="multipart/form-data">
+                                                            <input type="hidden" id="id" name="id"
+                                                                value="{{ Auth::user()->id }}">
                                                             <div>
                                                                 <label for="form-label">
                                                                     Kata Sandi Baru
@@ -301,6 +325,159 @@
     <!-- Body main wrapper end -->
 
     @include('landing-page.sections.script')
+
+    <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            });
+
+            $("#editProfileForm").on("submit", function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr("action"),
+                    method: $(this).attr("method"),
+                    data: new FormData(this),
+                    processData: false,
+                    dataType: "json",
+                    contentType: false,
+                    beforeSend: function() {
+                        $("#name").removeClass("is-invalid");
+                        $("#email").removeClass("is-invalid");
+                        $("#phoneNumber").removeClass("is-invalid");
+
+                        $("#button").html(
+                            '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
+                        );
+                    },
+                    success: function(response) {
+                        $("#button").html("Simpan");
+
+                        Swal.fire({
+                            icon: "success",
+                            title: response.status,
+                            text: response.message,
+                            confirmButtonText: "Lanjut",
+                            confirmButtonColor: "#59C4BC",
+                            backdrop: true,
+                            allowOutsideClick: () => {
+                                console.log("Klik Tombol Lanjut");
+                            },
+                        }).then((result) => {
+                            if (result.value == true) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        $("#button").html("Simpan");
+
+                        if (error.status == 422) {
+                            var responseError = error["responseJSON"]["errors"];
+                            $("#nameError").html(responseError["name"]);
+                            $("#emailError").html(responseError["email"]);
+                            $("#phoneNumberError").html(responseError["phone_number"]);
+
+                            if (responseError["phone_number"]) {
+                                $("#phoneNumber").addClass("is-invalid").focus();
+                            }
+
+                            if (responseError["email"]) {
+                                $("#email").addClass("is-invalid").focus();
+                            }
+
+                            if (responseError["name"]) {
+                                $("#name").addClass("is-invalid").focus();
+                            }
+                        } else {
+                            Toast.fire({
+                                icon: "error",
+                                title: "Error " + error.status + "! \nTerjadi masalah",
+                            });
+                        }
+                    },
+                });
+            });
+
+            $("#changePasswordForm").on("submit", function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr("action"),
+                    method: $(this).attr("method"),
+                    data: new FormData(this),
+                    processData: false,
+                    dataType: "json",
+                    contentType: false,
+                    beforeSend: function() {
+                        $("#passwordError").html("");
+                        $("#confirmPasswordError").html("");
+
+                        $("#changePasswordButton").html(
+                            '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
+                        );
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: response.status,
+                            text: response.message,
+                            confirmButtonText: "Lanjut",
+                            confirmButtonColor: "#007BFF",
+                            backdrop: true,
+                            allowOutsideClick: () => {
+                                console.log("Klik Tombol Lanjut");
+                            },
+                        }).then((result) => {
+                            if (result.value == true) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        $("#changePasswordButton").html("Simpan");
+
+                        if (error.status == 422) {
+                            var responseError = error["responseJSON"]["errors"];
+                            $("#passwordError").html(responseError["password"]);
+                            $("#confirmPasswordError").html(responseError["confirm_password"]);
+
+                            if (responseError["confirm_password"]) {
+                                $("#confirmPassword").addClass("is-invalid").focus();
+                            }
+
+                            if (responseError["new_password"]) {
+                                $("#newPassword").addClass("is-invalid").focus();
+                            }
+
+                            if (responseError["old_password"]) {
+                                $("#oldPassword").addClass("is-invalid").focus();
+                            }
+                        } else {
+                            Toast.fire({
+                                icon: "error",
+                                title: "Error " + error.status + "! \nTerjadi masalah",
+                            });
+                        }
+                    },
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -159,7 +159,7 @@ class AuthUserController extends Controller
             return response()->json([
                 'code' => 500,
                 'status' => 'Nomor Tidak Ditemukan!',
-                'message' => 'Tidak ada admin yang menggunakan nomor ini.',
+                'message' => 'Nomor handphone ini tidak terdaftar.',
             ]);
         } catch (Exception $e) {
             return response()->json([

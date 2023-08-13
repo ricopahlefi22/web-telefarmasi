@@ -171,9 +171,12 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::middleware('auth:user')->group(function () {
         Route::controller(ProfileController::class)->group(function () {
             Route::get('profile', 'user');
+            Route::post('edit-profile', 'editProfileUser');
+            Route::post('change-password', 'changePasswordUser');
         });
 
         Route::get('orders', 'orders');
+        Route::get('orders/invoice/{id}', 'ordersInvoice');
 
         Route::get('cart', 'cart');
         Route::get('chat', 'chat');

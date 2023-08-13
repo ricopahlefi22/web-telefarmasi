@@ -203,4 +203,11 @@ class LandingPageController extends Controller
         $data['orders'] = Order::where('user_id', Auth::user()->id)->get();
         return view('landing-page.profile', $data);
     }
+
+    function ordersInvoice(Request $request)
+    {
+        $data['order'] = Order::findOrFail($request->id);
+
+        return view('landing-page.invoice', $data);
+    }
 }
