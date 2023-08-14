@@ -22,8 +22,8 @@ class CartController extends Controller
                     return $cart->product->name;
                 })
                 ->addColumn('action', function (Cart $cart) {
-                    $btn = '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save edit" title="Edit Jumlah Barang"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
-                    $btn .= '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save delete"><i class="icon-trash" aria-hidden="true"></i></button> ';
+                    // $btn = '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save edit" title="Edit Jumlah Barang"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
+                    $btn = '<button data-id="' . $cart->id . '"  class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-save delete"><i class="icon-trash" aria-hidden="true"></i></button> ';
                     return $btn;
                 })
                 ->rawColumns(['action'])
