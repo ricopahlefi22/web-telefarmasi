@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('about');
             $table->string('address');
             $table->string('email');
+            $table->string('ongkir_per_kilo')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();

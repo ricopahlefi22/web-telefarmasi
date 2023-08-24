@@ -21,7 +21,8 @@
 <body data-theme="light" class="font-nunito">
     <div id="wrapper" class="theme-cyan">
         <div class="chat" style="height: 80%;">
-            <div class="chat-header clearfix bg-white" style="position: absolute; top: 0; left: 0; right: 0;z-index: 1000;">
+            <div class="chat-header clearfix bg-white"
+                style="position: absolute; top: 0; left: 0; right: 0;z-index: 1000;">
                 <div class="row">
                     <div class="col-lg-6">
                         <img src="{{ asset('favicon.png') }}" alt="avatar" />
@@ -36,21 +37,29 @@
                     </div>
                 </div>
             </div>
-            <div id="messageBody" class="chat-history" style="height: 100vh;padding-top: 100px;padding-bottom: 50px;overflow: scroll;">
+            <div id="messageBody" class="chat-history"
+                style="height: 100vh;padding-top: 100px;padding-bottom: 50px;overflow: scroll;">
                 <ul id="chatWrapper">
                 </ul>
             </div>
             <div style="position: absolute; bottom: 0; left: 0; right: 0;">
-                <form id="chatForm" action="chat/store" method="POST">
+                <form id="chatForm" action="chat/store" method="POST" enctype="multipart/form-data">
                     <div class="chat-message clearfix">
                         <div class="input-group mb-0">
+                            <div class="input-group-prepend">
+                                <input id="image" type="file" name="image" class="d-none" accept="image/png, image/jpeg"/>
+                                <button id="imageButton" type="button" onclick="document.getElementById('image').click();"
+                                    class="input-group-text text-dark">
+                                    <i class="icon-camera"></i>
+                                </button>
+                            </div>
                             <input type="hidden" name="status" value="user">
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <input id="message" type="text" name="message" class="form-control"
                                 placeholder="Ketikkan Pesanmu">
                             <div class="input-group-prepend">
-                                <button id="submit" type="submit"
-                                    class="input-group-text bg-secondary text-white" disabled>
+                                <button id="submit" type="submit" class="input-group-text bg-secondary text-white"
+                                    disabled>
                                     <i class="icon-paper-plane"></i>
                                 </button>
                             </div>
@@ -65,8 +74,8 @@
     <script src="{{ asset('assets-admin/bundles/libscripts.bundle.js') }}"></script>
     <script src="{{ asset('assets-admin/bundles/vendorscripts.bundle.js') }}"></script>
 
-    <script src="{{ asset('assets-admin/bundles/easypiechart.bundle.js') }}"></script> <!-- easypiechart Plugin Js -->
-    <script src="{{ asset('assets-admin/vendor/sweetalert/sweetalert.min.js') }}"></script> <!-- SweetAlert Plugin Js -->
+    <script src="{{ asset('assets-admin/bundles/easypiechart.bundle.js') }}"></script>
+    <script src="{{ asset('assets-admin/vendor/sweetalert/sweetalert.min.js') }}"></script>
 
     <script src="{{ asset('js/chat.js') }}"></script>
 </body>

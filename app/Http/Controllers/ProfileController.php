@@ -99,12 +99,14 @@ class ProfileController extends Controller
                 'name' => 'required',
                 'email' => 'required|email',
                 'phone_number' => 'required',
+                'address' => 'required',
             ],
             [
                 'name.required' => 'Mohon isi kolom nama',
                 'email.required' => 'Mohon isi kolom email',
                 'email.email' => 'Format email tidak sesuai',
                 'phone_number.required' => 'Mohon isi kolom nomor handphone',
+                'address.required' => 'Mohon isi kolom alamat',
             ]
         );
 
@@ -123,6 +125,7 @@ class ProfileController extends Controller
         $data->name = ucwords(strtolower($request->name));
         $data->email = $request->email;
         $data->phone_number = $request->phone_number;
+        $data->address = $request->address;
         $data->photo = $photo;
         $data->update();
 

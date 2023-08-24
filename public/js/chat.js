@@ -17,8 +17,26 @@ function read() {
     });
 }
 
+$("#image").change(function () {
+    if ($("#image").val()) {
+        $("#submit")
+            .prop("disabled", false)
+            .removeClass("bg-secondary")
+            .addClass("bg-success");
+
+        $("#imageButton").addClass("bg-success text-white");
+    } else {
+        $("#submit")
+            .prop("disabled", true)
+            .removeClass("bg-success")
+            .addClass("bg-secondary");
+
+        $("#imageButton").removeClass("bg-success text-white");
+    }
+});
+
 $("#message").keyup(function () {
-    if ($(this).val().length != 0) {
+    if ($("#message").val().length != 0) {
         $("#submit")
             .prop("disabled", false)
             .removeClass("bg-secondary")

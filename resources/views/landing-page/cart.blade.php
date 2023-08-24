@@ -118,7 +118,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="shoping-cart-inner">
-                            <form id="form" action="checkout" method="POST">
+                            <form id="form" action="make-order" method="POST">
                                 <div class="shoping-cart-table table-responsive">
                                     <table class="table">
                                         <tbody>
@@ -143,11 +143,18 @@
                                                                 {{ $cart->product->name }}
                                                             </a>
                                                         </h4>
+                                                        <p>
+                                                            Harga Satuan: Rp.
+                                                            {{ str_replace(',', '.', number_format($cart->product->price)) }}
+                                                        </p>
                                                     </td>
                                                     <td class="cart-product-price">
-                                                        Jumlah Produk: {{ $cart->quantity }}<br>
-                                                        Harga Satuan: Rp.
-                                                        {{ str_replace(',', '.', number_format($cart->product->price)) }}
+                                                        Jumlah Produk:<br>
+                                                        <div class="cart-plus-minus">
+                                                            <input type="text" value="{{ $cart->quantity }}"
+                                                                name="quantities[]" class="cart-plus-minus-box">
+                                                        </div>
+
                                                     </td>
                                                     <td class="cart-product-subtotal">
                                                         Subtotal:<br> Rp.
@@ -160,7 +167,38 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="shoping-cart-total mt-50">
+                                <div class="mt-50">
+                                    <div class="row">
+                                        <div class="col-7 px-2">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <input id="diAntar" type="radio" name="delivery"
+                                                            value="1" checked>
+                                                        <label for="diAntar">Di Antar</label>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input id="ambilSendiri" type="radio" name="delivery"
+                                                            value="0">
+                                                        <label for="ambilSendiri">Ambil Sendiri</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="note">Catatan (Optional): </label>
+                                                <textarea name="note" id="note"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 px-4">
+                                            <label for="name">Nama Pemesan:</label>
+                                            <p id="name"><strong>{{ Auth::user()->name }}
+                                                    ({{ Auth::user()->phone_number }})</strong></p>
+                                            <label for="address">Alamat:</label>
+                                            <p id="address"><strong>{{ Auth::user()->address }}</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="shoping-cart-total mt-20">
                                     <table class="table">
                                         @php
                                             $total = 0;
@@ -180,7 +218,7 @@
                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                         <input type="hidden" name="total_price" value="{{ $total }}">
                                         <button type="submit" class="theme-btn-1 btn mt-2 btn-block btn-effect-1">
-                                            Bayar
+                                            Buat Pesanan
                                         </button>
                                     </div>
                                 </div>
@@ -249,81 +287,95 @@
                     },
                     success: function(response) {
                         console.log(response);
-
-                        var order_id = response.order.id;
-                        var user_id = response.user.id;
-
-                        window.snap.pay(response.snapToken, {
-                            onSuccess: function(result) {
-                                /* You may add your own implementation here */
-                                console.log(result);
-                                $.ajax({
-                                    url: 'change-order-status',
-                                    method: 'POST',
-                                    data: {
-                                        order_id: order_id,
-                                        user_id: user_id,
-                                    },
-                                    success: function(response) {
-                                        console.log(response);
-                                        $("#submit").html(
-                                            'Bayar<i class="far fa-long-arrow-right"></i>'
-                                        );
-                                        Swal.fire({
-                                            type: "success",
-                                            title: response
-                                                .status,
-                                            text: response
-                                                .message,
-                                            confirmButtonColor: "#59C4BC",
-                                            confirmButtonText: "Lanjut",
-                                            backdrop: true,
-                                            allowOutsideClick: () => {
-                                                console.log(
-                                                    "Klik Tombol Lanjut"
-                                                );
-                                            },
-                                        }).then((result) => {
-                                            if (result.value ==
-                                                true) {
-                                                window.location
-                                                    .href = '/';
-                                            }
-                                        });
-                                    },
-                                    error: function(error) {
-                                        console.log(error)
-                                    }
-                                })
+                        Swal.fire({
+                            icon: "success",
+                            title: response.status,
+                            text: response.message,
+                            confirmButtonColor: "#59C4BC",
+                            confirmButtonText: "Lanjut",
+                            backdrop: true,
+                            allowOutsideClick: () => {
+                                console.log("Klik Tombol Lanjut");
                             },
-                            onPending: function(result) {
-                                /* You may add your own implementation here */
-                                console.log(result);
-                                Swal.fire({
-                                    type: "warning",
-                                    title: "Mohon Segera Dibayar",
-                                    text: "Kami Masih Menunggu Pembayaranmu",
-                                });
-                                $("#submit").html('Bayar');
-                            },
-                            onError: function(result) {
-                                /* You may add your own implementation here */
-                                console.log(result);
-                                Swal.fire({
-                                    type: "error",
-                                    title: "Transaksi Gagal",
-                                    text: "Coba Lagi Dalam Beberapa Saat",
-                                });
-                                $("#submit").html('Bayar');
-                            },
-                            onClose: function() {
-                                /* You may add your own implementation here */
-                                alert(
-                                    'Kamu menutup pembayaran'
-                                );
-                                $("#submit").html('Bayar');
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/checkout'
                             }
                         });
+                        // var order_id = response.order.id;
+                        // var user_id = response.user.id;
+
+                        // window.snap.pay(response.snapToken, {
+                        //     onSuccess: function(result) {
+                        //         /* You may add your own implementation here */
+                        //         console.log(result);
+                        //         $.ajax({
+                        //             url: 'change-order-status',
+                        //             method: 'POST',
+                        //             data: {
+                        //                 order_id: order_id,
+                        //                 user_id: user_id,
+                        //             },
+                        //             success: function(response) {
+                        //                 console.log(response);
+                        //                 $("#submit").html(
+                        //                     'Bayar<i class="far fa-long-arrow-right"></i>'
+                        //                 );
+                        //                 Swal.fire({
+                        //                     type: "success",
+                        //                     title: response
+                        //                         .status,
+                        //                     text: response
+                        //                         .message,
+                        //                     confirmButtonColor: "#59C4BC",
+                        //                     confirmButtonText: "Lanjut",
+                        //                     backdrop: true,
+                        //                     allowOutsideClick: () => {
+                        //                         console.log(
+                        //                             "Klik Tombol Lanjut"
+                        //                         );
+                        //                     },
+                        //                 }).then((result) => {
+                        //                     if (result.value ==
+                        //                         true) {
+                        //                         window.location
+                        //                             .href = '/';
+                        //                     }
+                        //                 });
+                        //             },
+                        //             error: function(error) {
+                        //                 console.log(error)
+                        //             }
+                        //         })
+                        //     },
+                        //     onPending: function(result) {
+                        //         /* You may add your own implementation here */
+                        //         console.log(result);
+                        //         Swal.fire({
+                        //             type: "warning",
+                        //             title: "Mohon Segera Dibayar",
+                        //             text: "Kami Masih Menunggu Pembayaranmu",
+                        //         });
+                        //         $("#submit").html('Bayar');
+                        //     },
+                        //     onError: function(result) {
+                        //         /* You may add your own implementation here */
+                        //         console.log(result);
+                        //         Swal.fire({
+                        //             type: "error",
+                        //             title: "Transaksi Gagal",
+                        //             text: "Coba Lagi Dalam Beberapa Saat",
+                        //         });
+                        //         $("#submit").html('Bayar');
+                        //     },
+                        //     onClose: function() {
+                        //         /* You may add your own implementation here */
+                        //         alert(
+                        //             'Kamu menutup pembayaran'
+                        //         );
+                        //         $("#submit").html('Bayar');
+                        //     }
+                        // });
                     },
                     error: function(error) {
                         console.error(error);

@@ -147,6 +147,13 @@
                                 </div>
                                 <div>
                                     <label for="form-label">
+                                        Alamat<span class="text-danger">*</span>
+                                        <span id="addressError" class="text-danger"></span>
+                                    </label>
+                                    <input type="text" name="address" placeholder="Alamat">
+                                </div>
+                                <div>
+                                    <label for="form-label">
                                         Kata Sandi<span class="text-danger">*</span>
                                         <span id="passwordError" class="text-danger"></span>
                                     </label>

@@ -19,6 +19,7 @@ $(document).ready(function () {
                 $("#nameError").html("");
                 $("#emailError").html("");
                 $("#phoneNumberError").html("");
+                $("#addressError").html("");
                 $("#passwordError").html("");
                 $("#confirmPasswordError").html("");
 
@@ -63,6 +64,7 @@ $(document).ready(function () {
                     $("#nameError").html(rspError["name"]);
                     $("#emailError").html(rspError["email"]);
                     $("#phoneNumberError").html(rspError["phone_number"]);
+                    $("#addressError").html(rspError["address"]);
                     $("#passwordError").html(rspError["password"]);
                     $("#confirmPasswordError").html(rspError["confirm_password"]);
                 }

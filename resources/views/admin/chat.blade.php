@@ -31,7 +31,8 @@
                                             <img src="{{ asset('assets-admin/images/xs/avatar2.jpg') }}" alt="avatar" />
                                             <div class="about">
                                                 <div class="name text-dark">{{ $user->name }}</div>
-                                                <div class="status text-dark"> <i class="fa fa-circle online"></i>Online</div>
+                                                <div class="status text-dark"> <i class="fa fa-circle online"></i>Online
+                                                </div>
                                             </div>
                                         </li>
                                     </a>
@@ -60,9 +61,18 @@
                                     <ul id="chatWrapper">
                                     </ul>
                                 </div>
-                                <form id="chatForm" action="chat/store" method="POST">
+                                <form id="chatForm" action="chat/store" method="POST" enctype="multipart/form-data">
                                     <div class="chat-message clearfix">
                                         <div class="input-group mb-0">
+                                            <div class="input-group-prepend">
+                                                <input id="image" type="file" name="image" class="d-none"
+                                                    accept="image/png, image/jpeg" />
+                                                <button id="imageButton" type="button"
+                                                    onclick="document.getElementById('image').click();"
+                                                    class="input-group-text text-dark">
+                                                    <i class="icon-camera"></i>
+                                                </button>
+                                            </div>
                                             <input type="hidden" name="status" value="admin">
                                             <input type="hidden" name="user_id" value="{{ $user_room->id }}">
                                             <input id="message" type="text" name="message" class="form-control"
@@ -129,6 +139,24 @@
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
+            });
+
+            $("#image").change(function() {
+                if ($("#image").val()) {
+                    $("#submit")
+                        .prop("disabled", false)
+                        .removeClass("bg-secondary")
+                        .addClass("bg-success");
+
+                    $("#imageButton").addClass("bg-success text-white");
+                } else {
+                    $("#submit")
+                        .prop("disabled", true)
+                        .removeClass("bg-success")
+                        .addClass("bg-secondary");
+
+                    $("#imageButton").removeClass("bg-success text-white");
+                }
             });
 
             $("#message").keyup(function() {

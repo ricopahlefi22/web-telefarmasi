@@ -182,8 +182,11 @@ Route::controller(LandingPageController::class)->group(function () {
         Route::get('chat', 'chat');
         Route::get('chat/read', 'readChat');
         Route::post('chat/store', [ChatController::class, 'sendMessage']);
-        Route::post('checkout', 'checkout');
+
+        Route::post('make-order', 'makeOrder');
         Route::post('change-order-status', 'changeStatus');
+
+        Route::post('checkout', 'checkout');
     });
 });
 

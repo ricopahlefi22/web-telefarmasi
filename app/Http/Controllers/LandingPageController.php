@@ -136,6 +136,36 @@ class LandingPageController extends Controller
         return view('landing-page.sections.chat-scrolling', $data);
     }
 
+    function makeOrder(Request $request)
+    {
+        $data['user'] = User::findOrFail($request->user_id);
+
+        for ($i = 0; $i < count($request->product_id); $i++) {
+            $products[] = [
+                'product_id' => $request->product_id[$i],
+                'quantity' => $request->quantities[$i],
+            ];
+
+            $cart = Cart::where('user_id', $data['user']->id)->where('product_id', $request->product_id[$i])->first();
+            $cart->quantity = $request->quantities[$i];
+            $cart->save();
+        }
+        $data['order'] = new Order;
+        $data['order']->user_id = $request->user_id;
+        $data['order']->total_price = $request->total_price;
+        $data['order']->products = json_encode($products);
+        $data['order']->delivery = $request->delivery;
+        $data['order']->note = $request->note;
+        $data['order']->status = "Belum Dibayar";
+        $data['order']->save();
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'Berhasil!',
+            'message' => 'Pesanan berhasil dibuat.',
+        ]);
+    }
+
     function checkout(Request $request)
     {
         $data['user'] = User::findOrFail($request->user_id);

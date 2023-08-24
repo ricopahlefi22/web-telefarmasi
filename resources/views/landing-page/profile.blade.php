@@ -156,6 +156,8 @@
                                                         <span>Email : {{ Auth::user()->email }}</span><br>
                                                         <span>No. Handphone :
                                                             {{ Auth::user()->phone_number }}</span><br>
+                                                        <span>Alamat :
+                                                            {{ Auth::user()->address }}</span><br>
                                                         <span>Bergabung Sejak :
                                                             {{ Auth::user()->created_at }}</span><br>
                                                         <span>Terakhir Kali Edit Data :
@@ -244,6 +246,16 @@
                                                                 <input type="text" name="phone_number"
                                                                     value="{{ Auth::user()->phone_number }}"
                                                                     placeholder="Nomor Handphone">
+                                                            </div>
+                                                            <div>
+                                                                <label for="form-label">
+                                                                    Alamat
+                                                                    <span id="addressError"
+                                                                        class="text-danger"></span>
+                                                                </label>
+                                                                <input type="text" name="address"
+                                                                    value="{{ Auth::user()->address }}"
+                                                                    placeholder="Alamat">
                                                             </div>
                                                             <div class="btn-wrapper">
                                                                 <button type="submit"

@@ -163,12 +163,22 @@
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <a href="#" class="theme-btn-1 btn btn-effect-1"
-                                                        title="Add to Cart" data-bs-toggle="modal"
-                                                        data-bs-target="#add_to_cart_modal">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                        <span>Tambah Ke Keranjang</span>
-                                                    </a>
+                                                    @if (Auth::check())
+                                                        <a href="javascript:void(0)" title="Tambah Ke Keranjang"
+                                                            class="add-to-cart theme-btn-1 btn btn-effect-1"
+                                                            data-id="{{ $product->id }}" data-quantity="1">
+                                                            <i class="fas fa-shopping-cart"></i>
+                                                            <span>Tambah Ke Keranjang</span>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ url('login') }}"
+                                                            class="theme-btn-1 btn btn-effect-1"
+                                                            onclick="confirm('Sebelum melanjutkan, loginlah terlebih dahulu!')"
+                                                            title="Tambah Ke Keranjang">
+                                                            <i class="fas fa-shopping-cart"></i>
+                                                            <span>Tambah Ke Keranjang</span>
+                                                        </a>
+                                                    @endif
                                                 </li>
                                             </ul>
                                         </div>

@@ -66,6 +66,7 @@ class AuthUserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'phone_number' => 'required',
+            'address' => 'required',
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password',
         ], [
@@ -74,6 +75,7 @@ class AuthUserController extends Controller
             'email.email' => 'Mohon isi sesuai format email',
             'email.unique' => 'Email ini sudah tersedia',
             'phone_number.required' => 'Nomor handphone tidak boleh kosong',
+            'address.required' => 'Alamat tidak boleh kosong',
             'password.required' => 'Kata sandi tidak boleh kosong',
             'password.min' => 'Kata sandi minimal 8 karakter',
             'confirm_password.required' => 'Konfirmasi kata sandi tidak boleh kosong',
@@ -85,6 +87,7 @@ class AuthUserController extends Controller
             $data->name = $request->name;
             $data->email = $request->email;
             $data->phone_number = $request->phone_number;
+            $data->address = $request->address;
             $data->password = bcrypt($request->password);
             $data->save();
 
