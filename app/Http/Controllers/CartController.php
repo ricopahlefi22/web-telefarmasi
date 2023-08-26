@@ -77,7 +77,6 @@ class CartController extends Controller
         $data = Cart::findOrFail($request->id);
         $data->delete();
 
-
         return response()->json([
             'code' => 200,
             'status' => 'Berhasil!',

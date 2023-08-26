@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\WebConfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -121,6 +122,15 @@ class LandingPageController extends Controller
     function cart()
     {
         $data['carts'] = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
+
+        if(!empty(Auth::user()->latitude) && !$data['carts']->isEmpty()){
+            $data['ongkir'] = (6371 * acos(cos(deg2rad(Auth::user()->latitude))
+            * cos(deg2rad(WebConfig::first()->latitude))
+            * cos(deg2rad(WebConfig::first()->longitude) - deg2rad(Auth::user()->longitude)) + sin(deg2rad(Auth::user()->latitude))
+            * sin(deg2rad(WebConfig::first()->latitude)))) * 2000;
+        } else {
+            $data['ongkir'] = 0;
+        }
         return view('landing-page.cart', $data);
     }
 
@@ -166,7 +176,11 @@ class LandingPageController extends Controller
         ]);
     }
 
-    function checkout(Request $request)
+    function checkout(Request $request){
+        return view('landing-page.checkout');
+    }
+
+    function postCheckout(Request $request)
     {
         $data['user'] = User::findOrFail($request->user_id);
 

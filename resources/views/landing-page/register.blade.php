@@ -121,51 +121,62 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 offset-lg-3">
+                    <div class="col-lg-12">
                         <div class="account-login-inner">
                             <form id="form" action="register" class="ltn__form-box" method="POST">
-                                <div>
-                                    <label for="form-label">
-                                        Nama Lengkap<span class="text-danger">*</span>
-                                        <span id="nameError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="name" placeholder="Nama Lengkap">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div>
+                                            <label for="form-label">
+                                                Nama Lengkap<span class="text-danger">*</span>
+                                                <span id="nameError" class="text-danger"></span>
+                                            </label>
+                                            <input type="text" name="name" placeholder="Nama Lengkap">
+                                        </div>
+                                        <div>
+                                            <label for="form-label">
+                                                Email<span class="text-danger">*</span>
+                                                <span id="emailError" class="text-danger"></span>
+                                            </label>
+                                            <input type="text" name="email" placeholder="Email">
+                                        </div>
+                                        <div>
+                                            <label for="form-label">
+                                                Nomor Handphone<span class="text-danger">*</span>
+                                                <span id="phoneNumberError" class="text-danger"></span>
+                                            </label>
+                                            <input type="text" name="phone_number" placeholder="Nomor Handphone">
+                                        </div>
+                                        <div>
+                                            <label for="form-label">
+                                                Kata Sandi<span class="text-danger">*</span>
+                                                <span id="passwordError" class="text-danger"></span>
+                                            </label>
+                                            <input type="password" name="password" placeholder="Kata Sandi">
+                                        </div>
+                                        <div>
+                                            <label for="form-label">
+                                                Konfirmasi Kata Sandi<span class="text-danger">*</span>
+                                                <span id="confirmPasswordError" class="text-danger"></span>
+                                            </label>
+                                            <input type="password" name="confirm_password"
+                                                placeholder="Konfirmasi Kata Sandi">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <label for="form-label">
+                                                Alamat<span class="text-danger">*</span>
+                                                <span id="addressError" class="text-danger"></span>
+                                            </label>
+                                            <input id="address" type="text" name="address" placeholder="Alamat">
+                                        </div>
+                                        <div id="map-canvas" style="height: 500px;"></div>
+                                        <input id="latitude" type="hidden" name="latitude">
+                                        <input id="longitude" type="hidden" name="longitude">
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="form-label">
-                                        Email<span class="text-danger">*</span>
-                                        <span id="emailError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="email" placeholder="Email">
-                                </div>
-                                <div>
-                                    <label for="form-label">
-                                        Nomor Handphone<span class="text-danger">*</span>
-                                        <span id="phoneNumberError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="phone_number" placeholder="Nomor Handphone">
-                                </div>
-                                <div>
-                                    <label for="form-label">
-                                        Alamat<span class="text-danger">*</span>
-                                        <span id="addressError" class="text-danger"></span>
-                                    </label>
-                                    <input type="text" name="address" placeholder="Alamat">
-                                </div>
-                                <div>
-                                    <label for="form-label">
-                                        Kata Sandi<span class="text-danger">*</span>
-                                        <span id="passwordError" class="text-danger"></span>
-                                    </label>
-                                    <input type="password" name="password" placeholder="Kata Sandi">
-                                </div>
-                                <div>
-                                    <label for="form-label">
-                                        Konfirmasi Kata Sandi<span class="text-danger">*</span>
-                                        <span id="confirmPasswordError" class="text-danger"></span>
-                                    </label>
-                                    <input type="password" name="confirm_password" placeholder="Konfirmasi Kata Sandi">
-                                </div>
+
 
                                 <div class="btn-wrapper">
                                     <button id="submit" class="theme-btn-1 btn reverse-color btn-block"
@@ -209,6 +220,10 @@
     <!-- Body main wrapper end -->
 
     @include('landing-page.sections.script')
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k&" async defer></script>
+
+    <script src="{{ asset('js/google-maps.js') }}"></script>
 
     <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
 

@@ -61,9 +61,16 @@ $("#chatForm").on("submit", function (e) {
         contentType: false,
         success: function () {
             $("#message").val("");
+            $("#image").val(null);
+            $("#submit")
+                .prop("disabled", true)
+                .removeClass("bg-success")
+                .addClass("bg-secondary");
+            $("#imageButton").removeClass("bg-success text-white");
         },
         error: function (error) {
             console.error(error);
+            $("#image").val(null);
         },
     });
 });

@@ -171,6 +171,7 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::middleware('auth:user')->group(function () {
         Route::controller(ProfileController::class)->group(function () {
             Route::get('profile', 'user');
+            Route::get('edit-profile', 'editUser');
             Route::post('edit-profile', 'editProfileUser');
             Route::post('change-password', 'changePasswordUser');
         });
@@ -186,7 +187,8 @@ Route::controller(LandingPageController::class)->group(function () {
         Route::post('make-order', 'makeOrder');
         Route::post('change-order-status', 'changeStatus');
 
-        Route::post('checkout', 'checkout');
+        Route::get('checkout', 'checkout');
+        Route::post('checkout', 'postCheckout');
     });
 });
 

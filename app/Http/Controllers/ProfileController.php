@@ -92,6 +92,14 @@ class ProfileController extends Controller
         return view('landing-page.profile', $data);
     }
 
+    function editUser()
+    {
+        $data['title'] = 'Edit Profil';
+        $data['orders'] = Order::where('user_id', Auth::user()->id)->get();
+
+        return view('landing-page.profile', $data);
+    }
+
     function editProfileUser(Request $request)
     {
         $request->validate(
@@ -126,6 +134,8 @@ class ProfileController extends Controller
         $data->email = $request->email;
         $data->phone_number = $request->phone_number;
         $data->address = $request->address;
+        $data->latitude = $request->latitude;
+        $data->longitude = $request->longitude;
         $data->photo = $photo;
         $data->update();
 

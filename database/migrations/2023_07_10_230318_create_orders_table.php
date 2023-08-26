@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('total_price');
             $table->string('status');
             $table->boolean('delivery')->default(false);
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

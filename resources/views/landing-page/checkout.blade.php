@@ -123,7 +123,7 @@
                                 <div class="shoping-cart-table table-responsive">
                                     <table class="table">
                                         <tbody>
-                                            @foreach ($carts as $cart)
+                                            {{-- @foreach ($carts as $cart)
                                                 <tr>
                                                     <td class="cart-product-remove">x</td>
                                                     <td class="cart-product-image">
@@ -152,38 +152,38 @@
                                                         {{ $cart->quantity * $cart->product->price }}
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="shoping-cart-total mt-50">
                                     <table class="table">
-                                        @php
+                                        {{-- @php
                                             $subtotal = 0;
                                             $ongkir = 0;
 
                                             foreach ($carts as $cart) {
                                                 $subtotal += $cart->quantity * $cart->product->price;
                                             }
-                                        @endphp
+                                        @endphp --}}
                                         <tbody>
                                             <tr>
                                                 <td>Subtotal Keranjang</td>
-                                                <td>Rp. {{ $subtotal }}</td>
+                                                {{-- <td>Rp. {{ $subtotal }}</td> --}}
                                             </tr>
                                             <tr>
                                                 <td>Ongkos Kirim</td>
-                                                <td>Rp. {{ $ongkir }}</td>
+                                                {{-- <td>Rp. {{ $ongkir }}</td> --}}
                                             </tr>
                                             <tr>
                                                 <td><strong>Total</strong></td>
-                                                <td><strong>Rp. {{ $subtotal + $ongkir }}</strong></td>
+                                                {{-- <td><strong>Rp. {{ $subtotal + $ongkir }}</strong></td> --}}
                                             </tr>
                                         </tbody>
                                     </table>
                                     <div class="btn-wrapper text-right">
                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                        <input type="hidden" name="total_price" value="{{ $subtotal + $ongkir }}">
+                                        {{-- <input type="hidden" name="total_price" value="{{ $subtotal + $ongkir }}"> --}}
                                         <button type="submit" class="theme-btn-1 btn mt-2 btn-block btn-effect-1">
                                             Bayar
                                         </button>

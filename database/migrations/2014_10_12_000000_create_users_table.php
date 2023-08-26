@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number');
             $table->string('address');
-            // $table->double('latitude');
-            // $table->double('longitude');
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->string('password')->nullable()->default(bcrypt('12341234'));
             $table->string('photo')->nullable();
             $table->timestamps();

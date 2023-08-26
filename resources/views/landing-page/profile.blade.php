@@ -211,12 +211,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="liton_tab_1_3">
+                                            <div class="tab-pane fade {{ Route::current()->uri == 'edit-profile' ? 'active show' : null }}"
+                                                id="liton_tab_1_3">
                                                 <div class="ltn__myaccount-tab-content-inner">
                                                     <div class="ltn__form-box">
                                                         <form id="editProfileForm" action="{{ url('edit-profile') }}"
                                                             method="POST" enctype="multipart/form-data">
-                                                            <input type="hidden" id="id" name="id"
+                                                            <input type="hidden" name="id"
                                                                 value="{{ Auth::user()->id }}">
 
                                                             <div>
@@ -257,6 +258,9 @@
                                                                     value="{{ Auth::user()->address }}"
                                                                     placeholder="Alamat">
                                                             </div>
+                                                            <div id="map-canvas" style="height: 200px;"></div>
+                                                            <input id="latitude" type="hidden" name="latitude">
+                                                            <input id="longitude" type="hidden" name="longitude">
                                                             <div class="btn-wrapper">
                                                                 <button type="submit"
                                                                     class="btn theme-btn-1 btn-effect-1 text-uppercase">
@@ -338,10 +342,16 @@
 
     @include('landing-page.sections.script')
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k&" async defer></script>
+
     <script src="{{ asset('assets-admin/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script>
+        var map, marker, myLatLng;
+
         $(document).ready(function() {
+            initMap();
+
             var Toast = Swal.mixin({
                 toast: true,
                 position: "bottom-end",
@@ -389,7 +399,7 @@
                             },
                         }).then((result) => {
                             if (result.value == true) {
-                                window.location.reload();
+                                window.location.href = '/edit-profile';
                             }
                         });
                     },
@@ -489,6 +499,50 @@
                 });
             });
         });
+
+        function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, fail);
+            } else {
+                alert("Browser anda tidak mendukung untuk menampilkan peta kami.");
+            }
+        }
+
+        function success(position) {
+            @if (empty(Auth::user()->latitude))
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+            @else
+                var latitude = {{ Auth::user()->latitude }};
+                var longitude = {{ Auth::user()->longitude }};
+            @endif
+            $("#latitude").val(latitude);
+            $("#longitude").val(longitude);
+            myLatLng = new google.maps.LatLng(latitude, longitude);
+            createMap(myLatLng);
+        }
+
+        function fail() {
+            alert("Gagal menampilkan peta, cobalah periksa koneksi internetmu");
+        }
+
+        function createMap(myLatLng) {
+            map = new google.maps.Map(document.getElementById("map-canvas"), {
+                center: myLatLng,
+                zoom: 12,
+            });
+            marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                draggable: true,
+            });
+            google.maps.event.addListener(marker, "position_changed", function() {
+                let lat = marker.position.lat();
+                let lng = marker.position.lng();
+                $("#latitude").val(lat);
+                $("#longitude").val(lng);
+            });
+        }
     </script>
 </body>
 

@@ -34,7 +34,7 @@
                 });
             });
 
-            $('body').on('click', '.add-to-cart', function() {
+            $('body').on('click', '.add-product-to-cart', function() {
                 var id = $(this).data('id');
                 var quantity = $(this).data('quantity');
 

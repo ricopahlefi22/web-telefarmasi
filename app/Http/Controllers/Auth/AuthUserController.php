@@ -89,6 +89,8 @@ class AuthUserController extends Controller
             $data->phone_number = $request->phone_number;
             $data->address = $request->address;
             $data->password = bcrypt($request->password);
+            $data->latitude = $request->latitude;
+            $data->longitude = $request->longitude;
             $data->save();
 
             return response()->json([

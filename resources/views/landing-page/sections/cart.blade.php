@@ -9,7 +9,6 @@
                 <a href="#">
                     <img src="{{ asset($cart->product->image) }}" alt="Gambar Produk">
                 </a>
-                <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
             </div>
             <div class="mini-cart-info">
                 <h6><a href="{{ url('products/detail', $cart->product->id) }}">{{ $cart->product->name }}</a></h6>

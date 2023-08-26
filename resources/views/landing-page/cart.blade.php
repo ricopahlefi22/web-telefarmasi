@@ -157,7 +157,7 @@
 
                                                     </td>
                                                     <td class="cart-product-subtotal">
-                                                        Subtotal:<br> Rp.
+                                                        Jumlah:<br> Rp.
                                                         {{ str_replace(',', '.', number_format($cart->quantity * $cart->product->price)) }}
                                                     </td>
                                                 </tr>
@@ -171,20 +171,6 @@
                                     <div class="row">
                                         <div class="col-7 px-2">
                                             <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input id="diAntar" type="radio" name="delivery"
-                                                            value="1" checked>
-                                                        <label for="diAntar">Di Antar</label>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input id="ambilSendiri" type="radio" name="delivery"
-                                                            value="0">
-                                                        <label for="ambilSendiri">Ambil Sendiri</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="note">Catatan (Optional): </label>
                                                 <textarea name="note" id="note"></textarea>
                                             </div>
@@ -193,24 +179,46 @@
                                             <label for="name">Nama Pemesan:</label>
                                             <p id="name"><strong>{{ Auth::user()->name }}
                                                     ({{ Auth::user()->phone_number }})</strong></p>
-                                            <label for="address">Alamat:</label>
+                                            <div>
+                                                <label for="address">Alamat: </label>
+                                                <a href="{{ url('edit-profile') }}"
+                                                    class="text-warning float-right">Ubah</a>
+                                            </div>
                                             <p id="address"><strong>{{ Auth::user()->address }}</strong></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="shoping-cart-total mt-20">
+                                <div class="shoping-cart-total">
                                     <table class="table">
                                         @php
-                                            $total = 0;
+                                            $totalOngkir = $ongkir;
+                                            $quantityProduct = 0;
+                                            $subTotal = 0;
+                                            $total = 0 + $ongkir;
 
                                             foreach ($carts as $cart) {
+                                                $quantityProduct = $cart->quantity;
+                                                $subTotal += $cart->quantity * $cart->product->price;
                                                 $total += $cart->quantity * $cart->product->price;
                                             }
                                         @endphp
                                         <tbody>
                                             <tr>
+                                                <td>Jumlah Produk ({{$quantityProduct}})</td>
+                                                <td class="text-right">
+                                                    {{ formatRupiah($subTotal) }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ongkos Kirim</td>
+                                                <td class="text-right">
+                                                    {{ formatRupiah($totalOngkir) }}
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td><strong>Total</strong></td>
-                                                <td class="text-right"><strong>Rp. {{ $total }}</strong></td>
+                                                <td class="text-right"><strong>{{ formatRupiah($total) }}</strong>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

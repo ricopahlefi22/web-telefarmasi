@@ -24,6 +24,8 @@ class User extends Authenticatable
         'phone_number',
         'address',
         'password',
+        'latitude',
+        'longitude',
     ];
 
     public function socialAccount()
