@@ -195,15 +195,26 @@
                                                                         <td>{{ $order->status }}</td>
                                                                         <td>{{ formatRupiah($order->total_price) }}
                                                                         </td>
-                                                                        <td><a href="{{ url('orders/invoice', $order->id) }}"
-                                                                                class="btn btn-sm btn-dark"
-                                                                                target="_blank">Lihat
-                                                                                Bukti</a></td>
+                                                                        <td>
+                                                                            @if ($order->status != 'Belum Dibayar')
+                                                                                <a href="{{ url('orders/invoice', Crypt::encrypt($order->id)) }}"
+                                                                                    class="btn btn-sm btn-dark"
+                                                                                    target="_blank">
+                                                                                    Lihat Bukti
+                                                                                </a>
+                                                                            @else
+                                                                                <a href="{{ url('checkout', Crypt::encrypt($order->id)) }}"
+                                                                                    class="btn btn-sm btn-dark">
+                                                                                    Bayar
+                                                                                </a>
+                                                                            @endif
+                                                                        </td>
                                                                     </tr>
                                                                 @empty
                                                                     <tr>
-                                                                        <td colspan="4" class="text-center">Belum ada
-                                                                            pesanan tersedia</td>
+                                                                        <td colspan="4" class="text-center">
+                                                                            Belum ada pesanan tersedia
+                                                                        </td>
                                                                     </tr>
                                                                 @endforelse
                                                             </tbody>

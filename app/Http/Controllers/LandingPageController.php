@@ -13,6 +13,7 @@ use App\Models\ProductCategory;
 use App\Models\WebConfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 
@@ -123,11 +124,11 @@ class LandingPageController extends Controller
     {
         $data['carts'] = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
 
-        if(!empty(Auth::user()->latitude) && !$data['carts']->isEmpty()){
-            $data['ongkir'] = (6371 * acos(cos(deg2rad(Auth::user()->latitude))
-            * cos(deg2rad(WebConfig::first()->latitude))
-            * cos(deg2rad(WebConfig::first()->longitude) - deg2rad(Auth::user()->longitude)) + sin(deg2rad(Auth::user()->latitude))
-            * sin(deg2rad(WebConfig::first()->latitude)))) * 2000;
+        if (!empty(Auth::user()->latitude) && !$data['carts']->isEmpty()) {
+            $data['ongkir'] = round((6371 * acos(cos(deg2rad(Auth::user()->latitude))
+                * cos(deg2rad(WebConfig::first()->latitude))
+                * cos(deg2rad(WebConfig::first()->longitude) - deg2rad(Auth::user()->longitude)) + sin(deg2rad(Auth::user()->latitude))
+                * sin(deg2rad(WebConfig::first()->latitude)))) * 2000);
         } else {
             $data['ongkir'] = 0;
         }
@@ -149,6 +150,7 @@ class LandingPageController extends Controller
     function makeOrder(Request $request)
     {
         $data['user'] = User::findOrFail($request->user_id);
+        $total_price = 0;
 
         for ($i = 0; $i < count($request->product_id); $i++) {
             $products[] = [
@@ -159,43 +161,56 @@ class LandingPageController extends Controller
             $cart = Cart::where('user_id', $data['user']->id)->where('product_id', $request->product_id[$i])->first();
             $cart->quantity = $request->quantities[$i];
             $cart->save();
+
+            $total_price += Product::findOrFail($request->product_id[$i])->price * $request->quantities[$i];
         }
         $data['order'] = new Order;
+        if ($request->delivery == 'true') {
+            $data['order']->total_price = $total_price + $request->ongkir;
+            $data['order']->ongkir_price = $request->ongkir;
+            $data['order']->delivery = true;
+        } else {
+            $data['order']->total_price = $total_price;
+            $data['order']->delivery = false;
+        }
         $data['order']->user_id = $request->user_id;
-        $data['order']->total_price = $request->total_price;
         $data['order']->products = json_encode($products);
-        $data['order']->delivery = $request->delivery;
         $data['order']->note = $request->note;
         $data['order']->status = "Belum Dibayar";
         $data['order']->save();
 
-        return response()->json([
-            'code' => 200,
-            'status' => 'Berhasil!',
-            'message' => 'Pesanan berhasil dibuat.',
+        $response = Http::asForm()->post('https://wa.srv2.wapanels.com/send-message', [
+            'api_key' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
+            'sender' => '6285171121070',
+            'number' => $data['user']->phone_number,
+            'message' => "Hi! Pesananmu berhasil dibuat harap selesaikan pembayaran sebesar " . formatRupiah($data['order']->total_price) . ".\nKami akan mempersiapkan pesananmu setelah pembayaran berhasil dilakukan.\n\n*Apotek Desta Farma*",
         ]);
+
+        if ($response) {
+            return response()->json([
+                'code' => 200,
+                'status' => 'Berhasil!',
+                'message' => 'Pesanan berhasil dibuat.',
+                'route' => "/checkout/" . Crypt::encrypt($data['order']->id),
+            ]);
+        }
     }
 
-    function checkout(Request $request){
-        return view('landing-page.checkout');
+    function checkout(Request $request)
+    {
+        $data['order'] = Order::findOrFail(Crypt::decrypt($request->id));
+
+        if ($data['order']->status != 'Belum Dibayar') {
+            return redirect('orders');
+        }
+
+        return view('landing-page.checkout', $data);
     }
 
     function postCheckout(Request $request)
     {
+        $data['order'] = Order::findOrFail($request->order_id);
         $data['user'] = User::findOrFail($request->user_id);
-
-        for ($i = 0; $i < count($request->product_id); $i++) {
-            $products[] = [
-                'product_id' => $request->product_id[$i],
-                'quantity' => $request->quantities[$i],
-            ];
-        }
-        $data['order'] = new Order;
-        $data['order']->user_id = $request->user_id;
-        $data['order']->total_price = $request->total_price;
-        $data['order']->products = json_encode($products);
-        $data['order']->status = "Belum Dibayar";
-        $data['order']->save();
 
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
@@ -208,12 +223,12 @@ class LandingPageController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => Str::random(5),
-                'gross_amount' => $request->total_price,
+                'order_id' => 'ADF' . $data['order']->id . '-' . Str::random(5),
+                'gross_amount' => $data['order']->total_price,
             ),
             'customer_details' => array(
-                'name' => $data['user']->name,
-                'email' => $data['user']->email,
+                'name' => $data['order']->user->name,
+                'email' => $data['order']->user->email,
             ),
         );
 
@@ -250,7 +265,7 @@ class LandingPageController extends Controller
 
     function ordersInvoice(Request $request)
     {
-        $data['order'] = Order::findOrFail($request->id);
+        $data['order'] = Order::findOrFail(Crypt::decrypt($request->id));
 
         return view('landing-page.invoice', $data);
     }

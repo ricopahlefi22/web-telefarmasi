@@ -165,7 +165,7 @@
                                                 <li>
                                                     @if (Auth::check())
                                                         <a href="javascript:void(0)" title="Tambah Ke Keranjang"
-                                                            class="add-to-cart theme-btn-1 btn btn-effect-1"
+                                                            class="add-product-to-cart theme-btn-1 btn btn-effect-1"
                                                             data-id="{{ $product->id }}" data-quantity="1">
                                                             <i class="fas fa-shopping-cart"></i>
                                                             <span>Tambah Ke Keranjang</span>
@@ -271,7 +271,7 @@
                                             <li>
                                                 @if (Auth::check())
                                                     <a href="javascript:void(0)" title="Tambah Ke Keranjang"
-                                                        class="add-to-cart" data-id="{{ $product->id }}"
+                                                        class="add-product-to-cart" data-id="{{ $product->id }}"
                                                         data-quantity="1">
                                                         <i class="fas fa-shopping-cart"></i>
                                                     </a>
@@ -292,6 +292,20 @@
                                         <span>{{ formatRupiah($product->price) }}</span>
                                     </div>
                                 </div>
+                                @if (Auth::check())
+                                    <a href="javascript:void(0)" title="Tambah Ke Keranjang"
+                                        class="add-product-to-cart theme-btn-1 btn mt-2 btn-block btn-effect-1"
+                                        data-id="{{ $product->id }}" data-quantity="1">
+                                        Tambah Ke Keranjang
+                                    </a>
+                                @else
+                                    <a href="{{ url('login') }}"
+                                        onclick="confirm('Sebelum melanjutkan, loginlah terlebih dahulu!')"
+                                        title="Tambah Ke Keranjang"
+                                        class="theme-btn-1 btn mt-2 btn-block btn-effect-1">
+                                        Tambah Ke Keranjang
+                                    </a>
+                                @endif
                             </div>
                         </div>
                         <!--  -->

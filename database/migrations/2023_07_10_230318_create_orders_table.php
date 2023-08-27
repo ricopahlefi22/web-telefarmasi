@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->json('products');
+            $table->bigInteger('ongkir_price')->nullable();
             $table->bigInteger('total_price');
             $table->string('status');
             $table->boolean('delivery')->default(false);

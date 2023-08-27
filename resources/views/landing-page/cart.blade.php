@@ -119,13 +119,13 @@
                     <div class="col-lg-12">
                         <div class="shoping-cart-inner">
                             <form id="form" action="make-order" method="POST">
+                                @csrf
                                 <div class="shoping-cart-table table-responsive">
                                     <table class="table">
                                         <tbody>
                                             @forelse ($carts as $cart)
                                                 <input type="hidden" name="product_id[]"
                                                     value="{{ $cart->product->id }}">
-                                                <input type="hidden" name="quantities[]" value="{{ $cart->quantity }}">
                                                 <tr>
                                                     <td class="cart-product-remove">
                                                         <button type="button" data-id="{{ $cart->id }}"
@@ -167,69 +167,124 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="mt-50">
-                                    <div class="row">
-                                        <div class="col-7 px-2">
-                                            <div class="form-group">
-                                                <label for="note">Catatan (Optional): </label>
-                                                <textarea name="note" id="note"></textarea>
+                                @if ($carts->isNotEmpty())
+                                    <div class="mt-50">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="d-flex gap-2">
+                                                    <label id="falseDeliveryCard" for="falseDelivery">
+                                                        <div style="border: 1px solid rgb(38, 39, 38);"
+                                                            class="rounded p-2">
+                                                            <input id="falseDelivery" type="radio" name="delivery"
+                                                                value="false">
+                                                            <span class="fw-bold fs-5 text-dark">
+                                                                Ambil di Tempat
+                                                            </span>
+                                                            <p>
+                                                                Pengambilan barang yang dilakukan sendiri di alamat
+                                                                kami
+                                                                <b>{{ App\Models\WebConfig::first()->address }}</b>
+                                                            </p>
+                                                        </div>
+                                                    </label>
+                                                    <label id="trueDeliveryCard" for="trueDelivery">
+                                                        <div style="border: 1px solid rgb(38, 39, 38);"
+                                                            class="rounded p-2">
+                                                            <input id="trueDelivery" type="radio" name="delivery"
+                                                                value="true" checked>
+                                                            <span class="fw-bold fs-5 text-dark">
+                                                                Antar Ke Alamatmu
+                                                            </span>
+                                                            <p>
+                                                                Pengantaran obat ke alamatmu akan dikenakan tarif
+                                                                berdasarkan jarak apotek ke alamatmu
+                                                            </p>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="note">Catatan (Optional): </label>
+                                                    <textarea name="note" id="note"></textarea>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-5 px-4">
-                                            <label for="name">Nama Pemesan:</label>
-                                            <p id="name"><strong>{{ Auth::user()->name }}
-                                                    ({{ Auth::user()->phone_number }})</strong></p>
-                                            <div>
-                                                <label for="address">Alamat: </label>
-                                                <a href="{{ url('edit-profile') }}"
-                                                    class="text-warning float-right">Ubah</a>
-                                            </div>
-                                            <p id="address"><strong>{{ Auth::user()->address }}</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="shoping-cart-total">
-                                    <table class="table">
-                                        @php
-                                            $totalOngkir = $ongkir;
-                                            $quantityProduct = 0;
-                                            $subTotal = 0;
-                                            $total = 0 + $ongkir;
+                                            <div class="col-5 px-4">
+                                                <label for="name">Nama Pemesan:</label>
+                                                <p id="name"><strong>{{ Auth::user()->name }}
+                                                        ({{ Auth::user()->phone_number }})</strong></p>
+                                                <div>
+                                                    <label for="address">Alamat: </label>
+                                                    <a href="{{ url('edit-profile') }}"
+                                                        class="text-warning float-right">Ubah</a>
+                                                </div>
+                                                <p id="address"><strong>{{ Auth::user()->address }}</strong></p>
+                                                <div class="shoping-cart-total">
+                                                    <table class="table">
+                                                        @php
+                                                            $totalOngkir = $ongkir;
+                                                            $quantityProduct = 0;
+                                                            $subTotal = 0;
+                                                            $total = 0;
 
-                                            foreach ($carts as $cart) {
-                                                $quantityProduct = $cart->quantity;
-                                                $subTotal += $cart->quantity * $cart->product->price;
-                                                $total += $cart->quantity * $cart->product->price;
-                                            }
-                                        @endphp
-                                        <tbody>
-                                            <tr>
-                                                <td>Jumlah Produk ({{$quantityProduct}})</td>
-                                                <td class="text-right">
-                                                    {{ formatRupiah($subTotal) }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ongkos Kirim</td>
-                                                <td class="text-right">
-                                                    {{ formatRupiah($totalOngkir) }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Total</strong></td>
-                                                <td class="text-right"><strong>{{ formatRupiah($total) }}</strong>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="btn-wrapper text-right">
-                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                        <input type="hidden" name="total_price" value="{{ $total }}">
-                                        <button type="submit" class="theme-btn-1 btn mt-2 btn-block btn-effect-1">
-                                            Buat Pesanan
-                                        </button>
+                                                            foreach ($carts as $cart) {
+                                                                $quantityProduct = $cart->quantity;
+                                                                $subTotal += $cart->quantity * $cart->product->price;
+                                                                $total += $cart->quantity * $cart->product->price;
+                                                            }
+                                                        @endphp
+                                                        <tbody id="trueDeliveryPrice">
+                                                            <tr>
+                                                                <td>Keranjang ({{ $quantityProduct }})</td>
+                                                                <td class="text-right">
+                                                                    {{ formatRupiah($subTotal) }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Ongkos Kirim</td>
+                                                                <td class="text-right">
+                                                                    {{ formatRupiah($totalOngkir) }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Total</strong></td>
+                                                                <td class="text-right">
+                                                                    <strong>{{ formatRupiah($total + $totalOngkir) }}</strong>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tbody id="falseDeliveryPrice" class="d-none">
+                                                            <tr>
+                                                                <td>Jumlah Produk ({{ $quantityProduct }})</td>
+                                                                <td class="text-right">
+                                                                    {{ formatRupiah($subTotal) }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Total</strong></td>
+                                                                <td class="text-right">
+                                                                    <strong>{{ formatRupiah($total) }}</strong>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="btn-wrapper text-right">
+                                                        <input type="hidden" name="user_id"
+                                                            value="{{ Auth::user()->id }}">
+                                                        <input type="hidden" name="ongkir"
+                                                            value="{{ $totalOngkir }}">
+                                                        <input type="hidden" name="total_price"
+                                                            value="{{ $total }}">
+                                                        <input type="hidden" name="total_price_with_ongkir"
+                                                            value="{{ $total + $totalOngkir }}">
+                                                        <button id="submit" type="submit"
+                                                            class="theme-btn-1 btn mt-2 btn-block btn-effect-1">
+                                                            Buat Pesanan
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </form>
                         </div>
                     </div>
@@ -260,9 +315,6 @@
     </div>
     <!-- Body main wrapper end -->
 
-    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key="{{ config('midtrans.client_key') }}"></script>
-
     <!-- All JS Plugins -->
     <script src="{{ asset('assets-landing/js/plugins.js') }}"></script>
     <!-- Main JS -->
@@ -278,117 +330,135 @@
                 },
             });
 
+            $("input[name='delivery']").on('change', function() {
+                console.log($(this).val());
+                if ($(this).val() == 'true') {
+                    $("#trueDeliveryPrice").removeClass('d-none');
+                    $("#falseDeliveryPrice").addClass('d-none');
+                } else {
+                    $("#falseDeliveryPrice").removeClass('d-none');
+                    $("#trueDeliveryPrice").addClass('d-none');
+                }
+            });
+
             $("#form").on("submit", function(e) {
                 e.preventDefault();
 
-                $.ajax({
-                    url: $(this).attr("action"),
-                    method: $(this).attr("method"),
-                    data: new FormData(this),
-                    processData: false,
-                    dataType: "json",
-                    contentType: false,
-                    beforeSend: function() {
-                        $("#submit").html(
-                            '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div></div>'
-                        );
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        Swal.fire({
-                            icon: "success",
-                            title: response.status,
-                            text: response.message,
-                            confirmButtonColor: "#59C4BC",
-                            confirmButtonText: "Lanjut",
-                            backdrop: true,
-                            allowOutsideClick: () => {
-                                console.log("Klik Tombol Lanjut");
-                            },
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = '/checkout'
-                            }
-                        });
-                        // var order_id = response.order.id;
-                        // var user_id = response.user.id;
+                if (confirm(
+                        'Jika anda telah mengubah jumlah produk maka total harga akan mengikuti jumlah pesanan yang telah ditetapkan. Ingin melanjutkan pembayaran?'
+                        ) === true) {
+                    $.ajax({
+                        url: $(this).attr("action"),
+                        method: $(this).attr("method"),
+                        data: new FormData(this),
+                        processData: false,
+                        dataType: "json",
+                        contentType: false,
+                        beforeSend: function() {
+                            $("#submit").html(
+                                '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div></div>'
+                            );
+                        },
+                        success: function(response) {
+                            $("#submit").html('Buat Pesanan');
 
-                        // window.snap.pay(response.snapToken, {
-                        //     onSuccess: function(result) {
-                        //         /* You may add your own implementation here */
-                        //         console.log(result);
-                        //         $.ajax({
-                        //             url: 'change-order-status',
-                        //             method: 'POST',
-                        //             data: {
-                        //                 order_id: order_id,
-                        //                 user_id: user_id,
-                        //             },
-                        //             success: function(response) {
-                        //                 console.log(response);
-                        //                 $("#submit").html(
-                        //                     'Bayar<i class="far fa-long-arrow-right"></i>'
-                        //                 );
-                        //                 Swal.fire({
-                        //                     type: "success",
-                        //                     title: response
-                        //                         .status,
-                        //                     text: response
-                        //                         .message,
-                        //                     confirmButtonColor: "#59C4BC",
-                        //                     confirmButtonText: "Lanjut",
-                        //                     backdrop: true,
-                        //                     allowOutsideClick: () => {
-                        //                         console.log(
-                        //                             "Klik Tombol Lanjut"
-                        //                         );
-                        //                     },
-                        //                 }).then((result) => {
-                        //                     if (result.value ==
-                        //                         true) {
-                        //                         window.location
-                        //                             .href = '/';
-                        //                     }
-                        //                 });
-                        //             },
-                        //             error: function(error) {
-                        //                 console.log(error)
-                        //             }
-                        //         })
-                        //     },
-                        //     onPending: function(result) {
-                        //         /* You may add your own implementation here */
-                        //         console.log(result);
-                        //         Swal.fire({
-                        //             type: "warning",
-                        //             title: "Mohon Segera Dibayar",
-                        //             text: "Kami Masih Menunggu Pembayaranmu",
-                        //         });
-                        //         $("#submit").html('Bayar');
-                        //     },
-                        //     onError: function(result) {
-                        //         /* You may add your own implementation here */
-                        //         console.log(result);
-                        //         Swal.fire({
-                        //             type: "error",
-                        //             title: "Transaksi Gagal",
-                        //             text: "Coba Lagi Dalam Beberapa Saat",
-                        //         });
-                        //         $("#submit").html('Bayar');
-                        //     },
-                        //     onClose: function() {
-                        //         /* You may add your own implementation here */
-                        //         alert(
-                        //             'Kamu menutup pembayaran'
-                        //         );
-                        //         $("#submit").html('Bayar');
-                        //     }
-                        // });
-                    },
-                    error: function(error) {
-                        console.error(error);
-                    },
-                });
+                            Swal.fire({
+                                icon: "success",
+                                title: response.status,
+                                text: response.message,
+                                confirmButtonColor: "#59C4BC",
+                                confirmButtonText: "Lanjut",
+                                backdrop: true,
+                                allowOutsideClick: () => {
+                                    console.log("Klik Tombol Lanjut");
+                                },
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = response.route;
+                                }
+                            });
+                            // var order_id = response.order.id;
+                            // var user_id = response.user.id;
+
+                            // window.snap.pay(response.snapToken, {
+                            //     onSuccess: function(result) {
+                            //         /* You may add your own implementation here */
+                            //         console.log(result);
+                            //         $.ajax({
+                            //             url: 'change-order-status',
+                            //             method: 'POST',
+                            //             data: {
+                            //                 order_id: order_id,
+                            //                 user_id: user_id,
+                            //             },
+                            //             success: function(response) {
+                            //                 console.log(response);
+                            //                 $("#submit").html(
+                            //                     'Bayar<i class="far fa-long-arrow-right"></i>'
+                            //                 );
+                            //                 Swal.fire({
+                            //                     type: "success",
+                            //                     title: response
+                            //                         .status,
+                            //                     text: response
+                            //                         .message,
+                            //                     confirmButtonColor: "#59C4BC",
+                            //                     confirmButtonText: "Lanjut",
+                            //                     backdrop: true,
+                            //                     allowOutsideClick: () => {
+                            //                         console.log(
+                            //                             "Klik Tombol Lanjut"
+                            //                         );
+                            //                     },
+                            //                 }).then((result) => {
+                            //                     if (result.value ==
+                            //                         true) {
+                            //                         window.location
+                            //                             .href = '/';
+                            //                     }
+                            //                 });
+                            //             },
+                            //             error: function(error) {
+                            //                 console.log(error)
+                            //             }
+                            //         })
+                            //     },
+                            //     onPending: function(result) {
+                            //         /* You may add your own implementation here */
+                            //         console.log(result);
+                            //         Swal.fire({
+                            //             type: "warning",
+                            //             title: "Mohon Segera Dibayar",
+                            //             text: "Kami Masih Menunggu Pembayaranmu",
+                            //         });
+                            //         $("#submit").html('Bayar');
+                            //     },
+                            //     onError: function(result) {
+                            //         /* You may add your own implementation here */
+                            //         console.log(result);
+                            //         Swal.fire({
+                            //             type: "error",
+                            //             title: "Transaksi Gagal",
+                            //             text: "Coba Lagi Dalam Beberapa Saat",
+                            //         });
+                            //         $("#submit").html('Bayar');
+                            //     },
+                            //     onClose: function() {
+                            //         /* You may add your own implementation here */
+                            //         alert(
+                            //             'Kamu menutup pembayaran'
+                            //         );
+                            //         $("#submit").html('Bayar');
+                            //     }
+                            // });
+                        },
+                        error: function(error) {
+                            $("#submit").html('Buat Pesanan');
+
+                            console.error(error);
+                        },
+                    });
+                }
             });
 
             $("body").on('click', '.delete', function() {

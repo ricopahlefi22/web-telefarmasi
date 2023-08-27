@@ -26,7 +26,7 @@
     <!-- mani page content body part -->
     <div class="container-fluid">
         <div class="row clearfix">
-            <div class="col-lg-12 mt-4">
+            <div class="col-5 offset-3 mt-4">
                 <div class="card">
                     <div class="body">
                         <h3>Struk Pesanan</h3>
@@ -77,9 +77,6 @@
                                                         {{ formatRupiah($product['quantity'] * App\Models\Product::findOrFail($product['product_id'])->price) }}
                                                     </td>
                                                 </tr>
-                                                @php
-                                                    $total += App\Models\Product::where('id', $product['product_id'])->first()->price * $product['quantity'];
-                                                @endphp
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -90,7 +87,9 @@
                         <div class="row clearfix">
                             <div class="col-md-6"> </div>
                             <div class="col-md-6 text-right">
-                                <p class="mb-0"><b>Total:</b> {{ formatRupiah($total) }}</p>
+                                <p class="mb-0">Ongkos Kirim:
+                                    {{ formatRupiah(empty($order->ongkir_price) ? 0 : $order->ongkir_price) }}</p>
+                                <p class="mb-0"><b>Total: {{ formatRupiah($order->total_price) }}</b></p>
                             </div>
                         </div>
                     </div>

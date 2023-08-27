@@ -54,7 +54,7 @@ var table = $("#table").DataTable({
     },
 });
 
-$("#form").on("submit", function (e) {
+$(".form").on("submit", function (e) {
     e.preventDefault();
 
     $.ajax({
@@ -65,27 +65,28 @@ $("#form").on("submit", function (e) {
         dataType: "json",
         contentType: false,
         beforeSend: function () {
-            $("#button").html(
+            $(".change-status-button").html(
                 '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
             );
         },
         success: function (response) {
             table.ajax.reload(null, false);
-            $("#formModal").modal("hide");
+            $("#changeStatusDeliveryTrueModal").modal("hide");
+            $("#changeStatusDeliveryFalseModal").modal("hide");
 
             Toast.fire({
                 icon: "success",
                 title: response.status + "\n" + response.message,
             });
-            $("#button").html("Simpan");
+            $(".change-status-button").html("Simpan");
         },
         error: function (error) {
-            $("#button").html("Simpan");
+            $(".change-status-button").html("Simpan");
         },
     });
 });
 
-$("body").on("click", ".change-status", function () {
+$("body").on("click", ".change-status-delivery-true", function () {
     $.ajax({
         type: "POST",
         url: document.URL + "/check",
@@ -93,13 +94,32 @@ $("body").on("click", ".change-status", function () {
             id: $(this).data("id"),
         },
         success: function (response) {
-            $("#formModal").modal("show");
-            $("#modalTitle").html("Ganti Status");
-            $("#button").html("Simpan").addClass("btn-warning");
-            $("#status").val("").removeClass("is-invalid");
+            $("#changeStatusDeliveryTrueModal").modal("show");
+            $(".change-status-modal-title").html("Ganti Status");
+            $(".change-status-button").html("Simpan").addClass("btn-warning");
+            $(".change-status").val("").removeClass("is-invalid");
 
-            $("#id").val(response.id);
-            $("#status").val(response.status);
+            $(".change-status-id").val(response.id);
+            $(".change-status").val(response.status);
+        },
+    });
+});
+
+$("body").on("click", ".change-status-delivery-false", function () {
+    $.ajax({
+        type: "POST",
+        url: document.URL + "/check",
+        data: {
+            id: $(this).data("id"),
+        },
+        success: function (response) {
+            $("#changeStatusDeliveryFalseModal").modal("show");
+            $(".change-status-modal-title").html("Ganti Status");
+            $(".change-status-button").html("Simpan").addClass("btn-warning");
+            $(".change-status").val("").removeClass("is-invalid");
+
+            $(".change-status-id").val(response.id);
+            $(".change-status").val(response.status);
         },
     });
 });

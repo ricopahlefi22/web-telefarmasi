@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\WebConfig;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Http;
@@ -46,10 +47,14 @@ class OrderController extends Controller
                     }
                     return '<span class="badge ' . $badgeColor . '">' . $order->status . '</span>';
                 })
-                ->addColumn('action', function (Order $product) {
-                    $btn = '<a href="orders/detail/' . $product->id . '"  class="dropdown-item info"><i class="fa fa-eye"></i> Lihat</a> ';
-                    $btn .= '<button data-id="' . $product->id . '"  class="dropdown-item change-status"><i class="icon-pencil""></i> Ganti Status</button> ';
-                    $btn .= '<button data-id="' . $product->id . '"  class="dropdown-item delete"><i class="icon-trash""></i> Hapus</button> ';
+                ->addColumn('action', function (Order $order) {
+                    $btn = '<a href="orders/detail/' . $order->id . '"  class="dropdown-item info"><i class="fa fa-eye"></i> Lihat</a> ';
+                    if ($order->delivery == true) {
+                        $btn .= '<button data-id="' . $order->id . '"  class="dropdown-item change-status-delivery-true"><i class="icon-pencil""></i> Ganti Status</button> ';
+                    } else {
+                        $btn .= '<button data-id="' . $order->id . '"  class="dropdown-item change-status-delivery-false"><i class="icon-pencil""></i> Ganti Status</button> ';
+                    }
+                    $btn .= '<button data-id="' . $order->id . '"  class="dropdown-item delete"><i class="icon-trash""></i> Hapus</button> ';
 
                     return '<div role="group">
                                 <button id="btnDropdown" type="button" class="btn btn-outline-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -92,7 +97,16 @@ class OrderController extends Controller
                 'api_key' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
                 'sender' => '6285171121070',
                 'number' => $data->user->phone_number,
-                'message' => "Hi! Kami telah menerima pembayaranmu sebesar Rp. " . number_format($data->total_price) . ".\nMohon kirimkan alamat anda agar kami dapat mengirimkan obat yang sudah anda pesan.\n\n*Apotek Desta Farma*",
+                'message' => "Hi! Kami telah menerima pembayaranmu sebesar Rp. " . number_format($data->total_price) . ".\n\n*Apotek Desta Farma*",
+            ]);
+        }
+
+        if ($request->status == 'Siap Diambil') {
+            $response = Http::asForm()->post('https://wa.srv2.wapanels.com/send-message', [
+                'api_key' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
+                'sender' => '6285171121070',
+                'number' => $data->user->phone_number,
+                'message' => "Hi! saat ini pesanan anda:\n" . $products . " sudah siap diambil, silahkan datang ke apotek kami di " . WebConfig::first()->address . ".\n\n*Apotek Desta Farma*",
             ]);
         }
 
@@ -117,11 +131,13 @@ class OrderController extends Controller
         $data->status = $request->status;
         $data->save();
 
-        return response()->json([
-            'code' => 200,
-            'status' => 'Berhasil!',
-            'message' => 'Data telah diperbaharui.',
-        ]);
+        if ($response) {
+            return response()->json([
+                'code' => 200,
+                'status' => 'Berhasil!',
+                'message' => 'Data telah diperbaharui.',
+            ]);
+        }
     }
 
     function check(Request $request)

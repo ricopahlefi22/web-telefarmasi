@@ -187,8 +187,8 @@ Route::controller(LandingPageController::class)->group(function () {
         Route::post('make-order', 'makeOrder');
         Route::post('change-order-status', 'changeStatus');
 
-        Route::get('checkout', 'checkout');
-        Route::post('checkout', 'postCheckout');
+        Route::get('checkout/{id}', 'checkout');
+        Route::post('post-checkout', 'postCheckout');
     });
 });
 
